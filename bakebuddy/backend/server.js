@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import routes from "./routes/route.js";
+import router from "./routes/route.js";
+import productionRoutes  from "./routes/productionRoutes.js"
 import {connectDB} from "./connection/connectDB.js";
 
 
@@ -10,9 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json()); 
-app.get("/",(req,res)=>{
-    res.send("Server is ready")
-})
+
+app.use("/api/production",productionRoutes);
 
 app.listen(PORT,(req,res)=>{
     connectDB();
