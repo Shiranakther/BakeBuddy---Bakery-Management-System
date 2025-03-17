@@ -10,8 +10,7 @@ Welcome to **BakeBuddy**, an all-in-one bakery management system designed to str
 - Identifies slow-moving items based on sales data.  
 - Suggests alternative recipes using existing ingredients.  
 - Helps reduce production costs and introduces new items to boost sales.  
-
-_Developed by: **M.H. Shiran Akther**_  
+ 
 
 <details>
   <summary>📦 Ingredient Management</summary>
