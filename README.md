@@ -25,7 +25,8 @@ _Developed by: **M.H. Shiran Akther**_
   <summary>🍰 Item Management</summary>
   - Create and categorize bakery items.  
   - Assign ingredients to each item for accurate inventory tracking.  
-  - Update item details, pricing, and availability.  
+  - Update item details.
+  - Gererate Item Report
   _Developed by: **R.I.S.R. Pinto**_
 </details>
 
@@ -34,7 +35,7 @@ _Developed by: **M.H. Shiran Akther**_
   - Record and manage daily sales transactions.  
   - Generate sales reports for performance analysis.  
   - Track best-selling and slow-moving items.  
-  _Developed by: **Dilshan Chamikara**_
+  _Developed by: **A.M.D.C.Kumara**_
 </details>
 
 <details>
@@ -55,9 +56,9 @@ _Developed by: **M.H. Shiran Akther**_
 
 
 ## 🛠️ Tech Stack  
-- **Frontend:** React.js / Vue.js  
+- **Frontend:** React.js  
 - **Backend:** Node.js / Express.js  
-- **Database:** MongoDB / MySQL  
+- **Database:** MongoDB  
 - **Authentication:** JWT-based Role Management  
 - **AI Model:** Custom Algorithm for Recipe Suggestions  
 
