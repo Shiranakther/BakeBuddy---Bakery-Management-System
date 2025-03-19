@@ -8,15 +8,18 @@ export const createSales = asyncHandler(async (req, res) => {
     res.status(201).json(sales);
 });
 
+
 export const viewAllSales = asyncHandler(async(req, res) => {
     const sales = await Sales.find(req.body); 
     res.status(200).json(sales); 
 });
 
+
 export const viewSalesById = asyncHandler(async (req, res) => {
         const sales = await Sales.findById(req.params.id);
         res.status(200).json(sales);
 });
+
 
 export const updateSales = asyncHandler(async (req, res) => {
     const sales = await Sales.findByIdAndUpdate(
