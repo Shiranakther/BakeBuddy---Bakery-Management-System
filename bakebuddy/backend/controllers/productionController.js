@@ -27,10 +27,14 @@ export const getCustomProductionData = async (req,res)=>{
 }
 
 export const createProduction = async (req,res)=>{
-    const{productCode,productName,date,quantity,remarks} = req.body;
+    let {productCode,productName,date,quantity,remarks} = req.body;
 
     if(!productCode ||!productName || !quantity ){
         res.status(400).json({msg:"Please enter all fields"})
+    }
+
+    if (!date) {
+        date = new Date(); // Use current timestamp if date is missing
     }
 
     try{
