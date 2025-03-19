@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Production from './pages/Production';
 import Smartbake from './pages/Smartbake';
 import Items from './pages/Items';
+import AddItem from './pages/AddItems';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='/production' element ={<Production/>}/>
         <Route path='/smartbake/:id' element ={<Smartbake/>}/>
         <Route path='/items' element ={<Items/>}/>
+        <Route path='/add-item' element ={<AddItem/>}/>
 
     </Routes>
     </BrowserRouter>

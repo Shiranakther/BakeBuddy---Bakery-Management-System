@@ -1,0 +1,168 @@
+/* Container styling */
+.add-item-container {
+    
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styling */
+  .add-item-header {
+    margin: 0;
+    color: #f5a623;
+    font-size: 2rem;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  
+  /* Form styling */
+  .add-item-form {
+    margin-top: 20px;
+  }
+  
+  /* Flex container for item name and category */
+  .form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    flex: 1;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: #f5a623;
+  }
+  
+  /* Ingredients section */
+  .ingredients-section {
+    margin-bottom: 20px;
+  }
+  
+  .ingredients-input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .ingredients-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .ingredients-input:focus {
+    outline: none;
+    border-color: #f5a623;
+  }
+  
+  .unit-select {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .unit-select:focus {
+    outline: none;
+    border-color: #f5a623;
+  }
+  
+  /* Buttons */
+  .add-button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .add-button:hover {
+    background-color: #e59400;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .submit-button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    font-size: 1rem;
+  }
+  
+  .submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .submit-button:hover:not(:disabled) {
+    background-color: #e59400;
+  }
+  
+  /* Ingredients table */
+  .ingredients-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+  
+  .ingredients-table th,
+  .ingredients-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .ingredients-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .ingredients-table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .ingredients-table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
