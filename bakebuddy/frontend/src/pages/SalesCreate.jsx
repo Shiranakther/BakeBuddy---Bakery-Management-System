@@ -5,3 +5,7 @@ export default function SalesCreate() {
     <div>SalesCreate</div>
   )
 }
+
+
+
+
