@@ -4,5 +4,5 @@ import axios from 'axios'; // Import Axios
 import '../../css/items.css'; // Import CSS
 
 export default function Items() {
-    
-}
+
+ }
