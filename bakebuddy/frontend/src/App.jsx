@@ -8,7 +8,7 @@ import Smartbake from './pages/Smartbake';
 import Items from './pages/Items';
 import AddItem from './pages/AddItems';
 import SalesUpdate from './pages/SalesUpdate';
-
+import UpdateItem from './pages/UpdateItem';
 
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
         <Route path='/smartbake/:id' element ={<Smartbake/>}/>
         <Route path='/items' element ={<Items/>}/>
         <Route path='/add-item' element ={<AddItem/>}/>
+        <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
 
     </Routes>
     </BrowserRouter>

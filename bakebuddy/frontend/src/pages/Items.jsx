@@ -18,9 +18,7 @@ export default function Items() {
       try {
         console.log('Fetching items from /api/item/all');
         const response = await axios.get('http://localhost:5000/api/item/all', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
 
         console.log('Fetched data:', response.data);
@@ -73,8 +71,8 @@ export default function Items() {
         switch (tagFilterType) {
           case 'Category':
             return (
-              item.category?.toLowerCase().includes(tagLower) ||
-              item.Category?.toLowerCase().includes(tagLower)
+              item.Category?.toLowerCase().includes(tagLower) ||
+              item.category?.toLowerCase().includes(tagLower)
             );
           case 'ItemId':
             return (
@@ -97,8 +95,8 @@ export default function Items() {
             );
           default: // 'All'
             return (
-              (item.category?.toLowerCase().includes(tagLower) ||
-               item.Category?.toLowerCase().includes(tagLower)) ||
+              (item.Category?.toLowerCase().includes(tagLower) ||
+               item.category?.toLowerCase().includes(tagLower)) ||
               (String(item.itemId).includes(tagLower) ||
                String(item.itemID).includes(tagLower)) ||
               (item.name.toLowerCase().includes(tagLower) ||
@@ -126,12 +124,9 @@ export default function Items() {
 
     try {
       await axios.delete(`http://localhost:5000/api/item/${itemId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
 
-      // Update state to remove the deleted item
       const updatedItems = items.filter(item => item.itemId !== itemId);
       setItems(updatedItems);
       setDisplayedItems(updatedItems);
@@ -145,14 +140,22 @@ export default function Items() {
     }
   };
 
+  const handleEdit = (itemId) => {
+    navigate(`/update-item/${itemId}`);
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="items-container">
-      <h1 className="items-header">Item Management</h1>
+    
 
       <div className="items-table-container">
+      <div className="items-header-container">
+      <h1 className="items-header">Item Management</h1>
+    </div>
+        
         <div className="items-table-header">
           <div className="search-container">
             <select
@@ -228,7 +231,12 @@ export default function Items() {
                     {index === 0 && (
                       <td rowSpan={item.ingredients.length}>
                         <div className="action-container">
-                          <button className="edit-button">Edit</button>
+                          <button
+                            className="edit-button"
+                            onClick={() => handleEdit(item.itemId)}
+                          >
+                            Edit
+                          </button>
                           <button
                             className="delete-button"
                             onClick={() => handleDelete(item.itemId)}
@@ -248,7 +256,12 @@ export default function Items() {
                   <td colSpan={4}>No ingredients</td>
                   <td>
                     <div className="action-container">
-                      <button className="edit-button">Edit</button>
+                      <button
+                        className="edit-button"
+                        onClick={() => handleEdit(item.itemId)}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="delete-button"
                         onClick={() => handleDelete(item.itemId)}
