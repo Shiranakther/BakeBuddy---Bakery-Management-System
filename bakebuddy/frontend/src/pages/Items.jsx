@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
-import '../../css/items.css'; // Import CSS
+import axios from 'axios';
+import '../../css/items.css';
 
 export default function Items() {
   const [items, setItems] = useState([]);
@@ -10,14 +10,14 @@ export default function Items() {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('All');
-  const [tags, setTags] = useState([]); // Now stores objects: { value, filterType }
+  const [tags, setTags] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         console.log('Fetching items from /api/item/all');
-        const response = await axios.get("http://localhost:5000/api/item/all", {
+        const response = await axios.get('http://localhost:5000/api/item/all', {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -29,8 +29,7 @@ export default function Items() {
         setLoading(false);
       } catch (err) {
         console.error('Fetch error:', err);
-        // Axios error handling provides more detailed info
-        const errorMessage = err.response 
+        const errorMessage = err.response
           ? `Failed to fetch items: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
           : err.message;
         setError(errorMessage);
@@ -52,7 +51,7 @@ export default function Items() {
   };
 
   const handleRemoveTag = (tagToRemove) => {
-    const updatedTags = tags.filter(tag => 
+    const updatedTags = tags.filter(tag =>
       !(tag.value === tagToRemove.value && tag.filterType === tagToRemove.filterType)
     );
     setTags(updatedTags);
@@ -61,7 +60,7 @@ export default function Items() {
 
   const handleSearch = (currentTags) => {
     console.log('Searching with tags:', currentTags);
-    
+
     const filteredItems = items.filter(item => {
       if (currentTags.length === 0) return true;
 
@@ -73,33 +72,39 @@ export default function Items() {
 
         switch (tagFilterType) {
           case 'Category':
-            return item.category?.toLowerCase().includes(tagLower) || 
-                   item.Category?.toLowerCase().includes(tagLower);
+            return (
+              item.category?.toLowerCase().includes(tagLower) ||
+              item.Category?.toLowerCase().includes(tagLower)
+            );
           case 'ItemId':
-            return String(item.itemId).includes(tagLower) || 
-                   String(item.itemID).includes(tagLower);
+            return (
+              String(item.itemId).includes(tagLower) ||
+              String(item.itemID).includes(tagLower)
+            );
           case 'ItemName':
-            return item.name.toLowerCase().includes(tagLower) ||
-                   item.Name?.toLowerCase().includes(tagLower);
+            return (
+              item.name.toLowerCase().includes(tagLower) ||
+              item.Name?.toLowerCase().includes(tagLower)
+            );
           case 'IngredientId':
-            return item.ingredients?.some(ing => 
-              String(ing.ingredientId).includes(tagLower) || 
+            return item.ingredients?.some(ing =>
+              String(ing.ingredientId).includes(tagLower) ||
               String(ing.ingredientID).includes(tagLower)
             );
           case 'Ingredients':
-            return item.ingredients?.some(ing => 
+            return item.ingredients?.some(ing =>
               ing.name.toLowerCase().includes(tagLower)
             );
           default: // 'All'
             return (
-              (item.category?.toLowerCase().includes(tagLower) || 
+              (item.category?.toLowerCase().includes(tagLower) ||
                item.Category?.toLowerCase().includes(tagLower)) ||
-              (String(item.itemId).includes(tagLower) || 
+              (String(item.itemId).includes(tagLower) ||
                String(item.itemID).includes(tagLower)) ||
-              (item.name.toLowerCase().includes(tagLower) || 
+              (item.name.toLowerCase().includes(tagLower) ||
                item.Name?.toLowerCase().includes(tagLower)) ||
-              item.ingredients?.some(ing => 
-                (String(ing.ingredientId).includes(tagLower) || 
+              item.ingredients?.some(ing =>
+                (String(ing.ingredientId).includes(tagLower) ||
                  String(ing.ingredientID).includes(tagLower)) ||
                 ing.name.toLowerCase().includes(tagLower)
               )
@@ -114,17 +119,43 @@ export default function Items() {
     setDisplayedItems(filteredItems);
   };
 
+  const handleDelete = async (itemId) => {
+    if (!window.confirm(`Are you sure you want to delete item with ID ${itemId}?`)) {
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5000/api/item/${itemId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Update state to remove the deleted item
+      const updatedItems = items.filter(item => item.itemId !== itemId);
+      setItems(updatedItems);
+      setDisplayedItems(updatedItems);
+      setError(null);
+    } catch (err) {
+      console.error('Delete error:', err);
+      const errorMessage = err.response
+        ? `Failed to delete item: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
+        : err.message;
+      setError(errorMessage);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="items-container">
       <h1 className="items-header">Item Management</h1>
-      
+
       <div className="items-table-container">
         <div className="items-table-header">
           <div className="search-container">
-            <select 
+            <select
               className="filter-select"
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
@@ -136,9 +167,9 @@ export default function Items() {
               <option value="IngredientId">Ingredient ID</option>
               <option value="Ingredients">Ingredients</option>
             </select>
-            <input 
-              type="text" 
-              placeholder="Search" 
+            <input
+              type="text"
+              placeholder="Search"
               className="search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -148,10 +179,9 @@ export default function Items() {
             </button>
           </div>
           <div className="add-button-container">
-
-          <button className="add-button" onClick={() => navigate('/add-item')}>
-            Add +
-          </button>
+            <button className="add-button" onClick={() => navigate('/add-item')}>
+              Add +
+            </button>
           </div>
         </div>
 
@@ -199,7 +229,12 @@ export default function Items() {
                       <td rowSpan={item.ingredients.length}>
                         <div className="action-container">
                           <button className="edit-button">Edit</button>
-                          <button className="delete-button">Delete</button>
+                          <button
+                            className="delete-button"
+                            onClick={() => handleDelete(item.itemId)}
+                          >
+                            Delete
+                          </button>
                         </div>
                       </td>
                     )}
@@ -214,7 +249,12 @@ export default function Items() {
                   <td>
                     <div className="action-container">
                       <button className="edit-button">Edit</button>
-                      <button className="delete-button">Delete</button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDelete(item.itemId)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </tr>
