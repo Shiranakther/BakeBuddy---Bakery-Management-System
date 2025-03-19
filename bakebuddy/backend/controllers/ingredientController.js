@@ -69,6 +69,7 @@ export async function updateDailyConsumption(req, res) {
       const recordDate = new Date(record.date);
       return recordDate >= startOfToday && recordDate < endOfToday;
     });
+
     const totalToday = todaysConsumptions.reduce((sum, record) => sum + record.quantity, 0);
 
     // Check if adding the new quantity would exceed the maximum available units.
@@ -84,6 +85,7 @@ export async function updateDailyConsumption(req, res) {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+  
 }
 
 export async function updateIngredient(req, res) {
