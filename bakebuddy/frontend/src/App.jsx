@@ -22,7 +22,6 @@ function App() {
         <Route path='/smartbake/:id' element ={<Smartbake/>}/>
         <Route path='/items' element ={<Items/>}/>
         <Route path='/add-item' element ={<AddItem/>}/>
-
     </Routes>
     </BrowserRouter>
 }
