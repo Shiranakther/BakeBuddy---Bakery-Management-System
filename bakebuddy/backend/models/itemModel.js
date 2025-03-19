@@ -40,7 +40,7 @@ const ingredientSchema = new mongoose.Schema({
   volume: Number, // Changed from float to Number
   unit: {
     type: String,
-    enum: ['kg', 'l'], // Restrict to "kg" or "l"
+    enum: ['kg', 'l','pieces'], // Restrict to "kg" or "l"
     default: null, // Optional, can be omitted if not set
   },
 });
