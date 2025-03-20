@@ -31,7 +31,7 @@ export async function getIngredients(req, res) {
 
 export async function getIngredientById(req, res) {
   try {
-    const ingredient = await Ingredient.findOne({ ingredientId: req.params.id });
+    const ingredient = await Ingredient.findById(req.params.id );
     if (!ingredient) {
       return res.status(404).json({ error: 'Ingredient not found' });
     }
@@ -90,7 +90,7 @@ export async function updateDailyConsumption(req, res) {
 
 export async function updateIngredient(req, res) {
   try {
-    const ingredient = await Ingredient.findOne({ ingredientId: req.params.id });
+    const ingredient = await Ingredient.findById(req.params.id );
     if (!ingredient) {
       return res.status(404).json({ error: 'Ingredient not found' });
     }
@@ -109,13 +109,13 @@ export async function updateIngredient(req, res) {
 
 export async function deleteIngredient(req, res) {
   try {
-    const ingredient = await Ingredient.findOne({ ingredientId: req.params.id });
+    const ingredient = await Ingredient.findById(req.params.id );
     if (!ingredient) {
       return res.status(404).json({ error: 'Ingredient not found' });
     }
 
     // Use deleteOne() instead of remove()
-    await Ingredient.deleteOne({ ingredientId: req.params.id });
+    await Ingredient.deleteOne();
 
     res.json({ message: 'Ingredient removed' });
   } catch (error) {
