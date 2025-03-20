@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import '../../css/AddItems.css';
+import '../../css/UpdateItem.css';
 
-export default function AddItem() {
+export default function UpdateItem() {
   const navigate = useNavigate();
+  const { itemId } = useParams(); // Get itemId from URL
   const [formData, setFormData] = useState({
     name: '',
     Category: '',
@@ -21,21 +22,32 @@ export default function AddItem() {
   const [error, setError] = useState(null);
   const ingredientIdRef = useRef(null);
 
+  // Fetch item data and ingredients on mount
   useEffect(() => {
-    const fetchIngredients = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/ingredients/', {
-          headers: { 'Content-Type': 'application/json' },
+        // Fetch item details
+        const itemResponse = await axios.get(`http://localhost:5000/api/item/all`);
+        const item = itemResponse.data.find((i) => i.itemId === itemId);
+        if (!item) throw new Error('Item not found');
+
+        setFormData({
+          name: item.name || '',
+          Category: item.Category || '',
+          description: item.description || '',
+          ingredients: item.ingredients || [],
         });
-        setValidIngredients(response.data);
+
+        // Fetch available ingredients
+        const ingredientsResponse = await axios.get('http://localhost:5000/api/ingredients/');
+        setValidIngredients(ingredientsResponse.data);
       } catch (err) {
-        console.error('Error fetching ingredients:', err);
-        setValidIngredients([]);
-        setError(err.response?.data?.message || 'Failed to load ingredients. Please try again.');
+        console.error('Error fetching data:', err);
+        setError(err.response?.data?.message || 'Failed to load item data');
       }
     };
-    fetchIngredients();
-  }, []);
+    fetchData();
+  }, [itemId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +56,7 @@ export default function AddItem() {
 
   const handleNewIngredientChange = (e) => {
     const { name, value } = e.target;
-    // Allow manual entry for volume as a string, no immediate parsing
+    // Keep volume as a string, no immediate parsing
     setNewIngredient((prev) => ({ ...prev, [name]: value }));
     setError(null);
 
@@ -131,8 +143,8 @@ export default function AddItem() {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/item/create',
+      const response = await axios.put(
+        `http://localhost:5000/api/item/${itemId}`,
         {
           ...formData,
           ingredients: formData.ingredients.map((ing) => ({
@@ -146,8 +158,8 @@ export default function AddItem() {
       setError(null);
       navigate('/items');
     } catch (err) {
-      console.error('Error:', err);
-      setError(err.response?.data?.message || 'Failed to create item');
+      console.error('Error updating item:', err);
+      setError(err.response?.data?.message || 'Failed to update item');
     }
   };
 
@@ -159,13 +171,13 @@ export default function AddItem() {
   };
 
   return (
-    <div className="add-item-container">
-      <h1 className="add-item-header">Item Management</h1>
+    <div className="update-item-container">
+      <h1 className="update-item-header">Update Item</h1>
       {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit} className="add-item-form">
+      <form onSubmit={handleSubmit} className="update-item-form">
         <div className="form-row">
           <div className="form-group">
-            <label className="form-label">Item Name :</label>
+            <label className="form-label">Item Name:</label>
             <input
               type="text"
               name="name"
@@ -177,7 +189,7 @@ export default function AddItem() {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Category :</label>
+            <label className="form-label">Category:</label>
             <input
               type="text"
               name="Category"
@@ -191,7 +203,7 @@ export default function AddItem() {
         </div>
 
         <div className="ingredients-section">
-          <label className="form-label">Ingredients :</label>
+          <label className="form-label">Ingredients:</label>
           <div className="ingredients-input-row">
             <input
               ref={ingredientIdRef}
@@ -277,7 +289,7 @@ export default function AddItem() {
           className="submit-button"
           disabled={!formData.name || !formData.Category || formData.ingredients.length === 0}
         >
-          Create
+          Update
         </button>
       </form>
     </div>

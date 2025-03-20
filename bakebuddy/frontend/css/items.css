@@ -8,19 +8,32 @@
     position: relative;
     margin-top: 100px;
     margin-left: 200px;
+   
   
     
-    border: 5px solid #e00101;
     
 
   }
+  .items-header-container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+   
+    margin-bottom: 35px;
+    width: 100%;
+   
+  }
+
+
+
+
   .action-container {
     display: flex;
     justify-content: center; /* Center the buttons horizontally */
     flex-direction: column;
     gap: 15px; /* Space between buttons */
     padding: 5px; /* Reduced padding to fit within the table cell */
-    border: 1px solid #e00101; /* The red border */
+    /* The red border */
     box-sizing: border-box; /* Ensures padding and border are included in the element's width */
   }
   
@@ -29,7 +42,8 @@
     color: #f5a623;
     font-size: 1.5em;
     font-weight: bold;
-    text-align: left;
+   
+   
 
   }
   
@@ -76,7 +90,7 @@
   .items-table-header {
     display: flex;
     justify-content: space-between;
-    border: 5px solid #e00101;
+
     align-items: right;
     margin-bottom: 10px;
     
@@ -84,7 +98,7 @@
   }
   
   .items-table-container {
-    border: 5px solid #e00101;
+    
     max-width: fit-content;
     display: flex;
     flex-direction: column;
@@ -125,6 +139,10 @@
   
   .items-table tbody tr {
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  .items-table tbody tr:hover {
+    background-color: #f5f5f5;
   }
   
   
@@ -153,7 +171,7 @@
     width: 100%;
     justify-content: left;
     gap: 10px;
-    border: 5px solid #e00101;
+   
     margin-top: 10px;
     margin-bottom: 0px;
     
