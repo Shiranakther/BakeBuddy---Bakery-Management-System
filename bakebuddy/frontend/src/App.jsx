@@ -10,6 +10,9 @@ import AddItem from './pages/AddItems';
 import SalesUpdate from './pages/SalesUpdate';
 import UpdateItem from './pages/UpdateItem';
 
+import CreateIngredient from './pages/CreateIngredient';
+// import ShowIngredient from './pages/ShowIngredient';
+
 
 function App() {
 
@@ -23,7 +26,8 @@ function App() {
         <Route path='/items' element ={<Items/>}/>
         <Route path='/add-item' element ={<AddItem/>}/>
         <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
-
+        <Route path='/create-ingredient' element ={<CreateIngredient/>}/>
+        <Route path='/show-ingredient' element ={<AddItem/>}/>
     </Routes>
     </BrowserRouter>
 }
