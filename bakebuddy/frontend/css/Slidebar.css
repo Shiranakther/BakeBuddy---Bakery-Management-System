@@ -1,0 +1,57 @@
+
+.slidebar-container{
+    max-width:300px;
+    display:flex;
+    flex-direction:column;
+    background-color: #464343;
+    height: 100vh;
+    align-items: center;
+    padding-top:15px;
+    
+}
+.nav-button-wrapper{
+    display:flex;
+    flex-direction:column;   
+    width:80%;
+    margin-top:40px;
+}
+
+.nav-button-container{
+    padding:2px 30px;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    margin-bottom:35px;
+    cursor:pointer;
+    
+}
+.nav-button-container:hover{
+    background-color: #5e5d5d;
+    border-radius:5px;
+    
+}
+
+.nav-button-image{  
+    height:40px;
+    width:40px;
+    display:flex;
+   align-items: center;
+   margin-right: 25px;
+}
+.nav-button-icon{
+    height:28px;
+    width:28px;
+}
+.nav-button-text{
+    font-size: 1.1rem;
+    color:white;
+}
+.nav-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Keeps text color same as parent */
+    display: block; /* Ensures full clickable area */
+  }
+  
+  .nav-link:hover {
+    color: inherit; /* Prevents color change on hover */
+  }

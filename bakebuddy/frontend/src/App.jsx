@@ -11,13 +11,16 @@ import SalesUpdate from './pages/SalesUpdate';
 import UpdateItem from './pages/UpdateItem';
 import ReportSales from './pages/ReportSales';
 import Header from '../components/Header';
+import Layout from '../components/Layout';
+
 
 function App() {
 
   return <BrowserRouter>
   
     <Routes>
-        <Route path="/" element={<Home />} />
+    <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
         <Route path='/create-sales' element={<SalesCreate/>}/>
         <Route path="/create-sales/update/:id" element={<SalesUpdate/>}/>
         <Route path="/create-sales/repot" element={<ReportSales/>}/>  
@@ -28,8 +31,10 @@ function App() {
         <Route path='/add-item' element ={<AddItem/>}/>
         <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
 
-        <Route path="h" element={<Header />} />
+        <Route path="h" element={<Header/>} />
+        <Route path="lay" element={<Layout/>} />
 
+    </Route>
     </Routes>
    
     </BrowserRouter>
