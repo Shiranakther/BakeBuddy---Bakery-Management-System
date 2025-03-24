@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const SalesCreate = () => {
   const [salesData, setSalesData] = useState({
@@ -12,7 +13,7 @@ const SalesCreate = () => {
   });
   const [message, setMessage] = useState("");
   const [salesList, setSalesList] = useState([]);
-  const [items, setItems] = useState([]);  // New state to store all items from the database
+  const [items, setItems] = useState([]); // New state to store all items from the database
   const [searchColumn, setSearchColumn] = useState("itemCode"); // Default column to search
   const [searchTerm, setSearchTerm] = useState(""); // Search input
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const SalesCreate = () => {
 
   useEffect(() => {
     fetchSalesData();
-    fetchItems();  // Fetch all items data when the component mounts
+    fetchItems(); // Fetch all items data when the component mounts
     const interval = setInterval(fetchSalesData, 60000); // Fetch data every 60 seconds
     return () => clearInterval(interval); // Cleanup interval when component unmounts
   }, []);
@@ -53,8 +54,8 @@ const SalesCreate = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/item/all");  // Endpoint to fetch all items
-      setItems(response.data);  // Set all the items in state
+      const response = await axios.get("http://localhost:5000/api/item/all"); // Endpoint to fetch all items
+      setItems(response.data); // Set all the items in state
     } catch (error) {
       console.error("Error fetching items", error);
     }
@@ -80,28 +81,33 @@ const SalesCreate = () => {
     setSalesList(filteredSales);
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm(""); // Clear search term
+    fetchSalesData(); // Reset sales list to show all data
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "itemCode") {
-      const selectedItem = items.find(item => item.itemId === value);  // Find item by itemId (itemCode)
+      const selectedItem = items.find(item => item.itemId === value); // Find item by itemId (itemCode)
       if (selectedItem) {
         setSalesData(prevData => ({
           ...prevData,
           itemCode: value,
-          itemName: selectedItem.name,  // Populate itemName with the selected item's name
+          itemName: selectedItem.name, // Populate itemName with the selected item's name
         }));
       } else {
         setSalesData(prevData => ({
           ...prevData,
           itemCode: value,
-          itemName: "",  // If no item found, clear itemName
+          itemName: "", // If no item found, clear itemName
         }));
       }
     } else {
       setSalesData(prevData => ({
         ...prevData,
-        [name]: value,  // For all other fields, just update the value
+        [name]: value, // For all other fields, just update the value
       }));
     }
   };
@@ -110,7 +116,7 @@ const SalesCreate = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/sales/create", salesData);
-      setMessage("Sales record added successfully!");
+      toast.success("Sales record added successfully!"); // Success notification
       setSalesData({
         date: "",
         itemCode: "",
@@ -120,24 +126,23 @@ const SalesCreate = () => {
       });
       fetchSalesData(); // Re-fetch data after adding a new sales record
     } catch (error) {
-      setMessage("Error adding sales record");
+      toast.error("Error adding sales record"); // Error notification
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/sales/delete/${id}`);
-      setMessage("Sales record deleted successfully!");
+      toast.success("Sales record deleted successfully!"); // Success notification
       fetchSalesData(); // Re-fetch data after deleting a sales record
     } catch (error) {
-      setMessage("Error deleting sales record");
+      toast.error("Error deleting sales record"); // Error notification
     }
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
       <h2 style={{ textAlign: "center" }}>Create Sales Record</h2>
-      {message && <p style={{ color: "green", textAlign: "center" }}>{message}</p>}
       <form onSubmit={handleSubmit}>
         <label>Date:</label>
         <input type="date" name="date" value={salesData.date ? salesData.date.split("T")[0] : ""} onChange={handleChange} style={{ width: "100%", padding: "8px", margin: "5px 0" }} />
@@ -184,6 +189,10 @@ const SalesCreate = () => {
         <button onClick={handleSearch} style={{ padding: "8px 16px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
           Search
         </button>
+        {/* Clear Search Button */}
+        <button onClick={handleClearSearch} style={{ padding: "8px 16px", backgroundColor: "#f0ad4e", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", marginLeft: "10px" }}>
+          Clear Search
+        </button>
       </div>
 
       {/* Sales Table */}
@@ -214,6 +223,8 @@ const SalesCreate = () => {
           ))}
         </tbody>
       </table>
+
+      <Toaster /> {/* Add Toaster component to display the toast messages */}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import productionRoutes  from "./routes/productionRoutes.js"
+import productionRoutes  from "./routes/productionRoutes.js";
 import itemRoutes from './routes/itemRoutes.js';
 import ingredientRoutes from './routes/ingredientRoutes.js';
 import {connectDB} from "./connection/connectDB.js";
 import salesRoutes from './routes/salesRouter.js';    
-import cors from 'cors'
+import cors from 'cors';
 
 dotenv.config();
 

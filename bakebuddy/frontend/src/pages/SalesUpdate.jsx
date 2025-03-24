@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster
 
 const SalesUpdate = () => {
   const [salesData, setSalesData] = useState({
@@ -47,10 +48,10 @@ const SalesUpdate = () => {
         buyerName: salesData.buyerName,
         salesQuentity: salesData.salesQuentity,
       });
-      setMessage("Sales record updated successfully!");
-      setTimeout(() => navigate("/create-sales"), 2000);
+      toast.success("Sales record updated successfully!"); // Success notification
+      setTimeout(() => navigate("/create-sales"), 2000); // Redirect after 2 seconds
     } catch (error) {
-      setMessage("Error updating sales record");
+      toast.error("Error updating sales record"); // Error notification
       console.error("Update error:", error.response ? error.response.data : error.message);
     }
   };
@@ -79,6 +80,9 @@ const SalesUpdate = () => {
         
         <button type="button" onClick={() => navigate("/create-sales")} style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", marginTop: "10px", cursor: "pointer" }}>Back</button>
       </form>
+
+      {/* Toaster component to display notifications in the center */}
+      <Toaster position="top-center" /> {/* Change position to 'top-center' */}
     </div>
   );
 };
