@@ -135,6 +135,12 @@ const SalesCreate = () => {
     }
   };
 
+  // Function to format date to "YYYY-MM-DD" without the time part
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    return formattedDate.toISOString().split('T')[0]; // Only return the date part
+  };
+
   return (
     <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
       <h2 style={{ textAlign: "center" }}>Create Sales Record</h2>
@@ -201,7 +207,7 @@ const SalesCreate = () => {
         <tbody>
           {salesList.map((sale) => (
             <tr key={sale._id}>
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.date}</td>
+              <td style={{ border: "1px solid #ddd", padding: "8px" }}>{formatDate(sale.date)}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.itemCode}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.itemName}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.buyerName}</td>
