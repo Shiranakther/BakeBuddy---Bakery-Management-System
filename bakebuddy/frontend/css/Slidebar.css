@@ -1,13 +1,14 @@
 
 .slidebar-container{
-    max-width:300px;
+    width:300px;
     display:flex;
     flex-direction:column;
     background-color: #464343;
-    height: 100vh;
+    height: 100%;
     align-items: center;
     padding-top:15px;
-    
+    position: fixed;
+    margin-top: 60px;
 }
 .nav-button-wrapper{
     display:flex;

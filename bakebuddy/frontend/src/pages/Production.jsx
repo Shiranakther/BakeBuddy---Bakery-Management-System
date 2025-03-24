@@ -3,6 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import '../../css/production.css'
+import productionHeader from "../../images/production-page-header-image.png";
+
+
 const Production = () => {
   const [productions, setProductions] = useState([]);
   const [formData, setFormData] = useState({
@@ -122,6 +125,12 @@ const Production = () => {
 
   return (
     <div className="p-6">
+      <div className="page-header">
+              <div className="page-header-image">
+                <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+              </div>
+              <div className="page-header-title">Production</div>
+            </div>
       <h1 className="text-2xl font-bold mb-4">Production Dashboard</h1>
       <form onSubmit={handleSubmit} className="mb-4 space-y-2">
         <input

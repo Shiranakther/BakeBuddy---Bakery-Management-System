@@ -1,0 +1,25 @@
+.page-header{
+    display:flex;
+    flex-direction:row;
+    height:88px;
+    align-items: center;
+    padding-left: 80px;
+    border-bottom:1px solid rgb(171, 171, 171);
+    margin-bottom: 35px;;
+    
+}
+.page-header-image{
+    display: flex;
+    align-items:center ;
+    height:60px;
+    width:60px;
+}
+.page-header-icon{
+    height:50px;
+    width:50px;
+}
+.page-header-title{
+    font-size: 1.7rem;
+    font-weight: bold;
+    margin-left: 15px;;
+}

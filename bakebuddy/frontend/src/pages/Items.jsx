@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/items.css';
+import itemHeader from '../../images/item-header-image.png';
 
 export default function Items() {
   const [items, setItems] = useState([]);
@@ -148,6 +149,13 @@ export default function Items() {
   if (error) return <div>Error: {error}</div>;
 
   return (
+    <>
+    <div className="page-header">
+                  <div className="page-header-image">
+                    <img src={itemHeader} alt="item-page-header" className='page-header-icon' />
+                  </div>
+                  <div className="page-header-title">Items</div>
+                </div>
     <div className="items-container">
     
 
@@ -277,5 +285,6 @@ export default function Items() {
         </table>
       </div>
     </div>
+    </>
   );
 }

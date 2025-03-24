@@ -1,27 +1,4 @@
-// import React from 'react';
-// import { Outlet } from 'react-router-dom';
-// import Header from './Header';
-// import Slidebar from './Slidebar';
 
-// export default function Layout() {
-//   return (
-//     <div className="layout-container" >
-//       {/* Header */}
-//       <Header />
-      
-
-//       <div >
-//         {/* Sidebar */}
-//       <Slidebar />
-
-//         {/* Main content where pages will be rendered */}
-//         <main style={{ flex: 1, padding: "20px" ,zIndex:999}}>
-//           <Outlet />
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
@@ -40,7 +17,7 @@ export default function Layout() {
         </div>
 
        
-        <main style={{ flex: 1, padding: "0", overflowY: "auto" }}>
+        <main style={{ flex: 1, padding: "0", overflowY: "auto" ,marginTop:"60px"}}>
           <Outlet />
         </main>
       </div>

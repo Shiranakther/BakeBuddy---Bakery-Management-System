@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import salesHeader from "../../images/sales-page-header-image.png";
 
 const SalesCreate = () => {
   const [salesData, setSalesData] = useState({
@@ -141,7 +142,15 @@ const SalesCreate = () => {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
+    <>
+    <div className="page-header">
+            <div className="page-header-image">
+              <img src={salesHeader} alt="dashboard-page-header" className='page-header-icon' />
+            </div>
+            <div className="page-header-title">Sales</div>
+          </div>
+
+          <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
       <h2 style={{ textAlign: "center" }}>Create Sales Record</h2>
       <form onSubmit={handleSubmit}>
         <label>Date:</label>
@@ -226,6 +235,8 @@ const SalesCreate = () => {
 
       <Toaster /> {/* Add Toaster component to display the toast messages */}
     </div>
+    </>
+    
   );
 };
 
