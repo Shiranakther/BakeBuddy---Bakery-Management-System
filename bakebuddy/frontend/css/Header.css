@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Tapestry&display=swap');
+
+header{
+    background-color: #FFA725;
+    height:60px;
+    display:flex;
+    align-items: center;
+}
+.container{
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.logo-section{
+  display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-image{
+    height:50px;
+ 
+}
+
+.profile-notification-wrapper{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right:50px;
+}
+.profile-wrapper{
+    display:flex;
+    align-items: center;
+    margin-left: 40px;
+    
+}
+.profile-image{
+    display:inline-block;
+    height:40px;
+    width:40px;
+    border-radius:50%;
+   
+}
+.user-name{
+    display:inline-block;
+    margin-left:15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color:white;
+}
+.notification-wrapper{
+    display:flex;
+    align-items: center;
+    margin-left: 40px;
+    
+}
+.notification-image{
+    display:inline-block;
+    height:35px;
+    width:35px;
+    border-radius:50%;
+}
+.notification-image-icon{
+    position: relative;
+    height:35px;
+    width:35px;
+    border-radius:50%;
+}
+.notification-text{
+    font-size: 1rem;
+    font-weight: bold;
+    color:white; 
+    margin-left:15px;
+}
+.notification-count{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position:fixed;
+    top:17px;
+    right:290px;
+    height:15px;
+    width:15px;
+    background-color: red;
+    color:white;
+    border-radius:100%;
+    font-size: 0.8rem;
+    text-align: center;
+    font-weight:bold;
+   
+
+}
