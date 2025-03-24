@@ -11,6 +11,9 @@ import SalesUpdate from './pages/SalesUpdate';
 import UpdateItem from './pages/UpdateItem';
 import ReportSales from './pages/ReportSales';
 import Header from '../components/Header';
+import ShowIngrediant from './pages/ShowIngrediant';
+
+
 
 function App() {
 
@@ -21,12 +24,13 @@ function App() {
         <Route path='/create-sales' element={<SalesCreate/>}/>
         <Route path="/create-sales/update/:id" element={<SalesUpdate/>}/>
         <Route path="/create-sales/repot" element={<ReportSales/>}/>  
-
+      
         <Route path='/production' element ={<Production/>}/>
         <Route path='/smartbake/:id' element ={<Smartbake/>}/>
         <Route path='/items' element ={<Items/>}/>
         <Route path='/add-item' element ={<AddItem/>}/>
         <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
+        <Route path="/show-ingredient" element={<ShowIngrediant/>}/>  
 
         <Route path="h" element={<Header />} />
 
@@ -36,3 +40,8 @@ function App() {
 }
 
 export default App
+
+
+
+
+
