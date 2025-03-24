@@ -39,8 +39,19 @@ const ReportSales = () => {
   };
 
   const generateCSVReport = () => {
+    const header = [
+      "Bakery Inc.", // Company name (Header)
+      "Sales Report", // Report title
+      `Generated on: ${new Date().toLocaleString()}`, // Date of generation
+      "Contact: info@bakery.com | +123 456 789", // Contact info
+      "", // Empty line for spacing
+    ];
+
     const csvContent =
       "data:text/csv;charset=utf-8," +
+      // Adding header (company name, title, generation date, and contact info)
+      header.join("\n") +
+      "\n\n" + // Add two newlines to separate header from the data
       [
         ["Date", "Item Code", "Item Name", "Buyer Name", "Quantity"].join(",")
       ]
@@ -55,7 +66,15 @@ const ReportSales = () => {
         )
         .join("\n");
 
-    const encodedUri = encodeURI(csvContent);
+    const footer = [
+      "", // Empty line for spacing
+      `Total Records: ${filteredSales.length}`, // Footer with total records
+      `Report Generated on: ${new Date().toLocaleString()}`, // Footer with generation date
+    ];
+
+    const finalCsvContent = csvContent + "\n\n" + footer.join("\n"); // Add footer after the data
+
+    const encodedUri = encodeURI(finalCsvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", "sales_report.csv");
