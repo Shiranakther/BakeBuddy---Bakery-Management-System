@@ -1,0 +1,27 @@
+.card-container{
+    display:flex;
+    flex-direction:column;
+    text-align: left;
+    background-color: rgba(181, 181, 181,0.1);
+    width:220px;
+
+    padding:5px 0px 5px 35px;
+    border-left:4px solid #FFA725;
+    
+}
+.company-name{
+    color:#FFE5CF;
+    font-size: 1.3rem;
+    margin-bottom:2px;
+    font-weight: bold;
+}
+.company-address{
+    color:#FFE5CF;
+    font-size: 0.7rem;
+    margin-bottom:4px;
+}
+.phone-number{
+    color:#FFE5CF;
+    font-size: 0.7rem;
+    margin-bottom:4px;
+}
