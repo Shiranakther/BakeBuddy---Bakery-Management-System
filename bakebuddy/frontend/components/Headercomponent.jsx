@@ -5,12 +5,12 @@ import logo from '../images/logo.png'
 import profilepic from '../images/profile-image.png'
 import notificationImage from '../images/notification-image.png'
 
-export default function Header() {
+export default function Headercomponent() {
 
   return (
     <>
      <header>
-        <div className="header-container">
+        <div className="container">
             <div className="logo-section">
                 <img src={logo} alt="Bakebuddy" className="logo-image"/>
             </div>
@@ -33,7 +33,6 @@ export default function Header() {
                 </div>
             </div>
         </div>
-        
      </header>
     </>
   )
