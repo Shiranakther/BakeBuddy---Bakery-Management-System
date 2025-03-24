@@ -2,9 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 import '../../css/production.css'
 import productionHeader from "../../images/production-page-header-image.png";
 
+
+
+import '../../css/ShowIngrediant.css'
 
 const Production = () => {
   const [productions, setProductions] = useState([]);
