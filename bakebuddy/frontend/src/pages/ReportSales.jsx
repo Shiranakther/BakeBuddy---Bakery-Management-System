@@ -38,6 +38,12 @@ const ReportSales = () => {
     setFilteredSales(filtered);
   };
 
+  const handleClearSearch = () => {
+    setStartDate(""); // Clear start date
+    setEndDate(""); // Clear end date
+    setFilteredSales(salesData); // Reset to full sales data
+  };
+
   const generateCSVReport = () => {
     const header = [
       "Bakery Inc.", // Company name (Header)
@@ -163,9 +169,24 @@ const ReportSales = () => {
             color: "white",
             cursor: "pointer",
             borderRadius: "5px",
+            marginRight: "10px",
           }}
         >
           Search
+        </button>
+        {/* Clear Search Button */}
+        <button
+          onClick={handleClearSearch}
+          style={{
+            padding: "10px 20px",
+            border: "none",
+            backgroundColor: "#f44336",
+            color: "white",
+            cursor: "pointer",
+            borderRadius: "5px",
+          }}
+        >
+          Clear Search
         </button>
       </div>
 

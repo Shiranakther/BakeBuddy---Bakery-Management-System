@@ -13,7 +13,7 @@ const SalesCreate = () => {
   });
   const [message, setMessage] = useState("");
   const [salesList, setSalesList] = useState([]);
-  const [items, setItems] = useState([]);  // New state to store all items from the database
+  const [items, setItems] = useState([]); // New state to store all items from the database
   const [searchColumn, setSearchColumn] = useState("itemCode"); // Default column to search
   const [searchTerm, setSearchTerm] = useState(""); // Search input
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const SalesCreate = () => {
 
   useEffect(() => {
     fetchSalesData();
-    fetchItems();  // Fetch all items data when the component mounts
+    fetchItems(); // Fetch all items data when the component mounts
     const interval = setInterval(fetchSalesData, 60000); // Fetch data every 60 seconds
     return () => clearInterval(interval); // Cleanup interval when component unmounts
   }, []);
@@ -54,8 +54,8 @@ const SalesCreate = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/item/all");  // Endpoint to fetch all items
-      setItems(response.data);  // Set all the items in state
+      const response = await axios.get("http://localhost:5000/api/item/all"); // Endpoint to fetch all items
+      setItems(response.data); // Set all the items in state
     } catch (error) {
       console.error("Error fetching items", error);
     }
@@ -81,28 +81,33 @@ const SalesCreate = () => {
     setSalesList(filteredSales);
   };
 
+  const handleClearSearch = () => {
+    setSearchTerm(""); // Clear search term
+    fetchSalesData(); // Reset sales list to show all data
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "itemCode") {
-      const selectedItem = items.find(item => item.itemId === value);  // Find item by itemId (itemCode)
+      const selectedItem = items.find(item => item.itemId === value); // Find item by itemId (itemCode)
       if (selectedItem) {
         setSalesData(prevData => ({
           ...prevData,
           itemCode: value,
-          itemName: selectedItem.name,  // Populate itemName with the selected item's name
+          itemName: selectedItem.name, // Populate itemName with the selected item's name
         }));
       } else {
         setSalesData(prevData => ({
           ...prevData,
           itemCode: value,
-          itemName: "",  // If no item found, clear itemName
+          itemName: "", // If no item found, clear itemName
         }));
       }
     } else {
       setSalesData(prevData => ({
         ...prevData,
-        [name]: value,  // For all other fields, just update the value
+        [name]: value, // For all other fields, just update the value
       }));
     }
   };
@@ -133,12 +138,6 @@ const SalesCreate = () => {
     } catch (error) {
       toast.error("Error deleting sales record"); // Error notification
     }
-  };
-
-  // Function to format date to "YYYY-MM-DD" without the time part
-  const formatDate = (date) => {
-    const formattedDate = new Date(date);
-    return formattedDate.toISOString().split('T')[0]; // Only return the date part
   };
 
   return (
@@ -190,6 +189,10 @@ const SalesCreate = () => {
         <button onClick={handleSearch} style={{ padding: "8px 16px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}>
           Search
         </button>
+        {/* Clear Search Button */}
+        <button onClick={handleClearSearch} style={{ padding: "8px 16px", backgroundColor: "#f0ad4e", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", marginLeft: "10px" }}>
+          Clear Search
+        </button>
       </div>
 
       {/* Sales Table */}
@@ -207,7 +210,7 @@ const SalesCreate = () => {
         <tbody>
           {salesList.map((sale) => (
             <tr key={sale._id}>
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>{formatDate(sale.date)}</td>
+              <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.date}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.itemCode}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.itemName}</td>
               <td style={{ border: "1px solid #ddd", padding: "8px" }}>{sale.buyerName}</td>
