@@ -1,54 +1,196 @@
 
 
 
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import '../../css/production.css';
+// import toast from "react-hot-toast";
+// const ShowIngredient = () => {
+//   const [ingredients, setIngredients] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+
+//   const fetchIngredients = async () => {
+//     try {
+//       const response = await axios.get("http://localhost:5000/api/ingredients"); // Use full URL
+//       const data = Array.isArray(response.data) ? response.data : []; // Ensure response is an array
+//       setIngredients(data);
+//     } catch (err) {
+//       setError(err.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+  
+//   useEffect(() => {
+   
+//     fetchIngredients();
+//   }, []);
+
+
+
+
+// const deleteIngredient = async (id) => {
+//     try {
+//       await axios.delete(`http://localhost:5000/api/ingredients/${id}`); // Use correct endpoint
+//       toast.success("Ingredient deleted successfully!"); // Success notification
+//       fetchIngredients(); // Re-fetch data after deletion
+//     } catch (error) {
+//       toast.error("Error deleting ingredient"); // Error notification
+//     }
+//   };
+
+
+//   const updateIngredient = async (id) => {
+//     try {
+//       await axios.delete(`http://localhost:5000/api/ingredients/${id}`); // Use correct endpoint
+//       toast.success("Ingredient deleted successfully!"); // Success notification
+//       fetchIngredients(); // Re-fetch data after deletion
+//     } catch (error) {
+//       toast.error("Error deleting ingredient"); // Error notification
+//     }
+//   };
+
+
+//   if (loading) return <p>Loading ingredients...</p>;
+//   if (error) return <p>Error: {error}</p>;
+
+//   return (
+//     <div className="container mx-auto p-4">
+//       <h2 className="text-2xl font-bold mb-4">Ingredient List</h2>
+//       <div>
+//       <select
+              
+//             >
+//               <option value="">All</option>
+//               <option value="">Category</option>
+//               <option value="">Item ID</option>
+//               <option value="">Item Name</option>
+//               <option value="">Ingredient ID</option>
+//               <option value="">Ingredients</option>
+//             </select>
+// </div>
+
+
+// <div>
+//   <input
+//               type="text"
+//               placeholder="Search"
+//               className="search-input"
+//               value={searchTerm}
+//               onChange={(e) => setSearchTerm(e.target.value)}
+//             />
+//             <button className="search-button" onClick={handleAddTag}>
+//               Search
+//             </button>
+      
+// </div>
+//       <table className="min-w-full bg-white border border-gray-200">
+//         <thead>
+//           <tr className="bg-gray-100">
+//             <th className="border px-4 py-2">ID</th>
+//             <th className="border px-4 py-2">Name</th>
+//             <th className="border px-4 py-2">Max Units</th>
+//             <th className="border px-4 py-2">Min Units</th>
+//             <th className="border px-4 py-2">Quantity</th>
+//             <th className="border px-4 py-2">Units Type</th>
+//             <th className="border px-4 py-2">Update or Delete</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {ingredients.map((ingredient) => (
+//             <tr key={ingredient._id} className="border">
+//               <td className="border px-4 py-2">{ingredient.ingredientId}</td>
+//               <td className="border px-4 py-2">{ingredient.name}</td>
+//               <td className="border px-4 py-2">{ingredient.maxUnits}</td>
+//               <td className="border px-4 py-2">{ingredient.minUnits}</td>
+//               <td className="border px-4 py-2">{ingredient.ingredientQuantity}</td>
+//               <td className="border px-4 py-2">{ingredient.unitsType}</td>
+//               <td className="border px-4 py-2">
+//               <button className="delete-btn1" onClick={() => deleteIngredient(ingredient._id)}>Delete</button>
+//               <button className="delete-btn2" onClick={() => updateIngredient(ingredient._id)}>Update</button></td>
+
+             
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
+
+// export default ShowIngredient;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../../css/production.css';
+import toast from "react-hot-toast";
 
 const ShowIngredient = () => {
   const [ingredients, setIngredients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('All');
 
   useEffect(() => {
-    const fetchIngredients = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/ingredients"); // Use full URL
-        const data = Array.isArray(response.data) ? response.data : []; // Ensure response is an array
-        setIngredients(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchIngredients();
   }, []);
 
-
-
-
-//    const handleDelete = async (id) => {
-//       try {
-//         await axios.delete(`http://localhost:5000/api/sales/delete/${id}`);
-//         toast.success("Sales record deleted successfully!"); // Success notification
-//         fetchSalesData(); // Re-fetch data after deleting a sales record
-//       } catch (error) {
-//         toast.error("Error deleting sales record"); // Error notification
-//       }
-//     };
-
-
-
-const deleteIngredient = async (id) => {
+  const fetchIngredients = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/ingredients/${id}`); // Use correct endpoint
-      toast.success("Ingredient deleted successfully!"); // Success notification
-      fetchIngredients(); // Re-fetch data after deletion
-    } catch (error) {
-      toast.error("Error deleting ingredient"); // Error notification
+      const response = await axios.get("http://localhost:5000/api/ingredients");
+      setIngredients(response.data || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const deleteIngredient = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/ingredients/${id}`);
+      toast.success("Ingredient deleted successfully!");
+      fetchIngredients();
+    } catch (error) {
+      toast.error("Error deleting ingredient");
+    }
+  };
+
+  const handleSearch = () => {
+    return ingredients.filter(ingredient => {
+      const term = searchTerm.toLowerCase();
+      switch (filterType) {
+        case 'Ingredient ID':
+          return String(ingredient.ingredientId).includes(term);
+        case 'Name':
+          return ingredient.name.toLowerCase().includes(term);
+        case 'Units Type':
+          return ingredient.unitsType.toLowerCase().includes(term);
+        default:
+          return (
+            String(ingredient.ingredientId).includes(term) ||
+            ingredient.name.toLowerCase().includes(term) ||
+            ingredient.unitsType.toLowerCase().includes(term)
+          );
+      }
+    });
   };
 
   if (loading) return <p>Loading ingredients...</p>;
@@ -57,6 +199,32 @@ const deleteIngredient = async (id) => {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Ingredient List</h2>
+      <div className="search-container">
+        <select
+          className="filter-select"
+          value={filterType}
+          onChange={(e) => setFilterType(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Ingredient ID">Ingredient ID</option>
+          <option value="Name">Name</option>
+          <option value="Units Type">Units Type</option>
+        
+        </select>
+        <input
+          type="text"
+          placeholder="Search"
+          className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      <div className="add-button-container">
+            <button className="add-button" onClick={() => navigate('/add-item')}>
+              Add +
+            </button>
+          </div>
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
@@ -66,11 +234,11 @@ const deleteIngredient = async (id) => {
             <th className="border px-4 py-2">Min Units</th>
             <th className="border px-4 py-2">Quantity</th>
             <th className="border px-4 py-2">Units Type</th>
-            <th className="border px-4 py-2">Update or Delete</th>
+            <th className="border px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {ingredients.map((ingredient) => (
+          {handleSearch().map((ingredient) => (
             <tr key={ingredient._id} className="border">
               <td className="border px-4 py-2">{ingredient.ingredientId}</td>
               <td className="border px-4 py-2">{ingredient.name}</td>
@@ -78,10 +246,10 @@ const deleteIngredient = async (id) => {
               <td className="border px-4 py-2">{ingredient.minUnits}</td>
               <td className="border px-4 py-2">{ingredient.ingredientQuantity}</td>
               <td className="border px-4 py-2">{ingredient.unitsType}</td>
-              <td className="border px-4 py-2"> <button className="delete-btn1" onClick={() => deleteIngredient(sale._id)}>Delete</button>
-              <button className="delete-btn2" onClick={() => navigate(`/create-sales/update/${sale._id}`)}>Update</button></td>
-
-             
+              <td className="border px-4 py-2">
+                <button className="delete-btn1" onClick={() => deleteIngredient(ingredient._id)}>Delete</button>
+                <button className="delete-btn2" onClick={() => deleteIngredient(ingredient._id)}>Update</button>
+              </td>
             </tr>
           ))}
         </tbody>
