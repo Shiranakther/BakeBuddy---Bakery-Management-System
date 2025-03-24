@@ -9,6 +9,7 @@ import Items from './pages/Items';
 import AddItem from './pages/AddItems';
 import SalesUpdate from './pages/SalesUpdate';
 import UpdateItem from './pages/UpdateItem';
+import ReportSales from './pages/ReportSales';
 
 
 function App() {
@@ -16,8 +17,11 @@ function App() {
   return <BrowserRouter>
     <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path='/create-sales' element={<SalesCreate/>}/>
-        <Route path="/create-sales/update/:id" element={<SalesUpdate/>}/> 
+        <Route path="/create-sales/update/:id" element={<SalesUpdate/>}/>
+        <Route path="/create-sales/repot" element={<ReportSales/>}/>  
+
         <Route path='/production' element ={<Production/>}/>
         <Route path='/smartbake/:id' element ={<Smartbake/>}/>
         <Route path='/items' element ={<Items/>}/>
