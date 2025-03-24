@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const SalesCreate = () => {
   const [salesData, setSalesData] = useState({
@@ -110,7 +111,7 @@ const SalesCreate = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/sales/create", salesData);
-      setMessage("Sales record added successfully!");
+      toast.success("Sales record added successfully!"); // Success notification
       setSalesData({
         date: "",
         itemCode: "",
@@ -120,24 +121,23 @@ const SalesCreate = () => {
       });
       fetchSalesData(); // Re-fetch data after adding a new sales record
     } catch (error) {
-      setMessage("Error adding sales record");
+      toast.error("Error adding sales record"); // Error notification
     }
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/sales/delete/${id}`);
-      setMessage("Sales record deleted successfully!");
+      toast.success("Sales record deleted successfully!"); // Success notification
       fetchSalesData(); // Re-fetch data after deleting a sales record
     } catch (error) {
-      setMessage("Error deleting sales record");
+      toast.error("Error deleting sales record"); // Error notification
     }
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
       <h2 style={{ textAlign: "center" }}>Create Sales Record</h2>
-      {message && <p style={{ color: "green", textAlign: "center" }}>{message}</p>}
       <form onSubmit={handleSubmit}>
         <label>Date:</label>
         <input type="date" name="date" value={salesData.date ? salesData.date.split("T")[0] : ""} onChange={handleChange} style={{ width: "100%", padding: "8px", margin: "5px 0" }} />
@@ -214,6 +214,8 @@ const SalesCreate = () => {
           ))}
         </tbody>
       </table>
+
+      <Toaster /> {/* Add Toaster component to display the toast messages */}
     </div>
   );
 };
