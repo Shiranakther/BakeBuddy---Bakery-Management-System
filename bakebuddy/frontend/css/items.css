@@ -8,12 +8,9 @@
     position: relative;
     margin-top: 100px;
     margin-left: 200px;
-   
-  
-    
-    
 
   }
+  
   .items-header-container {
     display: flex;
     justify-content: left;
