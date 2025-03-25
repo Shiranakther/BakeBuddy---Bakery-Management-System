@@ -1,24 +1,45 @@
 import Ingredient from '../models/ingredientModel.js';
 
 async function generateIngredientId() {
-  const count = await Ingredient.countDocuments({});
-  return `ING-${(count + 1).toString().padStart(3, '0')}`;
+  let count = await Ingredient.countDocuments({});
+  let newId;
+  let isUnique = false;
+  
+  do {
+    count++;
+    newId = `ING-${count.toString().padStart(3, '0')}`;
+    const existing = await Ingredient.findOne({ ingredientId: newId });
+    isUnique = !existing;
+  } while (!isUnique);
+  
+  return newId;
 }
 
-// Add new ingredient
+// Updated addIngredient
 export async function addIngredient(req, res) {
   try {
-    const { name, maxUnits, minUnits , ingredientQuantity , unitsType } = req.body;
+    const { name, maxUnits, minUnits, unitsType } = req.body;
     if (!name || maxUnits == null || minUnits == null) {
       return res.status(400).json({ error: 'Please provide name, maxUnits, and minUnits' });
     }
     
     const ingredientId = await generateIngredientId();
-    const newIngredient = new Ingredient({ ingredientId, name, maxUnits, minUnits , ingredientQuantity , unitsType });
+    const newIngredient = new Ingredient({ 
+      ingredientId, 
+      name, 
+      maxUnits, 
+      minUnits, 
+      unitsType 
+    });
     await newIngredient.save();
     res.json(newIngredient);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (error.code === 11000) {
+      // Handle duplicate key error specifically
+      res.status(409).json({ error: 'Duplicate ingredient ID generated, please try again' });
+    } else {
+      res.status(500).json({ error: error.message });
+    }
   }
 }
 

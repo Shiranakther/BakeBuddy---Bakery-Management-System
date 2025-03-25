@@ -27,7 +27,7 @@ const IngredientSchema = new mongoose.Schema({
   maxUnits: { type: Number, required: true },
   minUnits: { type: Number, required: true },
   unitsType: { type: String, enum: ['pieces', 'kg', 'liter'] },
-  ingredientQuantity: { type: Number, required: true }
+  ingredientQuantity: { type: Number, required: false, default: 0 }
   // Store multiple daily consumption records:
   
 });
