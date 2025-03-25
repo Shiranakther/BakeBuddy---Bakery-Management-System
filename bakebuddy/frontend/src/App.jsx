@@ -11,7 +11,7 @@ import SalesUpdate from './pages/SalesUpdate';
 import UpdateItem from './pages/UpdateItem';
 import ReportSales from './pages/ReportSales';
 import Header from '../components/Header';
-
+import UpdateIngredientQuantity from './pages/AddIngrediantQuntity'
 import ShowIngrediant from './pages/ShowIngrediant';
 
 import CreateIngrediant from './pages/CreateIngrediant';
@@ -37,6 +37,7 @@ function App() {
         <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
         <Route path="/show-ingredient" element={<ShowIngrediant/>}/>  
         <Route path="/create-ingrediant" element={<CreateIngrediant/>}/> 
+        <Route path="/update-ingredient-quantity" element={<UpdateIngredientQuantity/>}/> 
 
         <Route path="h" element={<Header/>} />
         <Route path="lay" element={<Layout/>} />
