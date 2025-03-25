@@ -1,77 +1,89 @@
-/* ShowIngredient.css */
-
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 90%;
+    margin: 30px auto;
     font-family: Arial, sans-serif;
-  }
-  
-  h2 {
+}
+
+/* Title Styling */
+.title {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-  
-  .table-container {
-    overflow-x: auto;
-  }
-  
-  table {
+    color: #f5a623;
+    margin-bottom: 20px;
+}
+
+/* Search and Filter Section */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-select, .search-input, .search-button {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.search-input {
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.search-button {
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* Add Button */
+.add-button {
+    float: right;
+    background-color: #f5a623;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Table Styling */
+.ingredient-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-  }
-  
-  thead {
-    background-color: #f4f4f4;
-  }
-  
-  td, th {
-    padding: 12px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.ingredient-table th, .ingredient-table td {
+    padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .edit-btn {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .delete-btn {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .loading,
-  .error {
-    text-align: center;
-    font-size: 18px;
-    color: red;
-    margin-top: 20px;
-  }
-  
+}
 
-  .delete-btn1{
+.ingredient-table thead {
+    background-color: #f2f2f2;
+}
 
+.ingredient-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Action Buttons */
+.action-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Delete Button */
+.delete-btn1 {
     margin-right: 5px;
     background-color: #dc3545;
     padding: 5px 10px;
@@ -79,19 +91,68 @@
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    
-  }
+}
 
-  .delete-btn2{
-
+/* Update Button */
+.delete-btn2 {
     margin-right: 5px;
-    background-color: #083fb6;
+    background-color: #28a745;
     padding: 5px 10px;
     color: white;
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    
-  }
+}
 
+/* Layout Container */
+.items-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 50px;
+    margin-left: 150px;
+}
 
+/* Header Alignment */
+.items-header-container {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+/* Search and Filter Container */
+.search-container {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+}
+
+/* Table Styling */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.items-table thead {
+    background-color: #f2f2f2;
+    text-align: center;
+    font-weight: bold;
+}
+
+.items-table th, .items-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.items-table tbody tr:hover {
+    background-color: #f5f5f5;
+}

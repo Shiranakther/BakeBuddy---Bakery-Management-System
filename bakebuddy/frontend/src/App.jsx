@@ -14,7 +14,7 @@ import Header from '../components/Header';
 
 import ShowIngrediant from './pages/ShowIngrediant';
 
-
+import CreateIngrediant from './pages/CreateIngrediant';
 import Layout from '../components/Layout';
 
 
@@ -36,6 +36,7 @@ function App() {
         <Route path='/add-item' element ={<AddItem/>}/>
         <Route path="/update-item/:itemId" element={<UpdateItem />} /> {/* Ensure this is exact */}
         <Route path="/show-ingredient" element={<ShowIngrediant/>}/>  
+        <Route path="/create-ingrediant" element={<CreateIngrediant/>}/> 
 
         <Route path="h" element={<Header/>} />
         <Route path="lay" element={<Layout/>} />

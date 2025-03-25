@@ -197,8 +197,22 @@ const ShowIngredient = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Ingredient List</h2>
+    <>
+    <div className="page-header">
+        <div className="page-header-image">
+                         {/* <img src={itemHeader} alt="" className='' /> */}
+                        </div>
+                        <div className="page-header-title">Ingrediant</div>
+             </div>        
+        <div className="items-container">
+
+<div className="items-table-container">
+
+<div className="items-header-container">
+      <h1 className="items-header">Ingrediant Management</h1>
+    </div>
+
+    <div className="items-table-header">
       <div className="search-container">
         <select
           className="filter-select"
@@ -211,6 +225,7 @@ const ShowIngredient = () => {
           <option value="Units Type">Units Type</option>
         
         </select>
+
         <input
           type="text"
           placeholder="Search"
@@ -218,14 +233,28 @@ const ShowIngredient = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div>
-
+     <button className="search-button" onClick={setSearchTerm}>
+              Search
+            </button>
+            </div>
       <div className="add-button-container">
             <button className="add-button" onClick={() => navigate('/add-item')}>
               Add +
             </button>
           </div>
-      <table className="min-w-full bg-white border border-gray-200">
+          </div>
+
+          <div className="tags-container">
+          {/* {tags.map(tag => (
+            <span key={`${tag.value}-${tag.filterType}`} className="tag">
+              {`${tag.filterType}: ${tag.value}`}
+              <button className="tag-close" onClick={() => handleRemoveTag(tag)}>
+                ✕
+              </button>
+            </span>
+          ))} */}
+          </div>
+      <table className="min-w-full bg-items border border-gray-200">
         <thead>
           <tr className="bg-gray-100">
             <th className="border px-4 py-2">ID</th>
@@ -240,6 +269,7 @@ const ShowIngredient = () => {
         <tbody>
           {handleSearch().map((ingredient) => (
             <tr key={ingredient._id} className="border">
+           
               <td className="border px-4 py-2">{ingredient.ingredientId}</td>
               <td className="border px-4 py-2">{ingredient.name}</td>
               <td className="border px-4 py-2">{ingredient.maxUnits}</td>
@@ -247,15 +277,83 @@ const ShowIngredient = () => {
               <td className="border px-4 py-2">{ingredient.ingredientQuantity}</td>
               <td className="border px-4 py-2">{ingredient.unitsType}</td>
               <td className="border px-4 py-2">
-                <button className="delete-btn1" onClick={() => deleteIngredient(ingredient._id)}>Delete</button>
-                <button className="delete-btn2" onClick={() => deleteIngredient(ingredient._id)}>Update</button>
+                <button className="delete-button" onClick={() => deleteIngredient(ingredient._id)}>Delete</button>
+                <button className="edit-button" onClick={() => deleteIngredient(ingredient._id)}>Update</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    </div>
+    </>
   );
 };
 
 export default ShowIngredient;
+
+
+
+
+{/* <div className="page-header">
+      
+    
+<h2 className="text-2xl font-bold mb-4">Ingredient List</h2>
+<div className="search-container">
+  <select
+    className="filter-select"
+    value={filterType}
+    onChange={(e) => setFilterType(e.target.value)}
+  >
+    <option value="All">All</option>
+    <option value="Ingredient ID">Ingredient ID</option>
+    <option value="Name">Name</option>
+    <option value="Units Type">Units Type</option>
+  
+  </select>
+  <input
+    type="text"
+    placeholder="Search"
+    className="search-input"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+</div>
+
+<div className="add-button-container">
+      <button className="add-button" onClick={() => navigate('/add-item')}>
+        Add +
+      </button>
+    </div>
+<table className="min-w-full bg-white border border-gray-200">
+  <thead>
+    <tr className="bg-gray-100">
+      <th className="border px-4 py-2">ID</th>
+      <th className="border px-4 py-2">Name</th>
+      <th className="border px-4 py-2">Max Units</th>
+      <th className="border px-4 py-2">Min Units</th>
+      <th className="border px-4 py-2">Quantity</th>
+      <th className="border px-4 py-2">Units Type</th>
+      <th className="border px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {handleSearch().map((ingredient) => (
+      <tr key={ingredient._id} className="border">
+        <td className="border px-4 py-2">{ingredient.ingredientId}</td>
+        <td className="border px-4 py-2">{ingredient.name}</td>
+        <td className="border px-4 py-2">{ingredient.maxUnits}</td>
+        <td className="border px-4 py-2">{ingredient.minUnits}</td>
+        <td className="border px-4 py-2">{ingredient.ingredientQuantity}</td>
+        <td className="border px-4 py-2">{ingredient.unitsType}</td>
+        <td className="border px-4 py-2">
+          <button className="delete-btn1" onClick={() => deleteIngredient(ingredient._id)}>Delete</button>
+          <button className="delete-btn2" onClick={() => deleteIngredient(ingredient._id)}>Update</button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+);
+}; */}
