@@ -29,7 +29,7 @@ export default function Slidebar() {
             </div>
             </Link>
 
-            <Link to="#" className='nav-link'>
+            <Link to="/show-ingredient" className='nav-link'>
             <div className="nav-button-container">
                 <div className="nav-button-image">
                    <img src={ingredient} alt="ingre-image" className="nav-button-icon"/>
