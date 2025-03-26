@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import '../../css/production.css';
+import '../../css/ShowIngrediant.css';
 import toast from "react-hot-toast";
 
 const ShowIngredient = () => {

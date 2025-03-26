@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../../css/AddIngrediantQuntity.css';
 
 const UpdateIngredientQuantity = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -110,6 +111,13 @@ const UpdateIngredientQuantity = () => {
   };
 
   return (
+    <>
+    <div className="page-header">
+        <div className="page-header-image">
+                         {/* <img src={itemHeader} alt="" className='' /> */}
+                        </div>
+                        <div className="page-header-title">Ingrediant</div>
+             </div>        
     <div className="update-quantity-container">
       <h2>Update Ingredient Quantity</h2>
       
@@ -121,6 +129,7 @@ const UpdateIngredientQuantity = () => {
         <select
           value={selectedIngredientId}
           onChange={handleIngredientChange}
+          style={{ height: '65px' }}
           required
         >
           <option value="">Select Ingredients ID</option>
@@ -220,86 +229,19 @@ const UpdateIngredientQuantity = () => {
       </div>
 
       <div className="button-group">
+
         <button type="button" className="add-button" onClick={handleAdd}>
           Add
         </button>
+   
         <button type="button" className="deduct-button" onClick={handleDeduct}>
           Deduct
         </button>
       </div>
 
-      <style jsx>{`
-        .update-quantity-container {
-          max-width: 600px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        .form-group {
-          margin-bottom: 20px;
-        }
-        label {
-          display: block;
-          margin-bottom: 5px;
-          font-weight: bold;
-        }
-        input, select {
-          width: 100%;
-          padding: 8px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-        input[readOnly] {
-          background-color: #f5f5f5;
-        }
-        .inline-group {
-          display: flex;
-          gap: 20px;
-        }
-        .inline-field {
-          flex: 1;
-        }
-        .radio-group {
-          display: flex;
-          gap: 20px;
-        }
-        .radio-group label {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          font-weight: normal;
-        }
-        .button-group {
-          display: flex;
-          gap: 10px;
-          justify-content: flex-end;
-        }
-        .add-button {
-          background-color: #f5a623;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-weight: bold;
-        }
-        .add-button:hover {
-          background-color: #e69520;
-        }
-        .deduct-button {
-          background-color: #ff4444;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-weight: bold;
-        }
-        .deduct-button:hover {
-          background-color: #cc0000;
-        }
-      `}</style>
+      
     </div>
+    </>
   );
 };
 
