@@ -82,19 +82,18 @@ export const updateProduction = async (req,res)=>{
     }
 }
 
-export const deleteProduction = async (req,res)=>{
+export const deleteProduction = async (req, res) => {
     const production = await Production.findById(req.params.id);
-    if(!production){
+    if (!production) {
         res.status(404);
         throw new Error("Production Not Found");
     }
-    try{
-    await Production.deleteOne();
-    res.status(200).json(production)
-
-    }catch(e){
+    try {
+        // Use the production._id to specify which production to delete
+        await Production.deleteOne({ _id: production._id });
+        res.status(200).json({ msg: "Production deleted successfully" });
+    } catch (e) {
         console.log(e);
         res.status(500).json({ msg: "Error Deleting production" });
-
     }
-}
+};
