@@ -17,6 +17,8 @@ import ShowIngrediant from './pages/ShowIngrediant';
 import CreateIngrediant from './pages/CreateIngrediant';
 import Layout from '../components/Layout';
 
+import AllReports from './pages/AllReports';
+import ProductionReport from './pages/ProductionReport';
 
 
 function App() {
@@ -38,6 +40,10 @@ function App() {
         <Route path="/show-ingredient" element={<ShowIngrediant/>}/>  
         <Route path="/create-ingrediant" element={<CreateIngrediant/>}/> 
         <Route path="/update-ingredient-quantity" element={<UpdateIngredientQuantity/>}/> 
+
+        <Route path="/all-reports" element={<AllReports/>}/> 
+        <Route path="/production-report" element={<ProductionReport/>}/>
+
 
         <Route path="h" element={<Header/>} />
         <Route path="lay" element={<Layout/>} />

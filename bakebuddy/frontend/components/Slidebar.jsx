@@ -74,7 +74,7 @@ export default function Slidebar() {
             </div>
             </Link>
 
-            <Link to="#" className='nav-link'>
+            <Link to="/all-reports" className='nav-link'>
             <div className="nav-button-container">
                 <div className="nav-button-image">
                    <img src={report} alt="Reports-image" className="nav-button-icon"/>
