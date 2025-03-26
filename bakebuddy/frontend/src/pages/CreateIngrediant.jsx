@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../../css/CreateIngrediant.css';
 
 const CreateIngredient = () => {
   // State for form fields
@@ -55,13 +56,24 @@ const CreateIngredient = () => {
   };
 
   return (
+   <>
+
+       <div className="page-header">
+                     <div className="page-header-image">
+                       {/* <img src={itemHeader} alt="item-page-header" className='page-header-icon' /> */}
+                     </div>
+                     <div className="page-header-title">Ingrediant</div>
+                   </div>
     <div className="create-ingredient-container">
-      <h2>Create New Ingredient</h2>
+
       
+      <h2>Create New Ingredient</h2>
+     
       {error && <div className="error-message" style={{ color: 'red' }}>{error}</div>}
       {success && <div className="success-message" style={{ color: 'green' }}>{success}</div>}
-
+      
       <form onSubmit={handleSubmit}>
+      
         <div className="form-group">
           <label htmlFor="name">Ingredient Name:</label>
           <input
@@ -74,6 +86,7 @@ const CreateIngredient = () => {
             placeholder="Enter ingredient name"
           />
         </div>
+       
 
         <div className="form-group">
           <label htmlFor="maxUnits">Maximum Units:</label>
@@ -117,43 +130,15 @@ const CreateIngredient = () => {
           </select>
         </div>
 
+        <div className="Create-Ingredient-button">
         <button type="submit" className="submit-button">
           Create Ingredient
         </button>
+        </div>
       </form>
 
-      <style jsx>{`
-        .create-ingredient-container {
-          max-width: 500px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        .form-group {
-          margin-bottom: 15px;
-        }
-        label {
-          display: block;
-          margin-bottom: 5px;
-        }
-        input, select {
-          width: 100%;
-          padding: 8px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-        }
-        .submit-button {
-          background-color: #4CAF50;
-          color: white;
-          padding: 10px 15px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .submit-button:hover {
-          background-color: #45a049;
-        }
-      `}</style>
-    </div>
+      </div> 
+      </>
   );
 };
 
