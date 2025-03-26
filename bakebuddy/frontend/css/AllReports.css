@@ -1,0 +1,38 @@
+.reports-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .reports-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .reports-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .report-link {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .report-link:hover {
+    background-color: #0056b3;
+  }
+  
