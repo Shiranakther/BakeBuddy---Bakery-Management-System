@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
+import toast, { Toaster } from 'react-hot-toast';
 import '../../css/items.css';
 import itemHeader from '../../images/item-header-image.png';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 export default function Items() {
   const [items, setItems] = useState([]);
@@ -13,6 +15,8 @@ export default function Items() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('All');
   const [tags, setTags] = useState([]);
+  const [showReportOptions, setShowReportOptions] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -130,12 +134,11 @@ export default function Items() {
       });
 
       const updatedItems = items.filter(item => item.itemId !== itemId);
-      const deletedItem = items.find(item => item.itemId === itemId); // Get the deleted item
+      const deletedItem = items.find(item => item.itemId === itemId);
       setItems(updatedItems);
       setDisplayedItems(updatedItems);
       setError(null);
 
-      // Show success toast similar to SalesCreate.jsx
       toast.success(`Item "${deletedItem.name}" (ID: ${itemId}) deleted successfully!`);
     } catch (err) {
       console.error('Delete error:', err);
@@ -143,14 +146,154 @@ export default function Items() {
         ? `Failed to delete item: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
         : err.message;
       setError(errorMessage);
-
-      // Show error toast similar to SalesCreate.jsx
       toast.error("Error deleting item");
     }
   };
 
   const handleEdit = (itemId) => {
     navigate(`/update-item/${itemId}`);
+  };
+
+  // Generate report data with nested structure
+  const generateReportData = () => {
+    const reportData = [];
+    displayedItems.forEach(item => {
+      if (item.ingredients?.length > 0) {
+        item.ingredients.forEach((ing, index) => {
+          const row = [
+            index === 0 ? item.itemId : '', // Only show Item ID on the first row
+            index === 0 ? item.name : '', // Only show Item Name on the first row
+            index === 0 ? (item.Category || item.category || 'N/A') : '', // Only show Category on the first row
+            ing.ingredientId,
+            ing.name,
+            ing.volume || 'N/A',
+            ing.unit || 'N/A',
+          ];
+          reportData.push(row);
+        });
+      } else {
+        reportData.push([
+          item.itemId,
+          item.name,
+          item.Category || item.category || 'N/A',
+          'N/A',
+          'No ingredients',
+          'N/A',
+          'N/A',
+        ]);
+      }
+    });
+    return reportData;
+  };
+
+  // Generate CSV Report
+  const generateCSVReport = () => {
+    const header = [
+      "Bakery Inc.",
+      "Items Report",
+      `Generated on: ${new Date().toLocaleString()}`,
+      "Contact: info@bakery.com | +123 456 789",
+      "",
+    ];
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      header.join("\n") +
+      "\n\n" +
+      [
+        ["Item ID", "Item Name", "Category", "Ingredient ID", "Ingredient Name", "Volume", "Unit"].join(",")
+      ]
+        .concat(generateReportData().map(row => row.map(cell => `"${cell}"`).join(","))) // Wrap cells in quotes to handle commas
+        .join("\n");
+
+    const footer = [
+      "",
+      `Total Records: ${displayedItems.length}`,
+      `Report Generated on: ${new Date().toLocaleString()}`,
+    ];
+
+    const finalCsvContent = csvContent + "\n\n" + footer.join("\n");
+
+    const encodedUri = encodeURI(finalCsvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "items_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    setShowReportOptions(false);
+  };
+
+  // Generate PDF Report
+  const generatePDFReport = () => {
+    const doc = new jsPDF();
+
+    // HEADER
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Bakery Inc.", 14, 10);
+    doc.setFontSize(12);
+    doc.text("Items Report", 14, 16);
+    doc.setFontSize(10);
+    doc.text(`Report Generated: ${new Date().toLocaleString()}`, 14, 22);
+    doc.text("Contact: info@bakery.com | +123 456 789", 14, 28);
+
+    // TABLE
+    doc.autoTable({
+      head: [["Item ID", "Item Name", "Category", "Ingredient ID", "Ingredient Name", "Volume", "Unit"]],
+      body: generateReportData(),
+      startY: 40,
+      margin: { top: 20 },
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [245, 166, 35], textColor: [255, 255, 255] }, // Orange header
+      columnStyles: {
+        0: { cellWidth: 20 }, // Item ID
+        1: { cellWidth: 30 }, // Item Name
+        2: { cellWidth: 25 }, // Category
+        3: { cellWidth: 25 }, // Ingredient ID
+        4: { cellWidth: 30 }, // Ingredient Name
+        5: { cellWidth: 15 }, // Volume
+        6: { cellWidth: 15 }, // Unit
+      },
+      didParseCell: (data) => {
+        // Merge cells for Item ID, Item Name, and Category
+        if (data.section === 'body') {
+          const rowIndex = data.row.index;
+          const colIndex = data.column.index;
+          const currentRow = data.row.raw;
+
+          // Check if this is the first ingredient for the item
+          if (colIndex === 0 || colIndex === 1 || colIndex === 2) {
+            // Find how many ingredients this item has
+            let rowspan = 1;
+            let currentItemId = currentRow[0];
+            if (currentItemId) {
+              // Count how many rows have the same Item ID
+              for (let i = rowIndex; i < data.table.body.length; i++) {
+                if (data.table.body[i][0] === currentItemId && i !== rowIndex) {
+                  rowspan++;
+                } else if (i !== rowIndex) {
+                  break;
+                }
+              }
+              data.cell.styles.rowSpan = rowspan;
+            }
+          }
+        }
+      },
+    });
+
+    // FOOTER
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.text(`Page ${i} of ${pageCount}`, 14, doc.internal.pageSize.height - 10);
+      doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, doc.internal.pageSize.height - 4);
+      doc.text(`Total Records: ${displayedItems.length}`, doc.internal.pageSize.width - 50, doc.internal.pageSize.height - 4, { align: 'right' });
+    }
+
+    doc.save("items_report.pdf");
+    setShowReportOptions(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -196,6 +339,24 @@ export default function Items() {
               </button>
             </div>
             <div className="add-button-container">
+              <div className="report-button-container">
+                <button
+                  className="generate-report-button"
+                  onClick={() => setShowReportOptions(!showReportOptions)}
+                >
+                  Generate Report
+                </button>
+                {showReportOptions && (
+                  <div className="report-options">
+                    <button className="report-option-button" onClick={generatePDFReport}>
+                      PDF
+                    </button>
+                    <button className="report-option-button" onClick={generateCSVReport}>
+                      CSV
+                    </button>
+                  </div>
+                )}
+              </div>
               <button className="add-button" onClick={() => navigate('/add-item')}>
                 Add +
               </button>
@@ -291,7 +452,7 @@ export default function Items() {
           </table>
         </div>
       </div>
-      <Toaster /> {/* Add Toaster component for toast notifications */}
+      <Toaster />
     </>
   );
 }

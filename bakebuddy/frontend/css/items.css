@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   margin-left: 40px;
- 
   max-width: 1200px; /* Modern wide layout */
 }
 
@@ -87,6 +86,13 @@
   box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
 }
 
+/* Add button container */
+.add-button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+}
+
 /* Add button */
 .add-button {
   top: 0; /* Original positioning */
@@ -103,6 +109,62 @@
 }
 
 .add-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+}
+
+/* Report button container */
+.report-button-container {
+  position: relative; /* For positioning the dropdown */
+}
+
+/* Generate Report button */
+.generate-report-button {
+  padding: 10px 15px;
+  background: linear-gradient(to right, #2196F3, #1976D2); /* Blue gradient for distinction */
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.generate-report-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Report options dropdown */
+.report-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  z-index: 10;
+}
+
+/* Report option button */
+.report-option-button {
+  padding: 8px 15px;
+  background: linear-gradient(to right, #f5a623, #e59400); /* Match other buttons */
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 5px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.report-option-button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
 }
@@ -142,12 +204,9 @@
   background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient header kept */
   color: #fff; /* Modern white text kept */
   text-align: center;
-  font-weight: 600; 
- /* Modern boldness kept */
+  font-weight: 600; /* Modern boldness kept */
   text-transform: uppercase; /* Modern touch kept */
-  letter-spacing: 0.4px;
-   /* Modern spacing kept */
-   
+  letter-spacing: 0.4px; /* Modern spacing kept */
 }
 
 .items-table th,
@@ -286,4 +345,26 @@
 
 .tag-close:hover {
   color: #ffebee; /* Modern subtle hover color */
+}
+
+/* Page header styling (for completeness) */
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header-image {
+  margin-right: 10px;
+}
+
+.page-header-icon {
+  width: 50px; /* Adjust as needed */
+  height: auto;
+}
+
+.page-header-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
 }
