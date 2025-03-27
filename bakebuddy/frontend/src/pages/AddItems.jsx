@@ -173,11 +173,11 @@ export default function AddItem() {
 
   return (
     <div className="add-item-container">
-      <h1 className="add-item-header">Item Management</h1>
+      <h1 className="add-item-header">Create a New Item</h1>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit} className="add-item-form">
-        <div className="form-row">
-          <div className="form-group">
+        <div className="item-form-row">
+          <div className="form-group-itemname">
             <label className="form-label">Item Name :</label>
             <input
               type="text"
@@ -189,7 +189,7 @@ export default function AddItem() {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-itemcategory">
             <label className="form-label">Category :</label>
             <input
               type="text"

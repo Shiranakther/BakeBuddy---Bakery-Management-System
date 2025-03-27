@@ -98,74 +98,95 @@
   }
   
   .items-table-container {
-    
     max-width: fit-content;
     display: flex;
     flex-direction: column;
-    
     align-items: flex-start;
     justify-content: center;
-   
-   
+    width: 100%; /* Ensures it takes full available width */
     
-  
-    
-  }
-  
-  .items-table {
-    margin: 5px 0;
+}
+
+.items-table {
+    margin: 10px 0; /* Slightly increased margin for better separation */
     border-collapse: collapse;
     background-color: #fff;
     width: 100%;
-    font-size: 0.9em;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    
-    
-  }
-  
-  .items-table thead tr {
-    background-color: #f2f2f2;
+    font-size: 1em; /* Slightly larger font for readability */
+    border-radius: 8px; /* Softer, modern rounded corners */
+    overflow: hidden; /* Ensures content respects border-radius */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #e0e0e0; /* Lighter, cleaner border */
+}
+
+.items-table thead tr {
+    background-color: #f5a623; /* Orange header to match your theme */
+    color: #fff; /* White text for contrast */
     text-align: center;
-    font-weight: bold;
-  }
-  
-  .items-table th,
-  .items-table td {
-   
-    padding: 12px 15px;
-    
-  }
-  
-  .items-table tbody tr {
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  }
-  .items-table tbody tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  
-  
-  
-  .edit-button {
+    font-weight: 600; /* Slightly bolder for emphasis */
+    text-transform: uppercase; /* Makes headers stand out */
+    letter-spacing: 0.5px; /* Improves readability */
+}
+
+.items-table th,
+.items-table td {
+    padding: 14px 20px; /* More generous padding for comfort */
+    border-left: 1px solid #e0e0e0; /* Light vertical borders */
+    border-right: 1px solid #e0e0e0; /* Light vertical borders */
+    vertical-align: middle; /* Centers content vertically */
+}
+
+.items-table th {
+    border-bottom: 2px solid #e59400; /* Slightly darker orange for header separation */
+}
+
+.items-table tbody tr {
+    border-bottom: 1px solid #e0e0e0; /* Lighter horizontal borders */
+    transition: background-color 0.2s ease; /* Smooth hover effect */
+}
+
+.items-table tbody tr:hover {
+    background-color: #f9f9f9; /* Softer hover color */
+}
+
+.items-table tbody tr:nth-child(even) {
+    background-color: #fafafa; /* Zebra striping for better row distinction */
+}
+
+.items-table td {
+    color: #333; /* Darker text for better contrast */
+}
+
+/* Action buttons within table */
+.action-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row; /* Changed to row for horizontal buttons */
+    gap: 10px; /* Smaller gap between buttons */
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.edit-button,
+.delete-button {
+    padding: 6px 12px; /* Slightly larger buttons */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 0.9em;
+    transition: transform 0.1s ease, background-color 0.2s ease; /* Smooth interactions */
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    transform: translateY(-1px); /* Slight lift on hover */
+}
+
+.edit-button {
     background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    margin-right: 5px;
-    cursor: pointer;
-    
-  }
-  
-  .delete-button {
+}
+
+.delete-button {
     background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    cursor: pointer;
-  }
+}
   .tags-container {
     display: flex;
     flex-wrap: wrap;
