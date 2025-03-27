@@ -5,9 +5,10 @@
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
+    
+    margin-left: 100px;
   
-    margin-top: 100px;
-    margin-left: 200px;
+   
 
 
   }
@@ -16,7 +17,7 @@
     display: flex;
     justify-content: left;
     align-items: left;
-   
+    
     margin-bottom: 35px;
     width: 100%;
    
@@ -40,6 +41,7 @@
     color: #f5a623;
     font-size: 1.5em;
     font-weight: bold;
+    
    
    
 
@@ -100,9 +102,10 @@
     max-width: fit-content;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    align-items: center;
+    
+    align-items: flex-start;
     justify-content: center;
+   
    
     
   
