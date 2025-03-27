@@ -132,7 +132,7 @@
   border-collapse: collapse; /* Modern clean edges */
   background: linear-gradient(135deg, #ffffff, #f8f8f8); /* Modern subtle gradient */
   width: 100%;
-  font-size: 0.9em; /* Original font size from first Items.css */
+  font-size: 0.8em; /* Original font size from first Items.css */
   border-radius: 10px; /* Modern softer corners */
   overflow: hidden; /* Modern overflow */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Modern shadow */
@@ -142,9 +142,12 @@
   background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient header kept */
   color: #fff; /* Modern white text kept */
   text-align: center;
-  font-weight: 600; /* Modern boldness kept */
+  font-weight: 600; 
+ /* Modern boldness kept */
   text-transform: uppercase; /* Modern touch kept */
-  letter-spacing: 0.5px; /* Modern spacing kept */
+  letter-spacing: 0.4px;
+   /* Modern spacing kept */
+   
 }
 
 .items-table th,
@@ -203,6 +206,7 @@
 .edit-button {
   background: linear-gradient(to right, #4CAF50, #388E3C); /* Modern gradient kept */
   color: white;
+  cursor: pointer;
   border: none;
   padding: 6px 12px; /* Updated padding kept */
   border-radius: 20px; /* Modern pill shape kept */
@@ -221,6 +225,7 @@
 .delete-button {
   background: linear-gradient(to right, #f44336, #d32f2f); /* Modern gradient kept */
   color: white;
+  cursor: pointer;
   border: none;
   padding: 6px 12px; /* Updated padding kept */
   border-radius: 20px; /* Modern pill shape kept */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
 import '../../css/items.css';
 import itemHeader from '../../images/item-header-image.png';
 
@@ -129,15 +130,22 @@ export default function Items() {
       });
 
       const updatedItems = items.filter(item => item.itemId !== itemId);
+      const deletedItem = items.find(item => item.itemId === itemId); // Get the deleted item
       setItems(updatedItems);
       setDisplayedItems(updatedItems);
       setError(null);
+
+      // Show success toast similar to SalesCreate.jsx
+      toast.success(`Item "${deletedItem.name}" (ID: ${itemId}) deleted successfully!`);
     } catch (err) {
       console.error('Delete error:', err);
       const errorMessage = err.response
         ? `Failed to delete item: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
         : err.message;
       setError(errorMessage);
+
+      // Show error toast similar to SalesCreate.jsx
+      toast.error("Error deleting item");
     }
   };
 
@@ -150,141 +158,140 @@ export default function Items() {
 
   return (
     <>
-    <div className="page-header">
-                  <div className="page-header-image">
-                    <img src={itemHeader} alt="item-page-header" className='page-header-icon' />
-                  </div>
-                  <div className="page-header-title">Items</div>
-                </div>
-    <div className="items-container">
-    
-
-      <div className="items-table-container">
-      <div className="items-header-container">
-      <h1 className="items-header">Item Management</h1>
-    </div>
-        
-        <div className="items-table-header">
-          <div className="search-container">
-            <select
-              className="filter-select"
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Category">Category</option>
-              <option value="ItemId">Item ID</option>
-              <option value="ItemName">Item Name</option>
-              <option value="IngredientId">Ingredient ID</option>
-              <option value="Ingredients">Ingredients</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Search"
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="search-button" onClick={handleAddTag}>
-              Search
-            </button>
-          </div>
-          <div className="add-button-container">
-            <button className="add-button" onClick={() => navigate('/add-item')}>
-              Add +
-            </button>
-          </div>
+      <div className="page-header">
+        <div className="page-header-image">
+          <img src={itemHeader} alt="item-page-header" className='page-header-icon' />
         </div>
-
-        <div className="tags-container">
-          {tags.map(tag => (
-            <span key={`${tag.value}-${tag.filterType}`} className="tag">
-              {`${tag.filterType}: ${tag.value}`}
-              <button className="tag-close" onClick={() => handleRemoveTag(tag)}>
-                ✕
-              </button>
-            </span>
-          ))}
-        </div>
-
-        <table className="items-table">
-          <thead>
-            <tr>
-              <th>Item Id</th>
-              <th>Item Name</th>
-              <th>Category</th>
-              <th>Ingredients Id</th>
-              <th>Ingredients</th>
-              <th>Volume</th>
-              <th>Unit</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedItems.map((item) => (
-              item.ingredients?.length > 0 ? (
-                item.ingredients.map((ing, index) => (
-                  <tr key={`${item.itemId}-${index}`}>
-                    {index === 0 && (
-                      <>
-                        <td rowSpan={item.ingredients.length}>{item.itemId}</td>
-                        <td rowSpan={item.ingredients.length}>{item.name}</td>
-                        <td rowSpan={item.ingredients.length}>{item.Category || item.category || 'N/A'}</td>
-                      </>
-                    )}
-                    <td>{ing.ingredientId}</td>
-                    <td>{ing.name}</td>
-                    <td>{ing.volume || 'N/A'}</td>
-                    <td>{ing.unit || 'N/A'}</td>
-                    {index === 0 && (
-                      <td rowSpan={item.ingredients.length}>
-                        <div className="action-container">
-                          <button
-                            className="edit-button"
-                            onClick={() => handleEdit(item.itemId)}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="delete-button"
-                            onClick={() => handleDelete(item.itemId)}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                ))
-              ) : (
-                <tr key={item.itemId}>
-                  <td>{item.itemId}</td>
-                  <td>{item.name}</td>
-                  <td>{item.Category || item.category || 'N/A'}</td>
-                  <td colSpan={4}>No ingredients</td>
-                  <td>
-                    <div className="action-container">
-                      <button
-                        className="edit-button"
-                        onClick={() => handleEdit(item.itemId)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="delete-button"
-                        onClick={() => handleDelete(item.itemId)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )
-            ))}
-          </tbody>
-        </table>
+        <div className="page-header-title">Items</div>
       </div>
-    </div>
+      <div className="items-container">
+        <div className="items-table-container">
+          <div className="items-header-container">
+            <h1 className="items-header">Item Management</h1>
+          </div>
+
+          <div className="items-table-header">
+            <div className="search-container">
+              <select
+                className="filter-select"
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Category">Category</option>
+                <option value="ItemId">Item ID</option>
+                <option value="ItemName">Item Name</option>
+                <option value="IngredientId">Ingredient ID</option>
+                <option value="Ingredients">Ingredients</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Search"
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button className="search-button" onClick={handleAddTag}>
+                Search
+              </button>
+            </div>
+            <div className="add-button-container">
+              <button className="add-button" onClick={() => navigate('/add-item')}>
+                Add +
+              </button>
+            </div>
+          </div>
+
+          <div className="tags-container">
+            {tags.map(tag => (
+              <span key={`${tag.value}-${tag.filterType}`} className="tag">
+                {`${tag.filterType}: ${tag.value}`}
+                <button className="tag-close" onClick={() => handleRemoveTag(tag)}>
+                  ✕
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <table className="items-table">
+            <thead>
+              <tr>
+                <th>Item Id</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Ingredients Id</th>
+                <th>Ingredients</th>
+                <th>Volume</th>
+                <th>Unit</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayedItems.map((item) => (
+                item.ingredients?.length > 0 ? (
+                  item.ingredients.map((ing, index) => (
+                    <tr key={`${item.itemId}-${index}`}>
+                      {index === 0 && (
+                        <>
+                          <td rowSpan={item.ingredients.length}>{item.itemId}</td>
+                          <td rowSpan={item.ingredients.length}>{item.name}</td>
+                          <td rowSpan={item.ingredients.length}>{item.Category || item.category || 'N/A'}</td>
+                        </>
+                      )}
+                      <td>{ing.ingredientId}</td>
+                      <td>{ing.name}</td>
+                      <td>{ing.volume || 'N/A'}</td>
+                      <td>{ing.unit || 'N/A'}</td>
+                      {index === 0 && (
+                        <td rowSpan={item.ingredients.length}>
+                          <div className="action-container">
+                            <button
+                              className="edit-button"
+                              onClick={() => handleEdit(item.itemId)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="delete-button"
+                              onClick={() => handleDelete(item.itemId)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      )}
+                    </tr>
+                  ))
+                ) : (
+                  <tr key={item.itemId}>
+                    <td>{item.itemId}</td>
+                    <td>{item.name}</td>
+                    <td>{item.Category || item.category || 'N/A'}</td>
+                    <td colSpan={4}>No ingredients</td>
+                    <td>
+                      <div className="action-container">
+                        <button
+                          className="edit-button"
+                          onClick={() => handleEdit(item.itemId)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDelete(item.itemId)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <Toaster /> {/* Add Toaster component for toast notifications */}
     </>
   );
 }
