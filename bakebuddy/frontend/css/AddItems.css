@@ -27,18 +27,24 @@
   /* Flex container for item name and category */
   .form-row {
     display: flex;
+    flex-direction: row;
+    
+   
+   
     gap: 20px;
     margin-bottom: 20px;
   }
   
   .form-group {
     flex: 1;
+   
   }
   
   .form-label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    
   }
   
   .form-input {
@@ -47,6 +53,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    
+    
   }
   
   .form-input:focus {
@@ -61,16 +69,24 @@
   
   .ingredients-input-row {
     display: flex;
-    gap: 10px;
+    
+    flex-direction: row;
+    gap: 5px;
     margin-bottom: 10px;
+    
+    flex-wrap: wrap;
+   
+    padding: 8px;
+    
   }
   
   .ingredients-input {
     flex: 1;
     padding: 8px;
+    
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 19rem;
   }
   
   .ingredients-input:focus {
