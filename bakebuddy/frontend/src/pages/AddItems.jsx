@@ -74,6 +74,7 @@ export default function AddItem() {
   };
 
   const addIngredient = () => {
+    // Check if all fields are filled
     if (
       !newIngredient.ingredientId ||
       !newIngredient.name ||
@@ -84,6 +85,16 @@ export default function AddItem() {
       return;
     }
 
+    // Check if the ingredient already exists in formData.ingredients
+    const ingredientExists = formData.ingredients.some(
+      (ing) => ing.ingredientId.toLowerCase() === newIngredient.ingredientId.toLowerCase()
+    );
+    if (ingredientExists) {
+      setError('This ingredient has already been added');
+      return;
+    }
+
+    // Validate the ingredient exists in validIngredients
     const selectedIngredient = validIngredients.find((ing) =>
       ing.ingredientId.toLowerCase() === newIngredient.ingredientId.toLowerCase()
     );
@@ -99,6 +110,7 @@ export default function AddItem() {
       return;
     }
 
+    // Add the ingredient if all checks pass
     const ingredientToAdd = {
       ...newIngredient,
       name: selectedIngredient.name,
@@ -110,6 +122,7 @@ export default function AddItem() {
       ingredients: [...prev.ingredients, ingredientToAdd],
     }));
 
+    // Reset the new ingredient form and clear error
     setNewIngredient({ ingredientId: '', name: '', volume: '', unit: '' });
     setError(null);
     if (ingredientIdRef.current) ingredientIdRef.current.focus();
