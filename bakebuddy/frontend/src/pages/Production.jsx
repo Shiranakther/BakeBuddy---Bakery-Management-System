@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 
-import '../../css/production.css'
+
+
 import productionHeader from "../../images/production-page-header-image.png";
 import toast, { Toaster } from "react-hot-toast";
 import addButton from'../../images/add_button.png';
-
+import '../../css/production.css'
 
 
 const Production = () => {
@@ -23,8 +23,6 @@ const Production = () => {
   const [items, setItems] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProductions();
@@ -77,27 +75,7 @@ const Production = () => {
     setSuggestions(filteredItems);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (editingId) {
-  //       await axios.put(`http://localhost:5000/api/production/${editingId}`, formData);
-  //     } else {
-  //       await axios.post("http://localhost:5000/api/production", formData);
-  //     }
-  //     setFormData({
-  //       productCode: "",
-  //       productName: "",
-  //       date: "",
-  //       quantity: "",
-  //       remarks: "",
-  //     });
-  //     setEditingId(null);
-  //     fetchProductions();
-  //   } catch (error) {
-  //     console.error("Error adding/updating production", error);
-  //   }
-  // };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -250,7 +228,7 @@ const Production = () => {
 
 
         <div className="production-details-wrapper">
-        <label> Quantity</label>
+        <label> Product Qty</label>
         <input
           type="number"
           name="quantity"
@@ -258,13 +236,14 @@ const Production = () => {
           value={formData.quantity}
           onChange={handleChange}
           className="production-details"
+          min="1" 
           required
         />
         </div>
 
 
         <div className="production-details-wrapper">
-        <label> Remarks</label>
+        <label>Remarks</label>
         <input
           type="text"
           name="remarks"

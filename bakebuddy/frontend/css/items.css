@@ -61,6 +61,7 @@
   border-radius: 0;
   background-color: #fafafa;
   transition: border-color 0.3s ease;
+  max-height:20px;
 }
 
 .search-input:focus {
