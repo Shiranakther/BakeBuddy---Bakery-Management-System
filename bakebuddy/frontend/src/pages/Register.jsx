@@ -128,7 +128,7 @@ const Register = () => {
                 className="register-select"
               >
                 <option value="supervisor">Supervisor</option>
-                {/* <option value="admin">Admin</option> */}
+                <option value="admin">Admin</option>
               </select>
             </div>
             <button type="submit" className="register-submit-button">
