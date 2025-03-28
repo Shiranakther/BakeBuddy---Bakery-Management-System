@@ -61,13 +61,13 @@ export default function ProductionReport() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // if (editingId) {
-      //   await axios.put(`http://localhost:5000/api/production/${editingId}`, formData);
-      //   toast.success("Production updated successfully!");
-      // } else {
-      //   await axios.post("http://localhost:5000/api/production", formData);
-      //   toast.success("Production added successfully!");
-      // }
+      if (editingId) {
+        await axios.put(`http://localhost:5000/api/production/${editingId}`, formData);
+        toast.success("Production updated successfully!");
+      } else {
+        await axios.post("http://localhost:5000/api/production", formData);
+        toast.success("Production added successfully!");
+      }
 
 
       fetchProductions();
@@ -79,18 +79,30 @@ export default function ProductionReport() {
     }
   };
 
-  // const handleEdit = (prod) => {
-  //   setFormData({
-  //     productCode: prod.productCode,
-  //     productName: prod.productName,
-  //     date: prod.date ? prod.date.split("T")[0] : "",
-  //     quantity: prod.quantity,
-  //     remarks: prod.remarks,
-  //     lastUpdated: prod.updatedAt ? new Date(prod.updatedAt).toLocaleString() : "Not Updated",
-  //   });
-  //   setEditingId(prod._id);
-  //   setShowModal(true);
-  // };
+  const handleEdit = (prod) => {
+    setFormData({
+      productCode: prod.productCode,
+      productName: prod.productName,
+      date: prod.date ? prod.date.split("T")[0] : "",
+      quantity: prod.quantity,
+      remarks: prod.remarks,
+      lastUpdated: prod.updatedAt ? new Date(prod.updatedAt).toLocaleString() : "Not Updated",
+    });
+    setEditingId(prod._id);
+    setShowModal(true);
+  };
+
+    const handleDelete = async (id) => {
+      console.log("Deleting production with ID:", id); 
+      try {
+        await axios.delete(`http://localhost:5000/api/production/${id}`);
+        toast.success("Production deleted successfully.");
+        fetchProductions();
+      } catch (error) {
+      console.error("Error deleting production", error);
+      toast.error("Error deleting production.");
+      }
+    };
 
  
 
@@ -131,7 +143,7 @@ export default function ProductionReport() {
               <th>Quantity</th>
               <th>Remarks</th>
               <th>Last Update</th>
-              {/* <th>Actions</th> */}
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -148,11 +160,12 @@ export default function ProductionReport() {
                   <td>{prod.quantity}</td>
                   <td>{prod.remarks}</td>
                   <td>{prod.updatedAt ? new Date(prod.updatedAt).toLocaleString() : "N/A"}</td>
-                  {/* <td>
+                  <td>
                     <div className="action-buttons">
                       <button onClick={() => handleEdit(prod)} className="edit-btn">Edit</button>
+                      <button onClick={() => handleDelete(prod._id)}  className="delete-btn">Delete</button>
                     </div>
-                  </td> */}
+                  </td>
                 </tr>
               ))
             )}
@@ -251,10 +264,10 @@ export default function ProductionReport() {
 
               <div className="production-details-wrapper-container">
                 <div className="production-details-wrapper">
-                  {/* <button type="submit" className={`production-button ${editingId ? "update-mode" : "add-mode"}`}>
+                  <button type="submit" className={`production-button ${editingId ? "update-mode" : "add-mode"}`}>
                     {editingId ? "Update" : "Add"} Production
                     
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </form>
