@@ -41,6 +41,7 @@
        justify-content:space-between;
        border:none;
        height:100%;
+       width:150px;
      }
      .edit-btn {
        background-color: #5B913B;
@@ -48,7 +49,7 @@
        border: none;
        cursor: pointer;
        width:100%;
-       padding:5px 10px;
+       padding:5px 5px;
        border-radius:5px;
        
      }
@@ -57,10 +58,11 @@
        background-color: #e63946;
        color: white;
        border: none;
-       width:70px;
        cursor: pointer;
-       padding:5px 10px;
+       width:100%;
+       padding:5px 5px;
        border-radius:5px;
+       
      }
      
      .edit-btn:hover {
@@ -185,15 +187,19 @@
    
    .update-mode {
      background-color: green; /* Green color for "Update" mode */
-     font-size: 0.7rem;
+     font-size: 0.rem;
      text-align: left;
+     display:flex;
+     flex-direction:column;
+     align-items: center;
+     justify-content: center;
    }
    .update-mode img{
     height:30px;
     width:30px;
   }
    
-/*    
+   
    .modal-overlay {
      position: fixed;
      top: 0;
@@ -218,7 +224,7 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
-   } */
+   }
    
    .close-button {
      background: none;
