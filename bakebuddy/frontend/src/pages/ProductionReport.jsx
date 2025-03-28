@@ -22,26 +22,50 @@ export default function ProductionReport() {
   const [showModal, setShowModal] = useState(false);
   const [startDate, setStartDate] = useState(""); // Start date for filtering
   const [endDate, setEndDate] = useState(""); // End date for filtering
+  const [searchQuery, setSearchQuery] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProductions();
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    // Filter productions based on the date range when either start or end date changes
-    if (startDate && endDate) {
+  //   // Filter productions based on the date range when either start or end date changes
+  //   if (startDate && endDate) {
         
-      const filteredData = productions.filter((prod) => {
+  //     const filteredData = productions.filter((prod) => {
+  //       const prodDate = new Date(prod.date);
+  //       return prodDate >= new Date(startDate) && prodDate <= new Date(endDate);
+  //     });
+  //     setFilteredProductions(filteredData);
+  //   } else {
+  //     setFilteredProductions(productions);
+  //   }
+  // }, [startDate, endDate, productions]);
+
+  useEffect(() => {
+    let filteredData = productions;
+  
+    if (startDate && endDate) {
+      filteredData = filteredData.filter((prod) => {
         const prodDate = new Date(prod.date);
         return prodDate >= new Date(startDate) && prodDate <= new Date(endDate);
       });
-      setFilteredProductions(filteredData);
-    } else {
-      setFilteredProductions(productions);
     }
-  }, [startDate, endDate, productions]);
+  
+    if (searchQuery) {
+      filteredData = filteredData.filter((prod) =>
+        prod.productCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        prod.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        prod.remarks.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    setFilteredProductions(filteredData);
+  }, [startDate, endDate, searchQuery, productions]);
+  
 
   const fetchProductions = async () => {
     try {
@@ -108,7 +132,7 @@ export default function ProductionReport() {
 
   return (
     <>
-      <Toaster />
+      <Toaster position="top-right" />
       <div className="page-header">
         <div className="page-header-image">
           <img src={productionHeader} alt="dashboard-page-header" className="page-header-icon" />
@@ -131,7 +155,21 @@ export default function ProductionReport() {
           onChange={(e) => setEndDate(e.target.value)}
           className="date-input"
         />
+
+        <div className="search-filter">
+        
+          <input
+            type="text"
+            placeholder="Search by Product Code, Name, or Remarks"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+        </div>
+
       </div>
+
+
 
       <div className="production-table-wrapper">
         <table className="production-table">
@@ -277,3 +315,4 @@ export default function ProductionReport() {
     </>
   );
 }
+
