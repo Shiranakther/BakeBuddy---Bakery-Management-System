@@ -190,7 +190,9 @@
 }
 
 .ingredients-table th {
-  background-color: #f5a623; /* Reinforced orange header */
+  background-color: #f5a623;
+  
+   /* Reinforced orange header */
 }
 
 .ingredients-table tbody tr {
