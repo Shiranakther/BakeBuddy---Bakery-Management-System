@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
 import '../../css/UpdateItem.css';
 
 export default function UpdateItem() {
@@ -44,6 +45,7 @@ export default function UpdateItem() {
       } catch (err) {
         console.error('Error fetching data:', err);
         setError(err.response?.data?.message || 'Failed to load item data');
+        toast.error(err.response?.data?.message || 'Failed to load item data'); // Error toast for fetch failure
       }
     };
     fetchData();
@@ -56,7 +58,6 @@ export default function UpdateItem() {
 
   const handleNewIngredientChange = (e) => {
     const { name, value } = e.target;
-    // Keep volume as a string, no immediate parsing
     setNewIngredient((prev) => ({ ...prev, [name]: value }));
     setError(null);
 
@@ -93,6 +94,16 @@ export default function UpdateItem() {
       !newIngredient.unit
     ) {
       setError('Please fill in all ingredient fields');
+      toast.error('Please fill in all ingredient fields'); // Error toast for incomplete fields
+      return;
+    }
+
+    const ingredientExists = formData.ingredients.some(
+      (ing) => ing.ingredientId.toLowerCase() === newIngredient.ingredientId.toLowerCase()
+    );
+    if (ingredientExists) {
+      setError('This ingredient has already been added');
+      toast.error('This ingredient has already been added'); // Error toast for duplicate
       return;
     }
 
@@ -101,20 +112,21 @@ export default function UpdateItem() {
     );
     if (!selectedIngredient) {
       setError('Ingredient does not exist');
+      toast.error('Ingredient does not exist'); // Error toast for invalid ingredient
       return;
     }
 
-    // Parse volume manually when adding
     const volume = parseFloat(newIngredient.volume);
     if (isNaN(volume) || volume < 0) {
       setError('Volume must be a valid positive number');
+      toast.error('Volume must be a valid positive number'); // Error toast for invalid volume
       return;
     }
 
     const ingredientToAdd = {
       ...newIngredient,
       name: selectedIngredient.name,
-      volume: volume, // Store as number after validation
+      volume: volume,
     };
 
     setFormData((prev) => ({
@@ -139,6 +151,7 @@ export default function UpdateItem() {
     e.preventDefault();
     if (!formData.name || !formData.Category || formData.ingredients.length === 0) {
       setError('Please fill in all fields and add at least one ingredient');
+      toast.error('Please fill in all fields and add at least one ingredient'); // Error toast for validation
       return;
     }
 
@@ -149,17 +162,20 @@ export default function UpdateItem() {
           ...formData,
           ingredients: formData.ingredients.map((ing) => ({
             ...ing,
-            volume: parseFloat(ing.volume), // Ensure volume is a number
+            volume: parseFloat(ing.volume),
           })),
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       setError(null);
+      toast.success(`Item "${formData.name}" (ID: ${itemId}) updated successfully!`); // Success toast
       navigate('/items');
     } catch (err) {
       console.error('Error updating item:', err);
-      setError(err.response?.data?.message || 'Failed to update item');
+      const errorMessage = err.response?.data?.message || 'Failed to update item';
+      setError(errorMessage);
+      toast.error(errorMessage); // Error toast for update failure
     }
   };
 
@@ -175,8 +191,8 @@ export default function UpdateItem() {
       <h1 className="update-item-header">Update Item</h1>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit} className="update-item-form">
-        <div className="form-row">
-          <div className="form-group">
+        <div className="item-form-row">
+          <div className="form-group-itemname">
             <label className="form-label">Item Name:</label>
             <input
               type="text"
@@ -188,7 +204,7 @@ export default function UpdateItem() {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-itemcategory">
             <label className="form-label">Category:</label>
             <input
               type="text"
@@ -225,7 +241,7 @@ export default function UpdateItem() {
               className="ingredients-input"
             />
             <input
-              type="text" // Changed from "number" to "text" for manual entry
+              type="text"
               name="volume"
               value={newIngredient.volume}
               onChange={handleNewIngredientChange}
@@ -292,6 +308,7 @@ export default function UpdateItem() {
           Update
         </button>
       </form>
+      <Toaster /> {/* Add Toaster component for toast notifications */}
     </div>
   );
 }

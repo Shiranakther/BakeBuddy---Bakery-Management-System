@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
 import '../../css/AddItems.css';
 
 export default function AddItem() {
@@ -44,7 +45,6 @@ export default function AddItem() {
 
   const handleNewIngredientChange = (e) => {
     const { name, value } = e.target;
-    // Allow manual entry for volume as a string, no immediate parsing
     setNewIngredient((prev) => ({ ...prev, [name]: value }));
     setError(null);
 
@@ -84,6 +84,14 @@ export default function AddItem() {
       return;
     }
 
+    const ingredientExists = formData.ingredients.some(
+      (ing) => ing.ingredientId.toLowerCase() === newIngredient.ingredientId.toLowerCase()
+    );
+    if (ingredientExists) {
+      setError('This ingredient has already been added');
+      return;
+    }
+
     const selectedIngredient = validIngredients.find((ing) =>
       ing.ingredientId.toLowerCase() === newIngredient.ingredientId.toLowerCase()
     );
@@ -92,7 +100,6 @@ export default function AddItem() {
       return;
     }
 
-    // Parse volume manually when adding
     const volume = parseFloat(newIngredient.volume);
     if (isNaN(volume) || volume < 0) {
       setError('Volume must be a valid positive number');
@@ -102,7 +109,7 @@ export default function AddItem() {
     const ingredientToAdd = {
       ...newIngredient,
       name: selectedIngredient.name,
-      volume: volume, // Store as number after validation
+      volume: volume,
     };
 
     setFormData((prev) => ({
@@ -127,6 +134,7 @@ export default function AddItem() {
     e.preventDefault();
     if (!formData.name || !formData.Category || formData.ingredients.length === 0) {
       setError('Please fill in all fields and add at least one ingredient');
+      toast.error('Please fill in all fields and add at least one ingredient');
       return;
     }
 
@@ -137,17 +145,20 @@ export default function AddItem() {
           ...formData,
           ingredients: formData.ingredients.map((ing) => ({
             ...ing,
-            volume: parseFloat(ing.volume), // Ensure volume is a number
+            volume: parseFloat(ing.volume),
           })),
         },
         { headers: { 'Content-Type': 'application/json' } }
       );
 
       setError(null);
+      toast.success(`Item "${formData.name}" created successfully!`); // Success toast
       navigate('/items');
     } catch (err) {
       console.error('Error:', err);
-      setError(err.response?.data?.message || 'Failed to create item');
+      const errorMessage = err.response?.data?.message || 'Failed to create item';
+      setError(errorMessage);
+      toast.error(errorMessage); // Error toast
     }
   };
 
@@ -160,11 +171,11 @@ export default function AddItem() {
 
   return (
     <div className="add-item-container">
-      <h1 className="add-item-header">Item Management</h1>
+      <h1 className="add-item-header">Create a New Item</h1>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit} className="add-item-form">
-        <div className="form-row">
-          <div className="form-group">
+        <div className="item-form-row">
+          <div className="form-group-itemname">
             <label className="form-label">Item Name :</label>
             <input
               type="text"
@@ -176,7 +187,7 @@ export default function AddItem() {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-itemcategory">
             <label className="form-label">Category :</label>
             <input
               type="text"
@@ -213,7 +224,7 @@ export default function AddItem() {
               className="ingredients-input"
             />
             <input
-              type="text" // Changed from "number" to "text" for manual entry
+              type="text"
               name="volume"
               value={newIngredient.volume}
               onChange={handleNewIngredientChange}
@@ -280,6 +291,7 @@ export default function AddItem() {
           Create
         </button>
       </form>
+      <Toaster /> {/* Add Toaster component for toast notifications */}
     </div>
   );
 }

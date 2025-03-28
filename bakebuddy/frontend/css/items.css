@@ -1,201 +1,370 @@
-/* Items.css */
-
+/* Container styling */
 .items-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-  
-    margin-top: 100px;
-    margin-left: 200px;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  max-width: 1200px; /* Modern wide layout */
+}
 
+/* Header container */
+.items-header-container {
+  display: flex;
+  justify-content: left;
+  align-items: center; /* Fixed 'left' to 'center' */
+  margin-bottom: 35px;
+  width: 100%;
+}
 
-  }
-  
-  .items-header-container {
-    display: flex;
-    justify-content: left;
-    align-items: left;
-   
-    margin-bottom: 35px;
-    width: 100%;
-   
-  }
+/* Header styling */
+.items-header {
+  margin: 0;
+  color: #f5a623;
+  font-size: 1.5em; /* Original size */
+  font-weight: bold;
+  background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* For gradient effect */
+  letter-spacing: 0.5px; /* Modern touch */
+}
 
+/* Search container */
+.search-container {
+  display: flex;
+  justify-content: left;
+  gap: 10px; /* Modern spacing */
+}
 
+/* Filter select */
+.filter-select {
+  padding: 5px; /* Original padding */
+  margin-right: 10px;
+  border: none;
+  border-bottom: 2px solid #d0d0d0; /* Modern underline */
+  border-radius: 0;
+  background-color: #fafafa; /* Modern light gray */
+  transition: border-color 0.3s ease; /* Modern transition */
+}
 
+.filter-select:focus {
+  outline: none;
+  border-bottom-color: #f5a623;
+}
 
-  .action-container {
-    display: flex;
-    justify-content: center; /* Center the buttons horizontally */
-    flex-direction: column;
-    gap: 15px; /* Space between buttons */
-    padding: 5px; /* Reduced padding to fit within the table cell */
-    /* The red border */
-    box-sizing: border-box; /* Ensures padding and border are included in the element's width */
-  }
-  
-  .items-header {
-    margin: 0;
-    color: #f5a623;
-    font-size: 1.5em;
-    font-weight: bold;
-   
-   
+/* Search input */
+.search-input {
+  padding: 5px; /* Original padding */
+  border: none;
+  border-bottom: 2px solid #d0d0d0;
+  border-radius: 0;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
 
-  }
-  
-  .search-container {
-    display: flex;
-    justify-content: left;
-    gap: 0px;
+.search-input:focus {
+  outline: none;
+  border-bottom-color: #f5a623;
+}
 
+/* Search button */
+.search-button {
+  padding: 10px 10px; /* Original padding */
+  background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px; /* Modern pill shape */
+  font-weight: 600; /* Modern boldness */
+  text-transform: uppercase; /* Modern touch */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Modern hover effects */
+}
 
-  
-    
-  }
-  
-  
-  .filter-select {
-    padding: 5px;
-    margin-right: 10px;
-  }
-  
-  .search-input {
-    padding: 5px;
-  }
-  
-  .search-button{
-    padding: 10px 10px;
-    background-color: #f5a623;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  .add-button {
-    
-    top: 0; /* Aligns with the top of the table */
-    right: 0; /* Aligns with the right edge of the table */
-    padding: 10px 10px;
-    background-color: #f5a623;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  
-  
-  }
-  .items-table-header {
-    display: flex;
-    justify-content: space-between;
+.search-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+}
 
-    align-items: right;
-    margin-bottom: 10px;
-    
-    width: 100%;
-  }
-  
-  .items-table-container {
-    
-    max-width: fit-content;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    align-items: center;
-    justify-content: center;
-   
-    
-  
-    
-  }
-  
-  .items-table {
-    margin: 5px 0;
-    border-collapse: collapse;
-    background-color: #fff;
-    width: 100%;
-    font-size: 0.9em;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    
-    
-  }
-  
-  .items-table thead tr {
-    background-color: #f2f2f2;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .items-table th,
-  .items-table td {
-   
-    padding: 12px 15px;
-    
-  }
-  
-  .items-table tbody tr {
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  }
-  .items-table tbody tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  
-  
-  
-  .edit-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    margin-right: 5px;
-    cursor: pointer;
-    
-  }
-  
-  .delete-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    cursor: pointer;
-  }
-  .tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: left;
-    gap: 10px;
-   
-    margin-top: 10px;
-    margin-bottom: 0px;
-    
-  }
-  
-  .tag {
-    display: flex;
-    align-items: center;
-    background-color: #f5a623; /* Orange background like in the image */
-    color: white;
-    padding: 5px 10px;
-    border-radius: 15px; /* Rounded corners */
-    font-size: 0.9em;
-  }
-  
-  .tag-close {
-    background: none;
-    border: none;
-    color: white;
-    margin-left: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    line-height: 1;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
+/* Add button container */
+.add-button-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Add button */
+.add-button {
+  top: 0; /* Original positioning */
+  right: 0;
+  padding: 10px 10px; /* Original padding */
+  background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient */
+  color: white;
+  border: none;
+  border-radius: 20px; /* Modern pill shape */
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Modern hover effects */
+}
+
+.add-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+}
+
+/* Report button container */
+.report-button-container {
+  position: relative; /* For positioning the dropdown */
+}
+
+/* Generate Report button */
+.generate-report-button {
+  padding: 10px 15px;
+  background: linear-gradient(to right, #2196F3, #1976D2); /* Blue gradient for distinction */
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.generate-report-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Report options dropdown */
+.report-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  z-index: 10;
+}
+
+/* Report option button */
+.report-option-button {
+  padding: 8px 15px;
+  background: linear-gradient(to right, #f5a623, #e59400); /* Match other buttons */
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 5px 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.report-option-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.3);
+}
+
+/* Table header container */
+.items-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Fixed 'right' to 'center' */
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Table container */
+.items-table-container {
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%; /* Original width */
+}
+
+/* Table styling */
+.items-table {
+  margin: 5px 0; /* Original margin from first Items.css */
+  border-collapse: collapse; /* Modern clean edges */
+  background: linear-gradient(135deg, #ffffff, #f8f8f8); /* Modern subtle gradient */
+  width: 100%;
+  font-size: 0.8em; /* Original font size from first Items.css */
+  border-radius: 10px; /* Modern softer corners */
+  overflow: hidden; /* Modern overflow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Modern shadow */
+}
+
+.items-table thead tr {
+  background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient header kept */
+  color: #fff; /* Modern white text kept */
+  text-align: center;
+  font-weight: 600; /* Modern boldness kept */
+  text-transform: uppercase; /* Modern touch kept */
+  letter-spacing: 0.4px; /* Modern spacing kept */
+}
+
+.items-table th,
+.items-table td {
+  padding: 12px 15px; /* Original padding from first Items.css */
+  vertical-align: middle; /* Modern centering */
+  border-left: 1px solid rgba(224, 224, 224, 0.7); /* New modern vertical border */
+  border-right: 1px solid rgba(224, 224, 224, 0.7); /* New modern vertical border */
+}
+
+.items-table th {
+  border-bottom: 2px solid #e59400; /* Modern header separation kept */
+}
+
+/* Remove vertical borders from first and last cells for a cleaner edge */
+.items-table th:first-child,
+.items-table td:first-child {
+  border-left: none;
+}
+
+.items-table th:last-child,
+.items-table td:last-child {
+  border-right: none;
+}
+
+.items-table tbody tr {
+  border-bottom: 1px solid #ddd; /* Original border from first Items.css */
+  background-color: #fff; /* Modern clean white */
+  transition: background-color 0.3s ease, box-shadow 0.2s ease; /* Modern hover effects */
+}
+
+.items-table tbody tr:hover {
+  background-color: #f9f9f9; /* Modern subtle hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Modern hover lift */
+}
+
+.items-table tbody tr:nth-child(even) {
+  background-color: #fefefe; /* Modern light zebra striping */
+}
+
+.items-table td {
+  color: #2c2c2c; /* Modern darker text */
+}
+
+/* Action container */
+.action-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row; /* Updated to row */
+  gap: 10px; /* Updated gap */
+  padding: 5px; /* Original padding */
+  box-sizing: border-box;
+}
+
+/* Edit button */
+.edit-button {
+  background: linear-gradient(to right, #4CAF50, #388E3C); /* Modern gradient kept */
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 6px 12px; /* Updated padding kept */
+  border-radius: 20px; /* Modern pill shape kept */
+  font-size: 0.9em;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.2s ease; /* Modern hover effects kept */
+}
+
+.edit-button:hover {
+  transform: translateY(-1px); /* Modern lift kept */
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); /* Modern glow kept */
+}
+
+/* Delete button */
+.delete-button {
+  background: linear-gradient(to right, #f44336, #d32f2f); /* Modern gradient kept */
+  color: white;
+  cursor: pointer;
+  border: none;
+  padding: 6px 12px; /* Updated padding kept */
+  border-radius: 20px; /* Modern pill shape kept */
+  font-size: 0.9em;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.2s ease; /* Modern hover effects kept */
+}
+
+.delete-button:hover {
+  transform: translateY(-1px); /* Modern lift kept */
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3); /* Modern glow kept */
+}
+
+/* Tags container */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: left;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Tag styling */
+.tag {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient */
+  color: white;
+  padding: 5px 10px; /* Original padding */
+  border-radius: 15px; /* Original radius */
+  font-size: 0.9em; /* Original size */
+  font-weight: 500; /* Modern boldness */
+  transition: transform 0.2s ease; /* Modern hover effect */
+}
+
+.tag:hover {
+  transform: scale(1.05); /* Modern scale-up */
+}
+
+/* Tag close button */
+.tag-close {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease; /* Modern hover effect */
+}
+
+.tag-close:hover {
+  color: #ffebee; /* Modern subtle hover color */
+}
+
+/* Page header styling (for completeness) */
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.page-header-image {
+  margin-right: 10px;
+}
+
+.page-header-icon {
+  width: 50px; /* Adjust as needed */
+  height: auto;
+}
+
+.page-header-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+}
