@@ -1,0 +1,122 @@
+/* Register.css */
+
+/* Full page layout */
+.register-page {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  /* Left panel with logo */
+  .register-left-panel {
+    flex: 1;
+    background-color: #8B5A2B; /* Brown color from the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-logo {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Adjust font as needed */
+    
+  }
+  
+  /* Right panel with form */
+  .register-right-panel {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+  }
+  
+  .register-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-left: 0px;
+    color: #333;
+  }
+  
+  .register-error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .register-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .register-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    text-align: left;
+  }
+  
+  .register-input,
+  .register-select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background: transparent;
+    transition: border-color 0.3s;
+    text-align: left;
+  }
+  
+  .register-input:focus,
+  .register-select:focus {
+    border-bottom: 1px solid #8B5A2B; /* Brown color for focus */
+  }
+  
+  .register-submit-button {
+    background-color: #F5A623; /* Orange color from the image */
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .register-submit-button:hover {
+    background-color: #e69520;
+  }
+  
+  .register-login-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .register-signin-link {
+    color: #8B5A2B; /* Brown color for the link */
+    text-decoration: none;
+  }
+  
+  .register-signin-link:hover {
+    text-decoration: underline;
+  }

@@ -4,7 +4,8 @@ import productionRoutes  from "./routes/productionRoutes.js";
 import itemRoutes from './routes/itemRoutes.js';
 import ingredientRoutes from './routes/ingredientRoutes.js';
 import {connectDB} from "./connection/connectDB.js";
-import salesRoutes from './routes/salesRouter.js';    
+import salesRoutes from './routes/salesRouter.js';  
+import userRoutes from './routes/userRouter.js';   
 import cors from 'cors';
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use("/api/production",productionRoutes);
 app.use('/api/item',itemRoutes);
 app.use("/api/ingredients",ingredientRoutes);
 app.use("/api/sales", salesRoutes);
+app.use('/api/auth', userRoutes);
 
 
 app.listen(PORT,(req,res)=>{
