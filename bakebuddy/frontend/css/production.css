@@ -160,7 +160,7 @@
 
 .production-button{
  height:39px;
- width:180px;
+ width:190px;
  background-color: #FFA725;
  border:none;
  border-radius:5px;
@@ -218,10 +218,10 @@
   background-color: green; /* Green color for "Update" mode */
   font-size: 0.7rem;
   text-align: left;
+
 }
 .update-mode img{
-  height:30px;
-  width:30px;
+  display:none
 }
  
 

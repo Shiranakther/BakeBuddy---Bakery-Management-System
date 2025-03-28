@@ -151,7 +151,7 @@ const Production = () => {
 
   return (
     <div className="production-container">
-      <Toaster />
+      <Toaster position="top-right" />
       <div className="page-header">
               <div className="page-header-image">
                 <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />

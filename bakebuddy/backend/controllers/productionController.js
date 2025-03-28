@@ -118,8 +118,8 @@ export const createProduction = async (req, res) => {
                 // Calculate new quantity
                 let newQuantity = existingIngredient.ingredientQuantity - (quantity * volume);
                 if (newQuantity < 0) {
-                    console.warn(`Insufficient stock for ingredient ${ingredientId}.`);
                     newQuantity = 0; // Prevent negative values
+                    return res.status(400).json({ msg: `Insufficient stock for ingredient ${ingredientId}.` });
                 }
 
                 // Update the ingredient quantity in the database

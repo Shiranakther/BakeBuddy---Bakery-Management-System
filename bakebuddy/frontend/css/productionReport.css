@@ -17,8 +17,9 @@
      .production-table th,
      .production-table td {
        border: 1px solid #D6D6D6;
-       padding: 10px 20px;
+       padding: 10px ;
        text-align: left;
+     
      }
      
      .production-table th {
@@ -35,13 +36,13 @@
        background-color: #f1f1f1;
      }
      .action-buttons{
-      
+       
        display:flex;
        flex-direction: row;
        justify-content:space-between;
        border:none;
        height:100%;
-       width:150px;
+       
      }
      .edit-btn {
        background-color: #5B913B;
@@ -237,13 +238,44 @@
    .date-range-filter{
     display:flex;
     flex-direction: row;
-    padding-left:80px;
     align-items: center;
+    justify-content: space-between;
+    margin: 20px 80px;
    }
    .date-input{
-    width:200px;
+    width:180px;
     height:20px;
-    margin:10px 60px 10px 20px;
+    margin:10px 30px 10px 0px;
+    font-size: 0.9rem;
    
 
    }
+
+   .search-filter {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+
+  }
+  
+  .search-input {
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    font-size: 0.8rem;
+    background-color: white;
+    height:30px;
+   
+   
+  }
+
+  input:focus {
+    outline: none;
+
+  }
+  
+  
