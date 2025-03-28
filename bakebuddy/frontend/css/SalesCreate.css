@@ -1,43 +1,15 @@
 /* Page header styling */
-.sales-create-page-header {
-    position: relative;
-    margin-bottom: 30px;
-    text-align: center;
-    background: linear-gradient(135deg, #f9a825, #ffffff);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-  
-  .sales-create-page-header-image {
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-  
-  .sales-create-page-header-icon {
-    max-width: 120px;
-    height: auto;
-    border-radius: 50%;
-    border: 2px solid #fff;
-  }
-  
-  .sales-create-page-header-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
+
+
   /* Main container styling */
   .sales-create-main-container {
     max-width: 1200px;
     margin: 0 auto 40px;
-    padding: 30px;
-    background-color: #fff;
+    padding: 15px;
+    background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eee;
+    border: 1px solid #878787;
   }
   
   /* Titles */
@@ -56,10 +28,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    justify-content: center;
+    /* justify-content: center; */
+    text-align: left;
     padding: 20px;
     background-color: #fafafa;
-    border-radius: 8px;
+    border-radius: 10px;
   }
   
   .sales-create-content-wrapper {
@@ -86,9 +59,10 @@
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     width: 100%;
     box-sizing: border-box;
+    height: 38px;
     background-color: #fff;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
@@ -117,7 +91,7 @@
     font-size: 1.1rem;
     font-weight: 500;
     transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 15px;
+    margin-top: 44px;
   }
   
   .sales-create-submit-btn:hover {
@@ -161,24 +135,25 @@
   }
   
   .sales-create-search-btn,
-  .sales-create-clear-btn {
-    background: linear-gradient(90deg, #008cba, #4fc3f7);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: background 0.3s ease, transform 0.2s ease;
-    flex: 0 0 auto; /* Prevent buttons from stretching */
-    min-width: 100px; /* Ensure buttons have enough width */
-  }
-  
-  .sales-create-search-btn:hover {
-    background: linear-gradient(90deg, #006d9e, #42a5f5);
-    transform: translateY(-2px);
-  }
+.sales-create-clear-btn {
+  background: linear-gradient(90deg, #0fba00, #81f74f); /* Green gradient */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+  flex: 0 0 auto; /* Prevent buttons from stretching */
+  min-width: 100px; /* Ensure buttons have enough width */
+}
+
+.sales-create-search-btn:hover,
+.sales-create-clear-btn:hover {
+  background: linear-gradient(90deg, #0d9300, #6cd940); /* Darker green gradient on hover */
+  transform: translateY(-2px);
+}
   
   .sales-create-clear-btn {
     background: linear-gradient(90deg, #f44336, #ef5350);
@@ -252,12 +227,12 @@
   }
   
   .sales-create-update-btn {
-    background: linear-gradient(90deg, #2196f3, #42a5f5);
+    background: linear-gradient(90deg, #0d9300, #6cd940);
     color: white;
   }
   
   .sales-create-update-btn:hover {
-    background: linear-gradient(90deg, #1976d2, #1e88e5);
+    background: linear-gradient(90deg, #0d9300, #6cd940);
     transform: translateY(-2px);
   }
   
