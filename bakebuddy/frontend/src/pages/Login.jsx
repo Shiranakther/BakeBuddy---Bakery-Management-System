@@ -16,6 +16,8 @@ const Login = () => {
       const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
       localStorage.setItem('token', response.data.token);
       
+
+      
       // Show success toast
       toast.success('Login successful! Redirecting...', {
         duration: 2000, // Show for 2 seconds
