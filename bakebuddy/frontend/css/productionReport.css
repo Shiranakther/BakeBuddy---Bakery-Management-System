@@ -47,10 +47,10 @@
        color: white;
        border: none;
        cursor: pointer;
-       width:70px;
+       width:100%;
        padding:5px 10px;
        border-radius:5px;
-       margin-right: 5px;
+       
      }
      
      .delete-btn {
@@ -134,25 +134,20 @@
    
    .production-button{
     height:39px;
-    width:180px;
     background-color: #FFA725;
     border:none;
     border-radius:5px;
     color:white;
-    font-size:0.9rem;
+    font-size:0.8rem;
     font-weight:600;
     cursor:pointer;
     margin:30px 20px;
     display:flex;
     flex-direction:row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
    }
-   .production-button img{
-     height:35px;
-     width:33px;
-     
-    }
+   
    .production-history{
      margin: 0 80px;
      padding: 10px 0px;
@@ -161,7 +156,7 @@
      flex-direction:row;
      justify-content: space-between;
      align-items: center;
-     
+     text-align: center;
      font-size: 2rem;
      font-weight: 700;
      border-radius:10px;
@@ -190,9 +185,15 @@
    
    .update-mode {
      background-color: green; /* Green color for "Update" mode */
+     font-size: 0.7rem;
+     text-align: left;
    }
+   .update-mode img{
+    height:30px;
+    width:30px;
+  }
    
-   
+/*    
    .modal-overlay {
      position: fixed;
      top: 0;
@@ -217,7 +218,7 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
-   }
+   } */
    
    .close-button {
      background: none;
@@ -237,5 +238,6 @@
     width:200px;
     height:20px;
     margin:10px 60px 10px 20px;
+   
 
    }

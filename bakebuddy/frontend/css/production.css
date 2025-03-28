@@ -7,7 +7,7 @@
 .production-table {
     width:100%;
     border-collapse: collapse;
-
+   
     font-family: Arial, sans-serif;
     font-size: 0.9rem;
   
@@ -19,6 +19,7 @@
     border: 1px solid #D6D6D6;
     padding: 10px 20px;
     text-align: left;
+    color:rgb(66, 66, 66);
   }
   
   .production-table th {
@@ -164,15 +165,16 @@
  border:none;
  border-radius:5px;
  color:white;
- font-size:0.9rem;
+ font-size:0.8rem;
  font-weight:600;
  cursor:pointer;
  margin:30px 20px;
  display:flex;
  flex-direction:row;
  align-items: center;
- justify-content: space-around;
+ justify-content: space-between;
 }
+
 .production-button img{
   height:35px;
   width:33px;
@@ -183,10 +185,9 @@
   padding: 10px 0px;
   color:rgb(74, 74, 77);
   display:flex;
-  flex-direction:row;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  
+
   font-size: 2rem;
   font-weight: 700;
   border-radius:10px;
@@ -198,7 +199,7 @@
   height:30px;
   display:flex;
   flex-direction: column;
-  justify-content: center;
+ justify-content: center;
   align-items: center;
   border-radius:5px;
   color:white;
@@ -215,8 +216,14 @@
 
 .update-mode {
   background-color: green; /* Green color for "Update" mode */
+  font-size: 0.7rem;
+  text-align: left;
 }
-
+.update-mode img{
+  height:30px;
+  width:30px;
+}
+ 
 
 
 
