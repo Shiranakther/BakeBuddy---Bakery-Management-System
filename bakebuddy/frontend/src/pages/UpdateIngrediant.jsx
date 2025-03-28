@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-// import '../../css/CreateIngrediant.css'; // Reuse CreateIngredient.css
+import '../../css/UpdateIngredient.css'; // Reuse CreateIngredient.css
 import toast from 'react-hot-toast'; // Optional: for success/error notifications
 
 const UpdateIngredient = () => {

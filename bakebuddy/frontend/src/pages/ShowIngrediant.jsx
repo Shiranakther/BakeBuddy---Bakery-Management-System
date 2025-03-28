@@ -4,6 +4,8 @@ import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
 import '../../css/ShowIngrediant.css';
 import toast from "react-hot-toast";
+import productionHeader from "../../images/production-page-header-image.png";
+
 
 const ShowIngredient = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -117,8 +119,11 @@ const ShowIngredient = () => {
 
   return (
     <>
-      <div className="show-ingredient-page-header">
-        <div className="show-ingredient-page-header-title">Ingredient</div>
+      <div className="page-header">
+                    <div className="page-header-image">
+                      <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+                    </div>
+                    <div className="page-header-title">Ingredients</div>
       </div>
       <div className="show-ingredient-items-container">
         <div className="show-ingredient-items-table-container">
