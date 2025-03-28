@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast"; // Import toast and Toaster
+import toast, { Toaster } from "react-hot-toast";
+import "../../css/SalesUpdate.css"; // Keep existing CSS import
 
 const SalesUpdate = () => {
   const [salesData, setSalesData] = useState({
@@ -31,6 +32,7 @@ const SalesUpdate = () => {
         }
       } catch (error) {
         console.error("Error fetching sales data", error);
+        toast.error("Failed to fetch sales data");
       }
     };
     fetchSalesData();
@@ -42,47 +44,105 @@ const SalesUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const loadingToast = toast.loading("Updating sales record..."); // Show loading toast
     try {
       await axios.put(`http://localhost:5000/api/sales/update/${id}`, {
         date: salesData.date,
         buyerName: salesData.buyerName,
         salesQuentity: salesData.salesQuentity,
       });
-      toast.success("Sales record updated successfully!"); // Success notification
-      setTimeout(() => navigate("/create-sales"), 2000); // Redirect after 2 seconds
+      toast.success("Sales record updated successfully!", {
+        id: loadingToast, // Replace loading toast with success
+        duration: 2000,
+      });
+      setTimeout(() => navigate("/create-sales"), 2000); // Navigate after toast
     } catch (error) {
-      toast.error("Error updating sales record"); // Error notification
+      toast.error(error.response?.data?.message || "Error updating sales record", {
+        id: loadingToast, // Replace loading toast with error
+      });
       console.error("Update error:", error.response ? error.response.data : error.message);
     }
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "auto", padding: "20px", border: "1px solid #ccc", borderRadius: "10px", boxShadow: "2px 2px 12px rgba(0,0,0,0.1)" }}>
-      <h2 style={{ textAlign: "center" }}>Update Sales Record</h2>
-      {message && <p style={{ color: message.includes("Error") ? "red" : "green", textAlign: "center" }}>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>Date:</label>
-        <input type="date" name="date" value={salesData.date ? salesData.date.split("T")[0] : ""} onChange={handleChange} required style={{ width: "100%", padding: "8px", margin: "5px 0" }} />
+    <div className="sales-update-main-container">
+      <h2 className="sales-update-title">Update Sales Record</h2>
+      {message && <p className={`sales-update-message ${message.includes("Error") ? "sales-update-error" : "sales-update-success"}`}>{message}</p>}
+      <form className="sales-update-form" onSubmit={handleSubmit}>
+        <label className="sales-update-label">Date:</label>
+        <input
+          type="date"
+          name="date"
+          value={salesData.date ? salesData.date.split("T")[0] : ""}
+          onChange={handleChange}
+          required
+          className="sales-update-input"
+        />
 
-        <label>Item Code:</label>
-        <input type="text" name="itemCode" value={salesData.itemCode} readOnly style={{ width: "100%", padding: "8px", margin: "5px 0", backgroundColor: "#f9f9f9" }} />
+        <label className="sales-update-label">Item Code:</label>
+        <input
+          type="text"
+          name="itemCode"
+          value={salesData.itemCode}
+          readOnly
+          className="sales-update-input sales-update-readonly"
+        />
 
-        <label>Item Name:</label>
-        <input type="text" name="itemName" value={salesData.itemName} readOnly style={{ width: "100%", padding: "8px", margin: "5px 0", backgroundColor: "#f9f9f9" }} />
+        <label className="sales-update-label">Item Name:</label>
+        <input
+          type="text"
+          name="itemName"
+          value={salesData.itemName}
+          readOnly
+          className="sales-update-input sales-update-readonly"
+        />
 
-        <label>Buyer Name:</label>
-        <input type="text" name="buyerName" value={salesData.buyerName} onChange={handleChange} required style={{ width: "100%", padding: "8px", margin: "5px 0" }} />
+        <label className="sales-update-label">Buyer Name:</label>
+        <input
+          type="text"
+          name="buyerName"
+          value={salesData.buyerName}
+          onChange={handleChange}
+          required
+          className="sales-update-input"
+        />
 
-        <label>Sales Quantity:</label>
-        <input type="number" name="salesQuentity" value={salesData.salesQuentity} onChange={handleChange} required style={{ width: "100%", padding: "8px", margin: "5px 0" }} />
+        <label className="sales-update-label">Sales Quantity:</label>
+        <input
+          type="number"
+          name="salesQuentity"
+          value={salesData.salesQuentity}
+          onChange={handleChange}
+          required
+          className="sales-update-input"
+        />
 
-        <button type="submit" style={{ width: "100%", padding: "10px", backgroundColor: "#28a745", color: "white", border: "none", borderRadius: "5px", marginTop: "10px", cursor: "pointer" }}>Update</button>
-        
-        <button type="button" onClick={() => navigate("/create-sales")} style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", marginTop: "10px", cursor: "pointer" }}>Back</button>
+        <div className="sales-update-button-group">
+          <button type="submit" className="sales-update-submit-btn">Update</button>
+          <button type="button" onClick={() => navigate("/create-sales")} className="sales-update-back-btn">Back</button>
+        </div>
       </form>
 
-      {/* Toaster component to display notifications in the center */}
-      <Toaster position="top-center" /> {/* Change position to 'top-center' */}
+      <Toaster 
+        position="top-right" 
+        toastOptions={{
+          duration: 3000, // Default duration
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+          success: {
+            style: {
+              background: "#4CAF50",
+            },
+          },
+          error: {
+            style: {
+              background: "#f44336",
+            },
+          },
+        }}
+      />
     </div>
   );
 };

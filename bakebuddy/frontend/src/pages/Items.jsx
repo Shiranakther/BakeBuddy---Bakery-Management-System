@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode'; // For decoding JWT
+import toast, { Toaster } from 'react-hot-toast'; // For toast notifications
+import { jsPDF } from 'jspdf'; // For PDF generation
+import 'jspdf-autotable'; // For PDF table formatting
 import '../../css/items.css';
 import itemHeader from '../../images/item-header-image.png';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
 
 export default function Items() {
   const [items, setItems] = useState([]);
@@ -15,8 +16,8 @@ export default function Items() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('All');
   const [tags, setTags] = useState([]);
-  const [showReportOptions, setShowReportOptions] = useState(false);
-
+  const [userRole, setUserRole] = useState(null); // Store user role
+  const [showReportOptions, setShowReportOptions] = useState(false); // For report options dropdown
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +25,11 @@ export default function Items() {
       try {
         console.log('Fetching items from /api/item/all');
         const response = await axios.get('http://localhost:5000/api/item/all', {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include token
+          },
         });
-
         console.log('Fetched data:', response.data);
         setItems(response.data);
         setDisplayedItems(response.data);
@@ -34,14 +37,30 @@ export default function Items() {
       } catch (err) {
         console.error('Fetch error:', err);
         const errorMessage = err.response
-          ? `Failed to fetch items: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
+          ? `Failed to fetch items: ${err.response.status} ${err.response.statusText} - ${err.response.data.message}`
           : err.message;
         setError(errorMessage);
         setLoading(false);
       }
     };
 
+    const fetchUserRole = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const decoded = jwtDecode(token); // Decode JWT to get role
+          setUserRole(decoded.role || 'supervisor'); // Default to supervisor if role missing
+        } catch (err) {
+          console.error('Token decode error:', err);
+          setUserRole('supervisor'); // Fallback to supervisor on error
+        }
+      } else {
+        setUserRole('supervisor'); // Default if no token
+      }
+    };
+
     fetchItems();
+    fetchUserRole();
   }, []);
 
   const handleAddTag = () => {
@@ -64,12 +83,10 @@ export default function Items() {
 
   const handleSearch = (currentTags) => {
     console.log('Searching with tags:', currentTags);
-
     const filteredItems = items.filter(item => {
       if (currentTags.length === 0) return true;
 
       console.log('Processing item:', item);
-
       const matchesTags = currentTags.some(tag => {
         const tagLower = tag.value.toLowerCase();
         const tagFilterType = tag.filterType;
@@ -115,22 +132,28 @@ export default function Items() {
             );
         }
       });
-
       return matchesTags;
     });
-
     console.log('Filtered items:', filteredItems);
     setDisplayedItems(filteredItems);
   };
 
   const handleDelete = async (itemId) => {
+    if (userRole !== 'admin') {
+      toast.error('Only Admins can delete items.');
+      return;
+    }
+
     if (!window.confirm(`Are you sure you want to delete item with ID ${itemId}?`)) {
       return;
     }
 
     try {
       await axios.delete(`http://localhost:5000/api/item/${itemId}`, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include token
+        },
       });
 
       const updatedItems = items.filter(item => item.itemId !== itemId);
@@ -138,13 +161,10 @@ export default function Items() {
       setItems(updatedItems);
       setDisplayedItems(updatedItems);
       setError(null);
-
       toast.success(`Item "${deletedItem.name}" (ID: ${itemId}) deleted successfully!`);
     } catch (err) {
       console.error('Delete error:', err);
-      const errorMessage = err.response
-        ? `Failed to delete item: ${err.response.status} ${err.response.statusText} - ${err.response.data}`
-        : err.message;
+      const errorMessage = err.response?.data?.message || err.message;
       setError(errorMessage);
       toast.error("Error deleting item");
     }
@@ -203,7 +223,7 @@ export default function Items() {
       [
         ["Item ID", "Item Name", "Category", "Ingredient ID", "Ingredient Name", "Volume", "Unit"].join(",")
       ]
-        .concat(generateReportData().map(row => row.map(cell => `"${cell}"`).join(","))) // Wrap cells in quotes to handle commas
+        .concat(generateReportData().map(row => row.map(cell => `"${cell}"`).join(","))) // Wrap cells in quotes
         .join("\n");
 
     const footer = [
@@ -261,13 +281,10 @@ export default function Items() {
           const colIndex = data.column.index;
           const currentRow = data.row.raw;
 
-          // Check if this is the first ingredient for the item
           if (colIndex === 0 || colIndex === 1 || colIndex === 2) {
-            // Find how many ingredients this item has
             let rowspan = 1;
             let currentItemId = currentRow[0];
             if (currentItemId) {
-              // Count how many rows have the same Item ID
               for (let i = rowIndex; i < data.table.body.length; i++) {
                 if (data.table.body[i][0] === currentItemId && i !== rowIndex) {
                   rowspan++;
@@ -299,11 +316,13 @@ export default function Items() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
+  const isSupervisor = userRole === 'supervisor';
+
   return (
     <>
       <div className="page-header">
         <div className="page-header-image">
-          <img src={itemHeader} alt="item-page-header" className='page-header-icon' />
+          <img src={itemHeader} alt="item-page-header" className="page-header-icon" />
         </div>
         <div className="page-header-title">Items</div>
       </div>
@@ -413,8 +432,9 @@ export default function Items() {
                               Edit
                             </button>
                             <button
-                              className="delete-button"
+                              className={`delete-button ${isSupervisor ? 'disabled' : ''}`}
                               onClick={() => handleDelete(item.itemId)}
+                              disabled={isSupervisor}
                             >
                               Delete
                             </button>
@@ -438,8 +458,9 @@ export default function Items() {
                           Edit
                         </button>
                         <button
-                          className="delete-button"
+                          className={`delete-button ${isSupervisor ? 'disabled' : ''}`}
                           onClick={() => handleDelete(item.itemId)}
+                          disabled={isSupervisor}
                         >
                           Delete
                         </button>

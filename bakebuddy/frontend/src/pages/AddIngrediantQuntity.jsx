@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../../css/AddIngrediantQuntity.css';
+import '../../css/UpdateIngredientQuantity.css'; // Updated CSS import
 
 const UpdateIngredientQuantity = () => {
   const [ingredients, setIngredients] = useState([]);
   const [selectedIngredientId, setSelectedIngredientId] = useState('');
   const [selectedIngredient, setSelectedIngredient] = useState(null);
-  const [quantityChange, setQuantityChange] = useState(''); // For the input field to add/deduct
+  const [quantityChange, setQuantityChange] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
-  // Fetch all ingredients on component mount
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
@@ -23,7 +24,6 @@ const UpdateIngredientQuantity = () => {
     fetchIngredients();
   }, []);
 
-  // Handle ingredient selection
   const handleIngredientChange = async (e) => {
     const ingredientId = e.target.value;
     setSelectedIngredientId(ingredientId);
@@ -44,7 +44,6 @@ const UpdateIngredientQuantity = () => {
     }
   };
 
-  // Handle quantity change input
   const handleQuantityChange = (e) => {
     const value = e.target.value;
     if (value === '' || Number(value) >= 0) {
@@ -52,7 +51,6 @@ const UpdateIngredientQuantity = () => {
     }
   };
 
-  // Handle add operation
   const handleAdd = async () => {
     setError(null);
     setSuccess(null);
@@ -67,9 +65,8 @@ const UpdateIngredientQuantity = () => {
 
     try {
       const response = await axios.put(`http://localhost:5000/api/ingredients/${selectedIngredientId}`, {
-        ingredientQuantity: newQuantity
+        ingredientQuantity: newQuantity,
       });
-      
       setSuccess(`Added ${quantityToAdd} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);
       setQuantityChange('');
       setSelectedIngredient({ ...selectedIngredient, ingredientQuantity: newQuantity });
@@ -78,7 +75,6 @@ const UpdateIngredientQuantity = () => {
     }
   };
 
-  // Handle deduct operation
   const handleDeduct = async () => {
     setError(null);
     setSuccess(null);
@@ -99,9 +95,8 @@ const UpdateIngredientQuantity = () => {
 
     try {
       const response = await axios.put(`http://localhost:5000/api/ingredients/${selectedIngredientId}`, {
-        ingredientQuantity: newQuantity
+        ingredientQuantity: newQuantity,
       });
-      
       setSuccess(`Deducted ${quantityToDeduct} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);
       setQuantityChange('');
       setSelectedIngredient({ ...selectedIngredient, ingredientQuantity: newQuantity });
@@ -110,137 +105,149 @@ const UpdateIngredientQuantity = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate('/show-ingredient');
+  };
+
   return (
     <>
-    <div className="page-header">
-        <div className="page-header-image">
-                         {/* <img src={itemHeader} alt="" className='' /> */}
-                        </div>
-                        <div className="page-header-title">Ingrediant</div>
-             </div>        
-    <div className="update-quantity-container">
-      <h2>Update Ingredient Quantity</h2>
-      
-      {error && <div className="error-message" style={{ color: 'red' }}>{error}</div>}
-      {success && <div className="success-message" style={{ color: 'green' }}>{success}</div>}
-
-      <div className="form-group">
-        <label>Ingredients ID</label>
-        <select
-          value={selectedIngredientId}
-          onChange={handleIngredientChange}
-          style={{ height: '65px' }}
-          required
-        >
-          <option value="">Select Ingredients ID</option>
-          {ingredients.map(ingredient => (
-            <option key={ingredient._id} value={ingredient._id}>
-              {ingredient.ingredientId}
-            </option>
-          ))}
-        </select>
+      <div className="ingredient-update-page-header">
+        <div className="ingredient-update-page-header-image">
+          {/* Uncomment and add image if needed */}
+          {/* <img src={itemHeader} alt="" className="ingredient-update-page-header-icon" /> */}
+        </div>
+        <div className="ingredient-update-page-header-title">Ingredient</div>
       </div>
+      <div className="ingredient-update-main-container">
+        <h2 className="ingredient-update-title">Update Ingredient Quantity</h2>
 
-      <div className="form-group">
-        <label>Ingredients Name</label>
-        <input
-          type="text"
-          value={selectedIngredient?.name || ''}
-          readOnly
-          placeholder="Select an ingredient"
-        />
-      </div>
+        {error && <div className="ingredient-update-error-message">{error}</div>}
+        {success && <div className="ingredient-update-success-message">{success}</div>}
 
-      <div className="form-group inline-group">
-        <div className="inline-field">
-          <label>View Maximum Units</label>
+        <div className="ingredient-update-form-group">
+          <label className="ingredient-update-label">Ingredients ID</label>
+          <select
+            value={selectedIngredientId}
+            onChange={handleIngredientChange}
+            className="ingredient-update-select"
+            required
+          >
+            <option value="">Select Ingredients ID</option>
+            {ingredients.map(ingredient => (
+              <option key={ingredient._id} value={ingredient._id}>
+                {ingredient.ingredientId}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="ingredient-update-form-group">
+          <label className="ingredient-update-label">Ingredients Name</label>
           <input
             type="text"
-            value={selectedIngredient?.maxUnits || ''}
+            value={selectedIngredient?.name || ''}
             readOnly
-            placeholder="Maximum Units"
+            placeholder="Select an ingredient"
+            className="ingredient-update-input ingredient-update-readonly"
           />
         </div>
-        <div className="inline-field">
-          <label>View Minimum Units</label>
+
+        <div className="ingredient-update-form-group ingredient-update-inline-group">
+          <div className="ingredient-update-inline-field">
+            <label className="ingredient-update-label">View Maximum Units</label>
+            <input
+              type="text"
+              value={selectedIngredient?.maxUnits || ''}
+              readOnly
+              placeholder="Maximum Units"
+              className="ingredient-update-input ingredient-update-readonly"
+            />
+          </div>
+          <div className="ingredient-update-inline-field">
+            <label className="ingredient-update-label">View Minimum Units</label>
+            <input
+              type="text"
+              value={selectedIngredient?.minUnits || ''}
+              readOnly
+              placeholder="Minimum Units"
+              className="ingredient-update-input ingredient-update-readonly"
+            />
+          </div>
+        </div>
+
+        <div className="ingredient-update-form-group">
+          <label className="ingredient-update-label">Unit</label>
+          <div className="ingredient-update-radio-group">
+            <label className="ingredient-update-radio-label">
+              <input
+                type="radio"
+                value="pieces"
+                checked={selectedIngredient?.unitsType === 'pieces'}
+                readOnly
+                className="ingredient-update-radio"
+              />
+              pieces
+            </label>
+            <label className="ingredient-update-radio-label">
+              <input
+                type="radio"
+                value="kg"
+                checked={selectedIngredient?.unitsType === 'kg'}
+                readOnly
+                className="ingredient-update-radio"
+              />
+              Kg
+            </label>
+            <label className="ingredient-update-radio-label">
+              <input
+                type="radio"
+                value="liter"
+                checked={selectedIngredient?.unitsType === 'liter'}
+                readOnly
+                className="ingredient-update-radio"
+              />
+              L
+            </label>
+          </div>
+        </div>
+
+        <div className="ingredient-update-form-group">
+          <label className="ingredient-update-label">Current Quantity ({selectedIngredient?.unitsType || 'Unit'})</label>
           <input
             type="text"
-            value={selectedIngredient?.minUnits || ''}
+            value={selectedIngredient?.ingredientQuantity || 0}
             readOnly
-            placeholder="Minimum Units"
+            placeholder="Current quantity"
+            className="ingredient-update-input ingredient-update-readonly"
           />
         </div>
-      </div>
 
-      <div className="form-group">
-        <label>Unit</label>
-        <div className="radio-group">
-          <label>
-            <input
-              type="radio"
-              value="pieces"
-              checked={selectedIngredient?.unitsType === 'pieces'}
-              readOnly
-            />
-            pieces
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="kg"
-              checked={selectedIngredient?.unitsType === 'kg'}
-              readOnly
-            />
-            Kg
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="liter"
-              checked={selectedIngredient?.unitsType === 'liter'}
-              readOnly
-            />
-            L
-          </label>
+        <div className="ingredient-update-form-group">
+          <label className="ingredient-update-label">Change Quantity ({selectedIngredient?.unitsType || 'Unit'})</label>
+          <input
+            type="number"
+            value={quantityChange}
+            onChange={handleQuantityChange}
+            placeholder="Enter quantity to add/deduct"
+            min="0"
+            step="0.1"
+            required
+            className="ingredient-update-input"
+          />
+        </div>
+
+        <div className="ingredient-update-button-group">
+          <button type="button" className="ingredient-update-add-btn" onClick={handleAdd}>
+            Add
+          </button>
+          <button type="button" className="ingredient-update-deduct-btn" onClick={handleDeduct}>
+            Deduct
+          </button>
+          <button type="button" className="ingredient-update-back-btn" onClick={handleBack}>
+            Back
+          </button>
         </div>
       </div>
-
-      <div className="form-group">
-        <label>Current Quantity ({selectedIngredient?.unitsType || 'Unit'})</label>
-        <input
-          type="text"
-          value={selectedIngredient?.ingredientQuantity || 0}
-          readOnly
-          placeholder="Current quantity"
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Change Quantity ({selectedIngredient?.unitsType || 'Unit'})</label>
-        <input
-          type="number"
-          value={quantityChange}
-          onChange={handleQuantityChange}
-          placeholder="Enter quantity to add/deduct"
-          min="0"
-          step="0.1"
-          required
-        />
-      </div>
-
-      <div className="button-group">
-
-        <button type="button" className="add-button" onClick={handleAdd}>
-          Add
-        </button>
-   
-        <button type="button" className="deduct-button" onClick={handleDeduct}>
-          Deduct
-        </button>
-      </div>
-
-      
-    </div>
     </>
   );
 };

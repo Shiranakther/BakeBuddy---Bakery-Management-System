@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.route("/").get(getIngredients);
-router.route("/").post(addIngredient);
+router.route("/create").post(addIngredient);
 router.route("/:id").get(getIngredientById);
 // router.route("/:id/daily").put(updateDailyConsumption);
 router.route("/:id").put(updateIngredient);

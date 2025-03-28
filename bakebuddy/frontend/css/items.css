@@ -369,3 +369,16 @@
   font-weight: bold;
   color: #333;
 }
+
+.delete-button {
+  background-color: #ff4444; /* Red for Admins */
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button.disabled {
+  background-color: #d1cdcd; /* Gray for Supervisors */
+  cursor: not-allowed;
+}

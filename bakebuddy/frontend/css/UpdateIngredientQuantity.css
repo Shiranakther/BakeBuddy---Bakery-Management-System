@@ -1,0 +1,251 @@
+/* Page header styling */
+.ingredient-update-page-header {
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #f9a825, #ffffff);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .ingredient-update-page-header-image {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .ingredient-update-page-header-icon {
+    max-width: 120px;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  
+  .ingredient-update-page-header-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Main container styling */
+  .ingredient-update-main-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+  }
+  
+  /* Title styling */
+  .ingredient-update-title {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f9a825;
+  }
+  
+  /* Message styling */
+  .ingredient-update-error-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #f44336;
+    margin-bottom: 20px;
+  }
+  
+  .ingredient-update-success-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #28a745;
+    margin-bottom: 20px;
+  }
+  
+  /* Form group styling */
+  .ingredient-update-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Label styling */
+  .ingredient-update-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  /* Input and select styling */
+  .ingredient-update-input,
+  .ingredient-update-select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ingredient-update-select {
+    height: 65px; /* Matches your inline style */
+  }
+  
+  .ingredient-update-input:focus,
+  .ingredient-update-select:focus {
+    border-color: #f9a825;
+    outline: none;
+    box-shadow: 0 0 8px rgba(249, 168, 37, 0.3);
+  }
+  
+  .ingredient-update-readonly {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    color: #666;
+  }
+  
+  /* Inline group styling */
+  .ingredient-update-inline-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .ingredient-update-inline-field {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  /* Radio group styling */
+  .ingredient-update-radio-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .ingredient-update-radio-label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .ingredient-update-radio {
+    margin-right: 5px;
+  }
+  
+  /* Button group styling */
+  .ingredient-update-button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Buttons */
+  .ingredient-update-add-btn,
+  .ingredient-update-deduct-btn,
+  .ingredient-update-back-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+    flex: 0 0 auto;
+  }
+  
+  .ingredient-update-add-btn {
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    color: white;
+  }
+  
+  .ingredient-update-add-btn:hover {
+    background: linear-gradient(90deg, #45a049, #5cb860);
+    transform: translateY(-2px);
+  }
+  
+  .ingredient-update-deduct-btn {
+    background: linear-gradient(90deg, #f44336, #ef5350);
+    color: white;
+  }
+  
+  .ingredient-update-deduct-btn:hover {
+    background: linear-gradient(90deg, #d32f2f, #e53935);
+    transform: translateY(-2px);
+  }
+  
+  .ingredient-update-back-btn {
+    background: linear-gradient(90deg, #008cba, #4fc3f7);
+    color: white;
+  }
+  
+  .ingredient-update-back-btn:hover {
+    background: linear-gradient(90deg, #006d9e, #42a5f5);
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .ingredient-update-main-container {
+      padding: 20px;
+      margin: 20px 10px;
+    }
+  
+    .ingredient-update-title {
+      font-size: 1.6rem;
+    }
+  
+    .ingredient-update-inline-group {
+      flex-direction: column;
+    }
+  
+    .ingredient-update-radio-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .ingredient-update-button-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .ingredient-update-add-btn,
+    .ingredient-update-deduct-btn,
+    .ingredient-update-back-btn {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ingredient-update-page-header-title {
+      font-size: 1.8rem;
+    }
+  
+    .ingredient-update-title {
+      font-size: 1.4rem;
+    }
+  
+    .ingredient-update-label {
+      font-size: 1rem;
+    }
+  
+    .ingredient-update-input,
+    .ingredient-update-select {
+      padding: 10px;
+      font-size: 0.95rem;
+    }
+  }

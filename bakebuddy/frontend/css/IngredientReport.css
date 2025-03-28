@@ -1,0 +1,113 @@
+/* General container styling */
+.ingredient-report-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Page header */
+  .ingredient-report-page-header {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .ingredient-report-page-header-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Table styling */
+  .ingredient-report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+  }
+  
+  .ingredient-report-thead tr {
+    background-color: #f9a825; /* Yellow-orange header */
+    color: white;
+  }
+  
+  .ingredient-report-th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .ingredient-report-tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+  }
+  
+  .ingredient-report-td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Button container */
+  .ingredient-report-button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .ingredient-report-download-pdf-button {
+    padding: 10px 20px;
+    background-color: #4caf50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ingredient-report-download-pdf-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .ingredient-report-back-button {
+    padding: 10px 20px;
+    background-color: #008cba; /* Blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ingredient-report-back-button:hover {
+    background-color: #006d9e; /* Darker blue on hover */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .ingredient-report-container {
+      padding: 15px;
+    }
+  
+    .ingredient-report-page-header-title {
+      font-size: 1.5rem;
+    }
+  
+    .ingredient-report-th,
+    .ingredient-report-td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  
+    .ingredient-report-button-container {
+      flex-direction: column;
+    }
+  
+    .ingredient-report-download-pdf-button,
+    .ingredient-report-back-button {
+      width: 100%;
+    }
+  }

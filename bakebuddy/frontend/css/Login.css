@@ -1,0 +1,131 @@
+/* Login.css */
+
+/* Full page layout */
+.login-page {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  /* Left panel with logo */
+  .login-left-panel {
+    flex: 1;
+    background-color: #8B5A2B; /* Brown color from the Register page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-logo {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Adjust font as needed */
+  }
+  
+  /* Right panel with form */
+  .login-right-panel {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+  }
+  
+  .login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-left: 0px;
+    color: #333;
+  }
+  
+  .login-error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .login-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    text-align: left;
+  }
+  
+  .login-input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background: transparent;
+    transition: border-color 0.3s;
+  }
+  
+  .login-input:focus {
+    border-bottom: 1px solid #8B5A2B; /* Brown color for focus */
+  }
+  
+  .login-social-login {
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .login-or-divider {
+    display: block;
+    color: #666;
+    margin: 0.5rem 0;
+  }
+
+  
+
+  .login-submit-button {
+    background-color: #F5A623; /* Orange color from the Register page */
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-submit-button:hover {
+    background-color: #e69520;
+  }
+  
+  .login-register-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .login-signup-link {
+    color: #8B5A2B; /* Brown color for the link */
+    text-decoration: none;
+  }
+  
+  .login-signup-link:hover {
+    text-decoration: underline;
+  }

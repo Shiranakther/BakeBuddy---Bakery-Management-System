@@ -1,0 +1,329 @@
+/* Page header styling */
+.sales-create-page-header {
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #f9a825, #ffffff);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sales-create-page-header-image {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .sales-create-page-header-icon {
+    max-width: 120px;
+    height: auto;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  
+  .sales-create-page-header-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Main container styling */
+  .sales-create-main-container {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+  }
+  
+  /* Titles */
+  .sales-create-title {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #222;
+    margin: 25px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f9a825;
+  }
+  
+  /* Form styling */
+  .sales-create-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+  }
+  
+  .sales-create-content-wrapper {
+    flex: 1;
+    min-width: 320px;
+    padding: 10px;
+  }
+  
+  .sales-create-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sales-create-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .sales-create-input,
+  .sales-create-select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .sales-create-input:focus,
+  .sales-create-select:focus {
+    border-color: #f9a825;
+    outline: none;
+    box-shadow: 0 0 8px rgba(249, 168, 37, 0.3);
+  }
+  
+  .sales-create-readonly {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    color: #666;
+  }
+  
+  /* Submit button */
+  .sales-create-submit-btn {
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+  }
+  
+  .sales-create-submit-btn:hover {
+    background: linear-gradient(90deg, #45a049, #5cb860);
+    transform: translateY(-2px);
+  }
+  
+  /* Search container styling */
+  .sales-create-search-container {
+    display: flex;
+    flex-direction: row; /* Ensure horizontal alignment */
+    flex-wrap: nowrap; /* Prevent wrapping to next line */
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    width: 100%; /* Ensure it spans the container */
+    max-width: 1000px; /* Limit width for larger screens */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .sales-create-search-select,
+  .sales-create-search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    flex: 1; /* Allow elements to grow equally */
+    min-width: 150px; /* Reduced min-width for better fit */
+    max-width: 250px; /* Cap width to fit in one line */
+    transition: border-color 0.3s ease;
+  }
+  
+  .sales-create-search-select:focus,
+  .sales-create-search-input:focus {
+    border-color: #f9a825;
+  }
+  
+  .sales-create-search-btn,
+  .sales-create-clear-btn {
+    background: linear-gradient(90deg, #008cba, #4fc3f7);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+    flex: 0 0 auto; /* Prevent buttons from stretching */
+    min-width: 100px; /* Ensure buttons have enough width */
+  }
+  
+  .sales-create-search-btn:hover {
+    background: linear-gradient(90deg, #006d9e, #42a5f5);
+    transform: translateY(-2px);
+  }
+  
+  .sales-create-clear-btn {
+    background: linear-gradient(90deg, #f44336, #ef5350);
+  }
+  
+  .sales-create-clear-btn:hover {
+    background: linear-gradient(90deg, #d32f2f, #e53935);
+    transform: translateY(-2px);
+  }
+  
+  /* Table styling */
+  .sales-create-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 25px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sales-create-table-header {
+    background: linear-gradient(90deg, #f9a825, #ffb300);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .sales-create-table-th,
+  .sales-create-table-td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1rem;
+  }
+  
+  .sales-create-table-th {
+    font-weight: 600;
+  }
+  
+  .sales-create-table-row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .sales-create-table-row:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sales-create-delete-btn,
+  .sales-create-update-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-right: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .sales-create-delete-btn {
+    background: linear-gradient(90deg, #f44336, #ef5350);
+    color: white;
+  }
+  
+  .sales-create-delete-btn:hover {
+    background: linear-gradient(90deg, #d32f2f, #e53935);
+    transform: translateY(-2px);
+  }
+  
+  .sales-create-update-btn {
+    background: linear-gradient(90deg, #2196f3, #42a5f5);
+    color: white;
+  }
+  
+  .sales-create-update-btn:hover {
+    background: linear-gradient(90deg, #1976d2, #1e88e5);
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .sales-create-main-container {
+      padding: 20px;
+      margin: 0 10px 20px;
+    }
+  
+    .sales-create-page-header-title {
+      font-size: 1.8rem;
+    }
+  
+    .sales-create-title {
+      font-size: 1.6rem;
+    }
+  
+    .sales-create-form {
+      flex-direction: column;
+      padding: 15px;
+    }
+  
+    .sales-create-content-wrapper {
+      min-width: 100%;
+    }
+  
+    .sales-create-table-th,
+    .sales-create-table-td {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  
+    .sales-create-search-container {
+      flex-direction: column; /* Stack vertically on smaller screens */
+      padding: 10px;
+    }
+  
+    .sales-create-search-select,
+    .sales-create-search-input,
+    .sales-create-search-btn,
+    .sales-create-clear-btn {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .sales-create-submit-btn {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sales-create-page-header-icon {
+      max-width: 80px;
+    }
+  
+    .sales-create-table-th,
+    .sales-create-table-td {
+      padding: 8px;
+      font-size: 0.85rem;
+    }
+  
+    .sales-create-delete-btn,
+    .sales-create-update-btn {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+  }
