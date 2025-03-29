@@ -199,13 +199,14 @@
   border-radius: 10px; /* Modern softer corners */
   overflow: hidden; /* Modern overflow */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Modern shadow */
+  font-family: Arial, sans-serif;
 }
 
 .items-table thead tr {
   background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient header kept */
   color: #fff; /* Modern white text kept */
   text-align: center;
-  font-weight: 600; /* Modern boldness kept */
+  font-weight: 700; /* Modern boldness kept */
   text-transform: uppercase; /* Modern touch kept */
   letter-spacing: 0.4px; /* Modern spacing kept */
 }
@@ -219,7 +220,17 @@
 }
 
 .items-table th {
-  border-bottom: 2px solid #e59400; /* Modern header separation kept */
+  border-bottom: 2px solid rgba(224, 224, 224, 0.7);
+  background-color: #EEF1F4;
+  color:rgb(66, 66, 66);
+  font-size: 0.9em; /* Original font size from first Items.css */
+  text-transform: uppercase; /* Modern touch kept */
+  letter-spacing: 0.4px; /* Modern spacing kept */
+  font-weight: 800; /* Modern boldness kept */
+  text-align: center;
+
+
+   /* Modern header separation kept */
 }
 
 /* Remove vertical borders from first and last cells for a cleaner edge */
