@@ -91,14 +91,16 @@ export async function updateIngredient(req, res) {
 }
 
 // Delete ingredient
+// Delete ingredient
 export async function deleteIngredient(req, res) {
   try {
-    const ingredient = await Ingredient.findById( req.params.id );
+    const ingredient = await Ingredient.findById(req.params.id);
     if (!ingredient) {
       return res.status(404).json({ error: 'Ingredient not found' });
     }
 
-    await Ingredient.deleteOne( );
+    // Delete the ingredient by its ID
+    await Ingredient.deleteOne({ _id: req.params.id });
     res.json({ message: 'Ingredient deleted' });
   } catch (error) {
     res.status(500).json({ error: error.message });
