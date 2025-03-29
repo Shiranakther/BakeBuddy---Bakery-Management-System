@@ -293,7 +293,7 @@ const SalesCreate = () => {
         <Toaster
           position="top-right"
           toastOptions={{
-            duration: 3000,
+            duration: 1000,
             style: {
               background: "#333",
               color: "#fff",

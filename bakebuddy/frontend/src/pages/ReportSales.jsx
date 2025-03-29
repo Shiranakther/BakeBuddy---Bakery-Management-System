@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import "../../css/SalesReport.css"; // Keep existing CSS import
+import salesHeader from "../../images/sales-page-header-image.png";
 
 const ReportSales = () => {
   const [salesData, setSalesData] = useState([]);
@@ -154,6 +155,13 @@ const ReportSales = () => {
   };
 
   return (
+    <>
+    <div className="page-header">
+            <div className="page-header-image">
+              <img src={salesHeader} alt="dashboard-page-header" className='page-header-icon' />
+            </div>
+            <div className="page-header-title">Sales</div>
+          </div>
     <div className="sales-report-main-container">
       <h2 className="sales-report-title">Sales Report Generator</h2>
       <div className="sales-report-search-container">
@@ -232,6 +240,7 @@ const ReportSales = () => {
         }}
       />
     </div>
+    </>
   );
 };
 

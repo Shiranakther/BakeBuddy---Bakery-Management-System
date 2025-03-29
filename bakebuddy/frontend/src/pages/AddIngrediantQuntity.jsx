@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import productionHeader from "../../images/production-page-header-image.png";
 import '../../css/UpdateIngredientQuantity.css'; // Updated CSS import
 
 const UpdateIngredientQuantity = () => {
@@ -111,13 +112,13 @@ const UpdateIngredientQuantity = () => {
 
   return (
     <>
-      <div className="ingredient-update-page-header">
-        <div className="ingredient-update-page-header-image">
-          {/* Uncomment and add image if needed */}
-          {/* <img src={itemHeader} alt="" className="ingredient-update-page-header-icon" /> */}
-        </div>
-        <div className="ingredient-update-page-header-title">Ingredient</div>
-      </div>
+     <div className="page-header">
+                   <div className="page-header-image">
+                     <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+                   </div>
+                   <div className="page-header-title">Production</div>
+                 </div>
+           
       <div className="ingredient-update-main-container">
         <h2 className="ingredient-update-title">Update Ingredient Quantity</h2>
 

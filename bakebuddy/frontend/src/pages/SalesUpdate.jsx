@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "../../css/SalesUpdate.css"; // Keep existing CSS import
+import salesHeader from "../../images/sales-page-header-image.png";
 
 const SalesUpdate = () => {
   const [salesData, setSalesData] = useState({
@@ -65,6 +66,13 @@ const SalesUpdate = () => {
   };
 
   return (
+    <>
+    <div className="page-header">
+            <div className="page-header-image">
+              <img src={salesHeader} alt="dashboard-page-header" className='page-header-icon' />
+            </div>
+            <div className="page-header-title">Sales</div>
+          </div>
     <div className="sales-update-main-container">
       <h2 className="sales-update-title">Update Sales Record</h2>
       {message && <p className={`sales-update-message ${message.includes("Error") ? "sales-update-error" : "sales-update-success"}`}>{message}</p>}
@@ -126,7 +134,7 @@ const SalesUpdate = () => {
       <Toaster 
         position="top-right" 
         toastOptions={{
-          duration: 3000, // Default duration
+          duration: 1000, // Default duration
           style: {
             background: "#333",
             color: "#fff",
@@ -144,6 +152,7 @@ const SalesUpdate = () => {
         }}
       />
     </div>
+  </>
   );
 };
 

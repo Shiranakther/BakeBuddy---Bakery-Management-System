@@ -107,7 +107,7 @@
   
   /* Back button */
   .sales-update-back-btn {
-    background: linear-gradient(90deg, #007bff, #2196f3); /* Blue gradient */
+    background: linear-gradient(90deg, #FF8C00, #FFA725); /* Orange gradient with #FFA725 */
     color: white;
     padding: 12px 24px;
     border: none;
@@ -120,7 +120,7 @@
   }
   
   .sales-update-back-btn:hover {
-    background: linear-gradient(90deg, #0062cc, #1976d2);
+    background: linear-gradient(90deg, #E65100, #F57C00); /* Darker orange gradient on hover */
     transform: translateY(-2px);
   }
   
