@@ -184,7 +184,7 @@ const ShowIngredient = () => {
                   <td className="show-ingredient-td">{ingredient.name}</td>
                   <td className="show-ingredient-td">{ingredient.maxUnits}</td>
                   <td className="show-ingredient-td">{ingredient.minUnits}</td>
-                  <td className="show-ingredient-td">{ingredient.ingredientQuantity}</td>
+                  <td className="show-ingredient-td">{ingredient.ingredientQuantity.toFixed(2)}</td>
                   <td className="show-ingredient-td">{ingredient.unitsType}</td>
                   <td className="show-ingredient-td">
                     <button
