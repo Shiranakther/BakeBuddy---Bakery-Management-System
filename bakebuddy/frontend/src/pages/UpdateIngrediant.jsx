@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import productionHeader from "../../images/ingredient_image.png";
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../css/UpdateIngredient.css'; // Reuse CreateIngredient.css
 import toast from 'react-hot-toast'; // Optional: for success/error notifications
@@ -72,6 +73,14 @@ const UpdateIngredient = () => {
   };
 
   return (
+    <>
+     <div className="page-header">
+                       <div className="page-header-image">
+                         <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+                       </div>
+                       <div className="page-header-title">Production</div>
+                     </div>
+
     <div className="create-ingredient-container">
       <h2>Update Ingredient</h2>
       {error && <div className="error-message">{error}</div>}
@@ -131,6 +140,7 @@ const UpdateIngredient = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

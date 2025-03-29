@@ -4,6 +4,8 @@ import axios from "axios";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable"; // For table formatting in PDF
 import "../../css/IngredientReport.css"; // Import the new CSS file
+import productionHeader from "../../images/ingredient_image.png";
+
 
 const IngredientReport = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -66,11 +68,11 @@ const IngredientReport = () => {
   return (
     <>
      <div className="page-header">
-                       <div className="page-header-image">
-                         {/* <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' /> */}
-                       </div>
-                       <div className="page-header-title">Ingredient</div>
-                     </div>
+                               <div className="page-header-image">
+                                 <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+                               </div>
+                               <div className="page-header-title">Ingredients</div>
+                 </div>
       <div className="ingredient-report-page-header">
         <div className="ingredient-report-page-header-title">Ingredient Report</div>
       </div>
@@ -93,7 +95,8 @@ const IngredientReport = () => {
                 <td className="ingredient-report-td">{ingredient.name}</td>
                 <td className="ingredient-report-td">{ingredient.maxUnits}</td>
                 <td className="ingredient-report-td">{ingredient.minUnits}</td>
-                <td className="ingredient-report-td">{ingredient.ingredientQuantity}</td>
+                <td className="ingredient-report-td">{ingredient.ingredientQuantity.toFixed(2)}</td>
+
                 <td className="ingredient-report-td">{ingredient.unitsType}</td>
               </tr>
             ))}

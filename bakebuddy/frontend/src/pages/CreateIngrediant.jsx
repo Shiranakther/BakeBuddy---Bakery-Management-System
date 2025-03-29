@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Added for navigation
 import axios from 'axios';
 import '../../css/CreateIngredient.css';
-import productionHeader from "../../images/production-page-header-image.png";
+import productionHeader from "../../images/ingredient_image.png";
 
 const CreateIngredient = () => {
   const [formData, setFormData] = useState({

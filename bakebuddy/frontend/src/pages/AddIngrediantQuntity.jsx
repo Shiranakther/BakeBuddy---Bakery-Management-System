@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import productionHeader from "../../images/production-page-header-image.png";
+import productionHeader from "../../images/ingredient_image.png";
 import '../../css/UpdateIngredientQuantity.css'; // Updated CSS import
 
 const UpdateIngredientQuantity = () => {
