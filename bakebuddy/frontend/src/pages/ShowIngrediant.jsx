@@ -4,7 +4,7 @@ import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
 import '../../css/ShowIngrediant.css';
 import toast from "react-hot-toast";
-import productionHeader from "../../images/production-page-header-image.png";
+import productionHeader from "../../images/ingredient_image.png";
 
 
 const ShowIngredient = () => {
