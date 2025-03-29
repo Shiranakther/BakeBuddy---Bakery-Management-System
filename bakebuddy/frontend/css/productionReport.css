@@ -29,12 +29,12 @@
      }
      
      .production-table tbody tr:nth-child(even) {
-       background-color: #f9f9f9;
-     }
-     
-     .production-table tbody tr:hover {
-       background-color: #f1f1f1;
-     }
+      background-color: #f9f9f9;
+    }
+    
+    .production-table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
      .action-buttons{
        
        display:flex;
@@ -81,15 +81,7 @@
        width: 250px; /* Adjust width as needed */
      }
      
-     /* Input field styling */
-     .search-input {
-       width: 100%;
-       padding: 10px;
-       font-size: 16px;
-       border: 1px solid #ccc;
-       border-radius: 5px;
-       outline: none;
-     }
+     
    
      .production-form{
        margin-top:10px;
@@ -243,11 +235,12 @@
     margin: 20px 80px;
    }
    .date-input{
-    width:180px;
-    height:20px;
+    width:250px;
+    height:35px;
     margin:10px 30px 10px 0px;
     font-size: 0.9rem;
-   
+    border: 1px solid #ccc;
+    border-radius: 5px;
 
    }
 
@@ -261,21 +254,21 @@
 
   }
   
-  .search-input {
+  .production-report-search-input {
     
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 250px;
     font-size: 0.8rem;
     background-color: white;
-    height:30px;
-   
+    height:35px;
+    padding-left:10px;
+    margin-left: 10px;
    
   }
 
-  input:focus {
+  .production-report-search-input:focus {
     outline: none;
+}
 
-  }
-  
   

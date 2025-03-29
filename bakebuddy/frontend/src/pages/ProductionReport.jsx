@@ -157,13 +157,13 @@ export default function ProductionReport() {
         />
 
         <div className="search-filter">
-        
+        <label>Search</label>
           <input
             type="text"
             placeholder="Search by Product Code, Name, or Remarks"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
+            className="production-report-search-input"
           />
         </div>
 

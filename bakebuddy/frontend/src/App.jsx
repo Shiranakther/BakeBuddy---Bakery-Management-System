@@ -27,7 +27,7 @@ import EditProfile from './pages/EditProfile';
 import IngredientReport from './pages/IngredientReport';
 import UpdateIngredient from './pages/UpdateIngrediant';
 import PrivateRoute from '../components/PrivateRoute';
-
+import SlowMovingReport from './pages/SlowMovingReport'
 
 function App() {
 
@@ -57,6 +57,7 @@ function App() {
 
         <Route path="/all-reports" element={<AllReports/>}/> 
         <Route path="/production-report" element={<ProductionReport/>}/>
+        <Route path='/slow-moving-report' element={<SlowMovingReport/>}/>
 
 
         <Route path="h" element={<Header/>} />
