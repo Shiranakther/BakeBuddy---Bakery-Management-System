@@ -46,8 +46,13 @@
     
   }
   .smartbake-items-image{
-    border:1px solid black;
+    
     width:300px;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+   
   }
   .smartbake-item-name {
     font-size: 1.8rem;
@@ -304,3 +309,7 @@
     font-size: 14px;
   }
   
+  .recipe-image{
+    max-width: 300px;
+    margin-top: 30px;;
+  }

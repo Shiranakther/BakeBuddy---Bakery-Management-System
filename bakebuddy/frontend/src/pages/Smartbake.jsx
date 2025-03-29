@@ -220,6 +220,30 @@ const Smartbake = () => {
     doc.save(`${selectedRecipe.title}.pdf`);
   };
   
+  const fetchImageUrl = async (recipeTitle) => {
+    try {
+      const response = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch`,
+        {
+          params: {
+            query: recipeTitle,
+            apiKey: "e113f012de78493f9598e9d9889b7eed",
+          },
+        }
+      );
+      const imageUrl = response.data.results[0]?.image;
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error("Error fetching image:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedRecipe) {
+      fetchImageUrl(selectedRecipe.title); // Fetch image when recipe is selected
+    }
+  }, [selectedRecipe]);
+  
   
   
   
@@ -279,7 +303,11 @@ const Smartbake = () => {
 
           </div>
           <div className="smartbake-items-image">
-            Image
+          {imageUrl ? (
+    <img src={imageUrl} alt={selectedRecipe?.title} className="recipe-image" />
+  ) : (
+    <p>No image available</p>
+  )}
           </div>
           
         </div>
