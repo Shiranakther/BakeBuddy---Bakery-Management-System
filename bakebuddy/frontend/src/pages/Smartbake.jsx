@@ -118,30 +118,131 @@ const Smartbake = () => {
  
   
 
+  // const renderInstructions = (instructions) => {
+  //   const steps = instructions.split("\n").filter(step => step.trim());
+  
+  //   return (
+  //     <ul className="smartbake-instructions-list">
+  //       {steps.map((step, index) => {
+  //         // Remove the number prefix from the instruction step
+  //         const stepWithoutNumber = step.replace(/^\d+\.\s*/, "");
+  
+  //         return (
+  //           <li key={index} className="smartbake-instruction-step">
+  //             <span className="smartbake-step-number">Step {index + 1}: </span>
+  //             <span>{stepWithoutNumber}</span>
+  //           </li>
+  //         );
+  //       })}
+  //     </ul>
+  //   );
+  // };
+
   const renderInstructions = (instructions) => {
-    const steps = instructions.split("\n").filter(step => step.trim());
+    // Check if instructions contain newlines, otherwise split by ". " as a fallback
+    const steps = instructions.includes("\n") 
+      ? instructions.split("\n").filter(step => step.trim()) 
+      : instructions.split(/\d+\.\s*/).filter(step => step.trim());
   
     return (
       <ul className="smartbake-instructions-list">
-        {steps.map((step, index) => {
-          // Remove the number prefix from the instruction step
-          const stepWithoutNumber = step.replace(/^\d+\.\s*/, "");
-  
-          return (
-            <li key={index} className="smartbake-instruction-step">
-              <span className="smartbake-step-number">Step {index + 1}: </span>
-              <span>{stepWithoutNumber}</span>
-            </li>
-          );
-        })}
+        {steps.map((step, index) => (
+          <li key={index} className="smartbake-instruction-step">
+            <span className="smartbake-step-number">Step {index + 1}: </span>
+            <span>{step.trim()}</span>
+          </li>
+        ))}
       </ul>
     );
   };
   
+  
+
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  
+  //   // Page settings
+  //   const margin = 20;
+  //   const lineHeight = 8; // Smaller line height
+  //   const pageHeight = doc.internal.pageSize.height;
+  //   let currentY = margin;
+
+  //   doc.text(`Report Generated: ${new Date().toLocaleString()}`, 14, 22);
+  //   doc.text("Contact: info@bakery.com | +123 456 789", 14, 28);
+  
+
+  //   currentY += lineHeight + 15;
+
+  //   // Title section with item name in color #d9534f (centered)
+  //   doc.setFontSize(14); // Font size for title
+  //   doc.setFont("helvetica", "bold");
+  //   doc.setTextColor(217, 83, 79); // Set color to #d9534f (RGB)
+  //   const titleWidth = doc.getTextWidth(selectedRecipe.title);
+  //   const titleX = (doc.internal.pageSize.width - titleWidth) / 2; // Center the title
+  //   doc.text(selectedRecipe.title, titleX, currentY);
+  //   currentY += lineHeight + 8; // Adjust spacing after title
+  
+  //   // Ingredients section (bold title)
+  //   doc.setFontSize(12); // Font size for ingredients
+  //   doc.setFont("helvetica", "bold"); // Bold font for the title
+  //   doc.setTextColor(0, 0, 0); // Reset color to black
+  //   doc.text("Ingredients:", margin, currentY);
+  //   currentY += lineHeight+3;
+  
+  //   doc.setFontSize(10); // Font size for ingredient list
+  //   doc.setFont("helvetica", "normal"); // Normal font for ingredients
+  //   selectedRecipe.ingredients.forEach((ingredient, index) => {
+  //     doc.text(`- ${ingredient}`, margin, currentY);
+  //     currentY += lineHeight;
+  //   });
+
+  //   currentY += lineHeight+3;
+  
+  //   // Instructions section (bold title)
+  //   doc.setFontSize(12); // Font size for instructions title
+  //   doc.setFont("helvetica", "bold"); // Bold font for instructions title
+  //   doc.setTextColor(0, 0, 0); // Reset color to black
+  //   doc.text("Instructions:", margin, currentY);
+  //   currentY += lineHeight+3;
+  
+  //   doc.setFontSize(10); // Font size for ingredient list
+  //   doc.setFont("helvetica", "normal"); // Normal font for ingredients
+  //   // Instructions text (normal font)
+  //   const instructions = selectedRecipe.instructions.split("\n").filter(step => step.trim());
+  
+  //   instructions.forEach((step, index) => {
+  //     // Remove "Step X: " by splitting the string and using only the part after "Step X: "
+  //     const stepText = step.replace(/^Step \d+: /, 'Step: ');
+  
+  //     // Set text color for the instruction steps (black color)
+  //     doc.setTextColor(0, 0, 0); // Black color for instructions
+  
+  //     // Wrap text to fit within page width
+  //     const wrappedText = doc.splitTextToSize(stepText, 180); // 180 is the width for wrapping text
+  
+  //     // Check if text exceeds page height, and add a new page if necessary
+  //     if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin) {
+  //       doc.addPage(); // Add new page
+  //       currentY = margin; // Reset Y position
+  //     }
+  
+  //     // Add wrapped text with adjusted line height
+  //     wrappedText.forEach((line, i) => {
+  //       doc.text(line, margin, currentY + (i * lineHeight));
+  //     });
+  
+  //     currentY += wrappedText.length * lineHeight; // Adjust current Y based on wrapped lines
+  //   });
+  
+    
+  //   // Save PDF with title as filename
+  //   doc.save(`${selectedRecipe.title}.pdf`);
+  // };
+  
 
   const generatePDF = () => {
     const doc = new jsPDF();
-  
+
     // Page settings
     const margin = 20;
     const lineHeight = 8; // Smaller line height
@@ -150,76 +251,77 @@ const Smartbake = () => {
 
     doc.text(`Report Generated: ${new Date().toLocaleString()}`, 14, 22);
     doc.text("Contact: info@bakery.com | +123 456 789", 14, 28);
-  
 
     currentY += lineHeight + 15;
 
     // Title section with item name in color #d9534f (centered)
-    doc.setFontSize(14); // Font size for title
+    doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(217, 83, 79); // Set color to #d9534f (RGB)
     const titleWidth = doc.getTextWidth(selectedRecipe.title);
-    const titleX = (doc.internal.pageSize.width - titleWidth) / 2; // Center the title
+    const titleX = (doc.internal.pageSize.width - titleWidth) / 2;
     doc.text(selectedRecipe.title, titleX, currentY);
-    currentY += lineHeight + 8; // Adjust spacing after title
-  
-    // Ingredients section (bold title)
-    doc.setFontSize(12); // Font size for ingredients
-    doc.setFont("helvetica", "bold"); // Bold font for the title
-    doc.setTextColor(0, 0, 0); // Reset color to black
+    currentY += lineHeight + 8;
+
+    // Ingredients section
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
     doc.text("Ingredients:", margin, currentY);
-    currentY += lineHeight+3;
-  
-    doc.setFontSize(10); // Font size for ingredient list
-    doc.setFont("helvetica", "normal"); // Normal font for ingredients
-    selectedRecipe.ingredients.forEach((ingredient, index) => {
-      doc.text(`- ${ingredient}`, margin, currentY);
-      currentY += lineHeight;
+    currentY += lineHeight + 3;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    selectedRecipe.ingredients.forEach((ingredient) => {
+        doc.text(`- ${ingredient}`, margin, currentY);
+        currentY += lineHeight;
     });
 
-    currentY += lineHeight+3;
-  
-    // Instructions section (bold title)
-    doc.setFontSize(12); // Font size for instructions title
-    doc.setFont("helvetica", "bold"); // Bold font for instructions title
-    doc.setTextColor(0, 0, 0); // Reset color to black
+    currentY += lineHeight + 3;
+
+    // Instructions section
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
     doc.text("Instructions:", margin, currentY);
-    currentY += lineHeight+3;
-  
-    doc.setFontSize(10); // Font size for ingredient list
-    doc.setFont("helvetica", "normal"); // Normal font for ingredients
-    // Instructions text (normal font)
-    const instructions = selectedRecipe.instructions.split("\n").filter(step => step.trim());
-  
+    currentY += lineHeight + 3;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+
+    // Split instructions properly
+    let instructions;
+    if (selectedRecipe.instructions.includes("\n")) {
+        instructions = selectedRecipe.instructions.split("\n").filter(step => step.trim());
+    } else {
+        instructions = selectedRecipe.instructions.split(/\d+\.\s*/).filter(step => step.trim());
+    }
+
     instructions.forEach((step, index) => {
-      // Remove "Step X: " by splitting the string and using only the part after "Step X: "
-      const stepText = step.replace(/^Step \d+: /, 'Step: ');
-  
-      // Set text color for the instruction steps (black color)
-      doc.setTextColor(0, 0, 0); // Black color for instructions
-  
-      // Wrap text to fit within page width
-      const wrappedText = doc.splitTextToSize(stepText, 180); // 180 is the width for wrapping text
-  
-      // Check if text exceeds page height, and add a new page if necessary
-      if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin) {
-        doc.addPage(); // Add new page
-        currentY = margin; // Reset Y position
-      }
-  
-      // Add wrapped text with adjusted line height
-      wrappedText.forEach((line, i) => {
-        doc.text(line, margin, currentY + (i * lineHeight));
-      });
-  
-      currentY += wrappedText.length * lineHeight; // Adjust current Y based on wrapped lines
+        // Add "Step X: " to properly format each step
+        const stepText = `Step ${index + 1}: ${step.trim()}`;
+
+        // Wrap text to fit within page width
+        const wrappedText = doc.splitTextToSize(stepText, 180);
+
+        // Check if text exceeds page height, add new page if necessary
+        if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin) {
+            doc.addPage();
+            currentY = margin;
+        }
+
+        wrappedText.forEach((line, i) => {
+            doc.text(line, margin, currentY + (i * lineHeight));
+        });
+
+        currentY += wrappedText.length * lineHeight;
     });
-  
-    
+
     // Save PDF with title as filename
     doc.save(`${selectedRecipe.title}.pdf`);
-  };
-  
+};
+
+
   const fetchImageUrl = async (recipeTitle) => {
     try {
       const response = await axios.get(
