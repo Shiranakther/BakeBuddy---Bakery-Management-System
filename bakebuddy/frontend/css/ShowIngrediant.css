@@ -31,7 +31,8 @@
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left;
+  padding: 0px;
 }
 
 /* Search and filter section */
@@ -105,19 +106,20 @@
 }
 
 .show-ingredient-thead tr {
-  background-color: #f9a825;
-  color: white;
+  background-color: #D6D6D6;
+  color: rgb(0, 0, 0);
 }
 
 .show-ingredient-th,
 .show-ingredient-td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   text-align: left;
+
 }
 
 .show-ingredient-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #d5e9f7;
 }
 
 /* Action buttons */
@@ -173,5 +175,6 @@
   .show-ingredient-td {
     font-size: 14px;
     padding: 8px;
+    
   }
 }

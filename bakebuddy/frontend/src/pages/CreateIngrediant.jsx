@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Added for navigation
 import axios from 'axios';
 import '../../css/CreateIngredient.css';
+import productionHeader from "../../images/production-page-header-image.png";
 
 const CreateIngredient = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ const CreateIngredient = () => {
         minUnits: Number(formData.minUnits),
       };
 
-      const response = await axios.post('http://localhost:5000/api/ingredients/', dataToSend);
+      const response = await axios.post('http://localhost:5000/api/ingredients/create', dataToSend);
       setSuccess('Ingredient created successfully!');
       setFormData({
         name: '',
@@ -55,13 +56,12 @@ const CreateIngredient = () => {
 
   return (
     <>
-      <div className="create-ingredient-page-header">
-        <div className="create-ingredient-page-header-image">
-          {/* Uncomment and add image if needed */}
-          {/* <img src={itemHeader} alt="item-page-header" className="create-ingredient-page-header-icon" /> */}
-        </div>
-        <div className="create-ingredient-page-header-title">Ingredient</div>
-      </div>
+      <div className="page-header">
+                          <div className="page-header-image">
+                            <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+                          </div>
+                          <div className="page-header-title">Ingredients</div>
+            </div>
       <div className="create-ingredient-main-container">
         <h2>Create New Ingredient</h2>
         {error && <div className="create-ingredient-error-message">{error}</div>}

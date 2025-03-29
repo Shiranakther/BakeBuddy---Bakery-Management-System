@@ -27,11 +27,15 @@
     border-collapse: collapse;
     margin-top: 20px;
     border: 1px solid #ddd;
+    
+    
+    
   }
   
   .ingredient-report-thead tr {
-    background-color: #f9a825; /* Yellow-orange header */
-    color: white;
+    background-color: #D6D6D6; /* Yellow-orange header */
+    color: rgb(0, 0, 0);
+
   }
   
   .ingredient-report-th {
@@ -42,7 +46,7 @@
   }
   
   .ingredient-report-tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Light gray for even rows */
+    background-color: #d3ebff; /* Light gray for even rows */
   }
   
   .ingredient-report-td {

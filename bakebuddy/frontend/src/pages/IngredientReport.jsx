@@ -65,6 +65,12 @@ const IngredientReport = () => {
 
   return (
     <>
+     <div className="page-header">
+                       <div className="page-header-image">
+                         {/* <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' /> */}
+                       </div>
+                       <div className="page-header-title">Ingredient</div>
+                     </div>
       <div className="ingredient-report-page-header">
         <div className="ingredient-report-page-header-title">Ingredient Report</div>
       </div>
