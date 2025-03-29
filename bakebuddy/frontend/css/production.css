@@ -99,7 +99,7 @@
    flex-direction:row;
   margin:10px 40px;
   align-items:center;
-  
+ 
     
   }
 
@@ -123,11 +123,13 @@
     
   }
  .production-details{
-  height:25px;
+  min-height:35px;
   border: 1px solid #e2e2e2;
-  border-radius:8px;
+  border-radius:5px;
   padding-left: 10px;
   width:200px;
+ 
+ 
   
  }
  .suggestions-list {
@@ -160,7 +162,7 @@
 
 .production-button{
  height:39px;
- width:190px;
+ width:170px;
  background-color: #FFA725;
  border:none;
  border-radius:5px;
@@ -172,7 +174,7 @@
  display:flex;
  flex-direction:row;
  align-items: center;
- justify-content: space-between;
+ padding:0px 10px;
 }
 
 .production-button img{
@@ -212,6 +214,7 @@
 
 .add-mode {
   background-color: #FFA725; /* Default color for "Add" mode */
+  
 }
 
 .update-mode {

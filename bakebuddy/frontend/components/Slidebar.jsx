@@ -65,7 +65,7 @@ export default function Slidebar() {
             </div>
             </Link>
 
-            <Link to="#" className='nav-link'>
+            <Link to="/slow-moving-report" className='nav-link'>
             <div className="nav-button-container">
                 <div className="nav-button-image">
                    <img src={smartrebake} alt="smart-rebake-images" className="nav-button-icon"/>

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-
-
-
 import productionHeader from "../../images/production-page-header-image.png";
 import toast, { Toaster } from "react-hot-toast";
 import addButton from'../../images/add_button.png';
