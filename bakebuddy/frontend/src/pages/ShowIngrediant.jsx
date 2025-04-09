@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from 'jwt-decode';
-import '../../css/ShowIngrediant.css';
+import '../../css/ingredients/ShowIngrediant.css';
 import toast from "react-hot-toast";
 import productionHeader from "../../images/ingredient_image.png";
 

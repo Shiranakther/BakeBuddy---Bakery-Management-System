@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import productionHeader from "../../images/ingredient_image.png";
-import '../../css/UpdateIngredientQuantity.css'; // Updated CSS import
+import '../../css/ingredients/UpdateIngredientQuantity.css'; // Updated CSS import
 
 const UpdateIngredientQuantity = () => {
   const [ingredients, setIngredients] = useState([]);

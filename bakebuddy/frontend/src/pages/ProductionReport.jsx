@@ -5,7 +5,7 @@ import axios from "axios";
 import productionHeader from "../../images/production-page-header-image.png";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import "../../css/productionReport.css";
+import "../../css/production/productionReport.css";
 import addButton from "../../images/add_button.png";
 
 export default function ProductionReport() {

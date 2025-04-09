@@ -3,7 +3,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import "../../css/SalesReport.css"; // Keep existing CSS import
+import "../../css/sales/SalesReport.css"; // Keep existing CSS import
 import salesHeader from "../../images/sales-page-header-image.png";
 
 const ReportSales = () => {

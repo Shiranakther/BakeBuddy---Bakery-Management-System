@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
-import '../../css/AddItems.css';
+import '../../css/items/AddItems.css';
+import itemHeader from '../../images/item-header-image.png';
+
+
 
 export default function AddItem() {
   const navigate = useNavigate();
@@ -170,7 +173,16 @@ export default function AddItem() {
   };
 
   return (
-    <div className="add-item-container">
+    <>
+     <div className="page-header">
+            <div className="page-header-image">
+              <img src={itemHeader} alt="item-page-header" className="page-header-icon" />
+            </div>
+            <div className="page-header-title">Items</div>
+          </div>
+          
+
+          <div className="add-item-container">
       <h1 className="add-item-header">Create a New Item</h1>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit} className="add-item-form">
@@ -293,5 +305,9 @@ export default function AddItem() {
       </form>
       <Toaster /> {/* Add Toaster component for toast notifications */}
     </div>
+
+
+          </>
+   
   );
 }

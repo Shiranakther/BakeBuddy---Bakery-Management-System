@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import productionHeader from "../../images/ingredient_image.png";
 import { useParams, useNavigate } from 'react-router-dom';
-import '../../css/UpdateIngredient.css'; // Reuse CreateIngredient.css
+import '../../css/ingredients/UpdateIngredient.css'; // Reuse CreateIngredient.css
 import toast from 'react-hot-toast'; // Optional: for success/error notifications
 
 const UpdateIngredient = () => {
@@ -82,7 +82,7 @@ const UpdateIngredient = () => {
                      </div>
 
     <div className="create-ingredient-container">
-      <h2>Update Ingredient</h2>
+      <div className='update-ingredient-title'>Update Ingredient</div>
       {error && <div className="error-message">{error}</div>}
       {success && <div className="success-message">{success}</div>}
       <form className="form-into" onSubmit={handleSubmit}>

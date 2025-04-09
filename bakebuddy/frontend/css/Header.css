@@ -7,6 +7,7 @@ header{
     padding: 0;
     position: fixed;
     width: 100%;
+    z-index:999;
 }
 .header-container{
     margin: 0;
@@ -92,7 +93,7 @@ header{
     justify-content: center;
     position:absolute;
     top:17px;
-    right:290px;
+    right:282px;
     height:15px;
     width:15px;
     background-color: red;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import "../../css/SalesUpdate.css"; // Keep existing CSS import
+import "../../css/sales/SalesUpdate.css"; // Keep existing CSS import
 import salesHeader from "../../images/sales-page-header-image.png";
 
 const SalesUpdate = () => {

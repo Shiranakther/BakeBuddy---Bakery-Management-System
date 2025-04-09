@@ -42,7 +42,7 @@
   
   /* Title styling */
   .ingredient-update-title {
-    text-align: left;
+    text-align: center5;
     font-size: 1.9rem;
     font-weight: 600;
     color: #222;
@@ -106,7 +106,7 @@
   }
   
   .ingredient-update-readonly {
-    background-color: #cbe0f8;
+    background-color: #f0f0f0;
     cursor: not-allowed;
     color: #666;
   }

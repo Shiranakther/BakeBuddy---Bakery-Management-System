@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
-import '../../css/UpdateItem.css';
+import '../../css/items/UpdateItem.css';
 
 export default function UpdateItem() {
   const navigate = useNavigate();

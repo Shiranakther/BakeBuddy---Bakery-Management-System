@@ -3,9 +3,9 @@
 
   /* Main container styling */
   .sales-create-main-container {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    padding: 15px;
+    
+    margin: 0  80px;
+    padding: 0px 10px 20px 10px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -136,17 +136,17 @@
   
   .sales-create-search-btn,
 .sales-create-clear-btn {
-  background: linear-gradient(90deg, #0fba00, #81f74f); /* Green gradient */
+  background: #45a049;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   transition: background 0.3s ease, transform 0.2s ease;
   flex: 0 0 auto; /* Prevent buttons from stretching */
-  min-width: 100px; /* Ensure buttons have enough width */
+ width: 150px; /* Ensure buttons have enough width */
 }
 
 .sales-create-search-btn:hover,
@@ -167,17 +167,18 @@
   /* Table styling */
   .sales-create-table {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0;
     margin-top: 25px;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
   }
   
   .sales-create-table-header {
-    background: linear-gradient(90deg, #f9a825, #ffb300);
+    background: #969696;
     color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -189,10 +190,12 @@
     text-align: left;
     border-bottom: 1px solid #e0e0e0;
     font-size: 1rem;
+    text-align: center;
   }
   
   .sales-create-table-th {
     font-weight: 600;
+    text-align: center;
   }
   
   .sales-create-table-row:nth-child(even) {
@@ -227,7 +230,7 @@
   }
   
   .sales-create-update-btn {
-    background: linear-gradient(90deg, #0d9300, #6cd940);
+    background: #0d9300;
     color: white;
   }
   

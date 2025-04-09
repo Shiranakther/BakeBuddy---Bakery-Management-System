@@ -5,9 +5,8 @@ import { jwtDecode } from 'jwt-decode'; // For decoding JWT
 import toast, { Toaster } from 'react-hot-toast'; // For toast notifications
 import { jsPDF } from 'jspdf'; // For PDF generation
 import 'jspdf-autotable'; // For PDF table formatting
-import '../../css/items.css';
+import '../../css/items/items.css';
 import itemHeader from '../../images/item-header-image.png';
-
 export default function Items() {
   const [items, setItems] = useState([]);
   const [displayedItems, setDisplayedItems] = useState([]);
@@ -329,7 +328,7 @@ export default function Items() {
       <div className="items-container">
         <div className="items-table-container">
           <div className="items-header-container">
-            <h1 className="items-header">Item Management</h1>
+            <div className="items-header">Item Management</div>
           </div>
 
           <div className="items-table-header">

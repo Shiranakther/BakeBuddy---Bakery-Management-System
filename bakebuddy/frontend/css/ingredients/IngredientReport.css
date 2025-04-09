@@ -40,13 +40,14 @@
   
   .ingredient-report-th {
     padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
+    border: 1px solid #8a8a8a;
+    text-align: center;
     font-weight: bold;
+    background-color: #d8d8d8;
   }
   
   .ingredient-report-tbody tr:nth-child(even) {
-    background-color: #d3ebff; /* Light gray for even rows */
+    background-color: #f7f7f7; /* Light gray for even rows */
   }
   
   .ingredient-report-td {

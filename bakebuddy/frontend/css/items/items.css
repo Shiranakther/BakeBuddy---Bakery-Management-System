@@ -1,11 +1,11 @@
 /* Container styling */
 .items-container {
-  padding: 20px;
+  
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
-  margin-left: 40px;
-  max-width: 1200px; /* Modern wide layout */
+  margin:40px 80px;
+   /* Modern wide layout */
 }
 
 /* Header container */
@@ -20,13 +20,13 @@
 /* Header styling */
 .items-header {
   margin: 0;
-  color: #f5a623;
-  font-size: 1.5em; /* Original size */
+  color: #000000;
+  font-size: 1.3em; /* Original size */
   font-weight: bold;
   background: linear-gradient(to right, #f5a623, #e59400); /* Modern gradient text */
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* For gradient effect */
+  color: #333; /* For gradient effect */
   letter-spacing: 0.5px; /* Modern touch */
 }
 
@@ -34,18 +34,19 @@
 .search-container {
   display: flex;
   justify-content: left;
-  gap: 10px; /* Modern spacing */
+  gap: 20px; /* Modern spacing */
 }
 
 /* Filter select */
 .filter-select {
   padding: 5px; /* Original padding */
-  margin-right: 10px;
+  
   border: none;
   border-bottom: 2px solid #d0d0d0; /* Modern underline */
   border-radius: 0;
   background-color: #fafafa; /* Modern light gray */
   transition: border-color 0.3s ease; /* Modern transition */
+  height:40px;
 }
 
 .filter-select:focus {
@@ -61,7 +62,7 @@
   border-radius: 0;
   background-color: #fafafa;
   transition: border-color 0.3s ease;
-  max-height:20px;
+  height:28px;
 }
 
 .search-input:focus {
@@ -76,9 +77,11 @@
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 20px; /* Modern pill shape */
+  border-radius: 5px; /* Modern pill shape */
   font-weight: 600; /* Modern boldness */
   text-transform: uppercase; /* Modern touch */
+  font-size:0.8rem;
+  width:150px;
   transition: transform 0.2s ease, box-shadow 0.2s ease; /* Modern hover effects */
 }
 
@@ -105,6 +108,7 @@
   border-radius: 20px; /* Modern pill shape */
   cursor: pointer;
   font-weight: 600;
+  height:40px;
   text-transform: uppercase;
   transition: transform 0.2s ease, box-shadow 0.2s ease; /* Modern hover effects */
 }
@@ -125,11 +129,12 @@
   background: linear-gradient(to right, #2196F3, #1976D2); /* Blue gradient for distinction */
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height:40px;
 }
 
 .generate-report-button:hover {
@@ -181,12 +186,12 @@
 
 /* Table container */
 .items-table-container {
-  max-width: fit-content;
+  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 100%; /* Original width */
+  
 }
 
 /* Table styling */
@@ -196,7 +201,7 @@
   background: linear-gradient(135deg, #ffffff, #f8f8f8); /* Modern subtle gradient */
   width: 100%;
   font-size: 0.8em; /* Original font size from first Items.css */
-  border-radius: 10px; /* Modern softer corners */
+  border-radius: 5px; /* Modern softer corners */
   overflow: hidden; /* Modern overflow */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Modern shadow */
   font-family: Arial, sans-serif;
@@ -280,10 +285,11 @@
   cursor: pointer;
   border: none;
   padding: 6px 12px; /* Updated padding kept */
-  border-radius: 20px; /* Modern pill shape kept */
-  font-size: 0.9em;
-  font-weight: 600;
+  border-radius: 5px; /* Modern pill shape kept */
+  font-size: 0.9rem;
+  
   text-transform: uppercase;
+  width:80px;
   transition: transform 0.1s ease, box-shadow 0.2s ease; /* Modern hover effects kept */
 }
 
@@ -300,8 +306,10 @@
   border: none;
   padding: 6px 12px; /* Updated padding kept */
   border-radius: 20px; /* Modern pill shape kept */
-  font-size: 0.9em;
-  font-weight: 600;
+  font-size: 0.9rem;
+  
+  text-transform: uppercase;
+  width:80px;
   text-transform: uppercase;
   transition: transform 0.1s ease, box-shadow 0.2s ease; /* Modern hover effects kept */
 }

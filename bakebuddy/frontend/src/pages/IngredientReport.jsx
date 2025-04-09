@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable"; // For table formatting in PDF
-import "../../css/IngredientReport.css"; // Import the new CSS file
+import "../../css/ingredients/IngredientReport.css"; // Import the new CSS file
 import productionHeader from "../../images/ingredient_image.png";
 
 

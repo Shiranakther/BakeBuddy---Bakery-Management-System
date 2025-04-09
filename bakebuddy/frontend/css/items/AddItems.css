@@ -1,17 +1,19 @@
 /* Container styling */
 .add-item-container {
-  padding: 20px;
+  padding-top:20px;
   font-family: 'Arial', sans-serif;
-  max-width: 1000px; /* Reasonable max width */
-  margin: 0 auto; /* Centered */
+   /* Reasonable max width */
+  margin: 0 80px;; /* Centered */
   background-color: #fff; /* Pure white for simplicity */
 }
 
 /* Header styling */
 .add-item-header {
   margin: 0 0 15px;
-  color: #f5a623;
-  font-size: 2rem;
+  color: #515151;
+  font-size: 1.5rem;
+  margin-bottom:50px;
+  margin-top:5px;
   font-weight: bold;
   text-align: left; /* Aligned left for a straightforward look */
 }

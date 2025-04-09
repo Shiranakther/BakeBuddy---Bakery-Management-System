@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import salesHeader from "../../images/sales-page-header-image.png";
-import '../../css/SalesCreate.css'; // Keep existing CSS import
+import '../../css/sales/SalesCreate.css'; // Keep existing CSS import
 
 const SalesCreate = () => {
   const [salesData, setSalesData] = useState({

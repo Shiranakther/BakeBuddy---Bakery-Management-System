@@ -3,7 +3,7 @@ import axios from "axios";
 import productionHeader from "../../images/production-page-header-image.png";
 import toast, { Toaster } from "react-hot-toast";
 import addButton from'../../images/add_button.png';
-import '../../css/production.css'
+import '../../css/production/production.css'
 
 
 const Production = () => {
@@ -154,6 +154,7 @@ const Production = () => {
               </div>
               <div className="page-header-title">Production</div>
             </div>
+            <div className="create-production-title">Create New Production</div>
       
       <form onSubmit={handleSubmit} className="production-form">
         

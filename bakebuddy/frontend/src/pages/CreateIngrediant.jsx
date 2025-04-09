@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Added for navigation
 import axios from 'axios';
-import '../../css/CreateIngredient.css';
+import '../../css/ingredients/CreateIngredient.css';
 import productionHeader from "../../images/ingredient_image.png";
 
 const CreateIngredient = () => {
@@ -63,7 +63,7 @@ const CreateIngredient = () => {
                           <div className="page-header-title">Ingredients</div>
             </div>
       <div className="create-ingredient-main-container">
-        <h2>Create New Ingredient</h2>
+        <div className='create-ingredient-title'>Create New Ingredient</div>
         {error && <div className="create-ingredient-error-message">{error}</div>}
         {success && <div className="create-ingredient-success-message">{success}</div>}
         

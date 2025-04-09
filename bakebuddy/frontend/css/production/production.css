@@ -229,4 +229,14 @@
  
 
 
-
+.create-production-title{
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+  padding: 0px;
+  margin-top:30px;
+  margin-left: 78px;;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
