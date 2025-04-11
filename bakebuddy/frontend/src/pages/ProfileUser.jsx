@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import '../../css/ProfileUser.css'; // Updated CSS import
+import { FaUserCircle } from 'react-icons/fa';
+import '../../css/ProfileUser.css';
 
 const ProfileUser = () => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
+    companyName: '', // Added companyName to state
     email: '',
     phoneNumber: '',
     address: '',
@@ -28,20 +30,22 @@ const ProfileUser = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
+        const role = response.data.role?.toLowerCase() || 'unknown';
         setUser({
           firstName: response.data.firstName || 'N/A',
           lastName: response.data.lastName || 'N/A',
+          companyName: response.data.companyName || 'N/A', // Added companyName
           email: response.data.email || 'N/A',
           phoneNumber: response.data.phoneNumber || 'N/A',
           address: response.data.address || 'N/A',
-          role: response.data.role || 'N/A',
+          role: role,
         });
       } catch (err) {
         console.error('Failed to fetch user data:', err.response?.data || err.message);
-        if (err.response?.status === 404 || err.response?.status === 401) {
+        if (err.response?.status === 401 || err.response?.status === 404) {
           localStorage.removeItem('token');
+          navigate('/login');
         }
-        navigate('/login');
       }
     };
 
@@ -74,12 +78,18 @@ const ProfileUser = () => {
     }
   };
 
+  const displayRole = user.role
+    ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
+    : 'N/A';
+
   return (
     <div className="user-profile-page">
       <div className="user-profile-container">
         <div className="user-profile-header">
-          <span className="user-profile-icon">👤</span>
-          <h2 className="user-profile-title">{user.role === 'admin' ? 'Admin Profile' : 'Supervisor Profile'}</h2>
+          <FaUserCircle className="user-profile-icon" />
+          <h2 className="user-profile-title">
+            {user.role === 'admin' ? 'Admin Profile' : user.role === 'supervisor' ? 'Supervisor Profile' : 'User Profile'}
+          </h2>
         </div>
         <div className="user-profile-user-icon"></div>
         <div className="user-profile-details">
@@ -91,6 +101,12 @@ const ProfileUser = () => {
             <span className="user-profile-detail-label">Last Name:</span>
             <span className="user-profile-detail-value">{user.lastName}</span>
           </div>
+          {user.role === 'admin' && (
+            <div className="user-profile-detail-item">
+              <span className="user-profile-detail-label">Company Name:</span>
+              <span className="user-profile-detail-value">{user.companyName}</span>
+            </div>
+          )}
           <div className="user-profile-detail-item">
             <span className="user-profile-detail-label">Email:</span>
             <span className="user-profile-detail-value">{user.email}</span>
@@ -105,7 +121,7 @@ const ProfileUser = () => {
           </div>
           <div className="user-profile-detail-item">
             <span className="user-profile-detail-label">Role:</span>
-            <span className="user-profile-detail-value">{user.role}</span>
+            <span className="user-profile-detail-value">{displayRole}</span>
           </div>
         </div>
         <div className="user-profile-actions">
@@ -132,17 +148,17 @@ const ProfileUser = () => {
         toastOptions={{
           duration: 500,
           style: {
-            background: "#333",
-            color: "#fff",
+            background: '#333',
+            color: '#fff',
           },
           success: {
             style: {
-              background: "#4CAF50",
+              background: '#4CAF50',
             },
           },
           error: {
             style: {
-              background: "#f44336",
+              background: '#f44336',
             },
           },
         }}
