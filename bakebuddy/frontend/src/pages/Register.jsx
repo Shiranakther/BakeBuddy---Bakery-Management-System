@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast'; // Import react-hot-toast
+import toast, { Toaster } from 'react-hot-toast';
 import '../../css/Register.css';
 
 const Register = () => {
@@ -22,7 +22,7 @@ const Register = () => {
       const response = await axios.post('http://localhost:5000/api/auth/register', {
         firstName,
         lastName,
-        companyName,
+        companyName: role === 'admin' ? companyName : undefined,
         email,
         phoneNumber,
         address,
@@ -30,16 +30,13 @@ const Register = () => {
         role,
       });
 
-      // Store token and show success toast
       localStorage.setItem('token', response.data.token);
       toast.success('Registration successful! Redirecting to login...', {
-        duration: 2000, // Show for 2 seconds
+        duration: 2000,
       });
       
-      // Redirect to login after a short delay to allow the toast to be seen
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      // Show error toast with the server message or a default one
       toast.error(err.response?.data?.message || 'Registration failed');
     }
   };
@@ -73,15 +70,17 @@ const Register = () => {
                 className="register-input"
               />
             </div>
-            <div className="register-form-group">
-              <label className="register-label">Company name</label>
-              <input
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                className="register-input"
-              />
-            </div>
+            {role === 'admin' && (
+              <div className="register-form-group">
+                <label className="register-label">Company name</label>
+                <input
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="register-input"
+                />
+              </div>
+            )}
             <div className="register-form-group">
               <label className="register-label">Email</label>
               <input
@@ -146,7 +145,7 @@ const Register = () => {
       <Toaster
         position="top-right"
         toastOptions={{
-          duration: 3000, // Default duration
+          duration: 3000,
           style: {
             background: "#333",
             color: "#fff",

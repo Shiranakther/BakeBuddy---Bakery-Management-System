@@ -1,107 +1,195 @@
-
-header{
+/* Header.css */
+header {
     background-color: #FFA725;
-    height:60px;
-    display:flex;
+    height: 60px;
+    display: flex;
     align-items: center;
     padding: 0;
     position: fixed;
     width: 100%;
-    z-index:999;
+    top: 0;
+    z-index: 999;
 }
-.header-container{
+
+.header-container {
     margin: 0;
     padding: 0;
     width: 100%;
-    display:flex;
-    flex-direction:row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
 }
 
-.logo-section{
-    display:flex;
-    flex-direction:row;
+.logo-section {
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: #464343;
-    height:60px;
-    width:300px;
+    height: 60px;
+    width: 300px;
     border-bottom: 1px solid white;
 }
 
-.logo-image{
-    height:50px;
- 
+.logo-image {
+    height: 50px;
+    width: auto;
 }
 
-.profile-notification-wrapper{
-    display:flex;
-    flex-direction:row;
+.profile-notification-wrapper {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-right:50px;
+    margin-right: 50px;
 }
-.profile-wrapper{
-    display:flex;
+
+/* Notification Section */
+.notification-wrapper {
+    display: flex;
     align-items: center;
     margin-left: 40px;
-    
-}
-.profile-image{
-    display:inline-block;
-    height:40px;
-    width:40px;
-    border-radius:50%;
-   
-}
-.user-name{
-    display:inline-block;
-    margin-left:15px;
-    font-size: 1rem;
-    font-weight: bold;
-    color:white;
-}
-.notification-wrapper{
-    display:flex;
-    align-items: center;
-    margin-left: 40px;
-    
-}
-.notification-image{
-    display:inline-block;
-    height:35px;
-    width:35px;
-    border-radius:50%;
-}
-.notification-image-icon{
     position: relative;
-    height:35px;
-    width:35px;
-    border-radius:50%;
 }
-.notification-text{
+
+.notification-icon {
+    font-size: 24px;
+    color: white;
+}
+
+.notification-text {
     font-size: 1rem;
     font-weight: bold;
-    color:white; 
-    margin-left:15px;
+    color: white;
+    margin-left: 10px;
 }
-.notification-count{
-    display:flex;
+
+.notification-count {
+    display: flex;
     align-items: center;
     justify-content: center;
-    position:absolute;
-    top:17px;
-    right:282px;
-    height:15px;
-    width:15px;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    height: 15px;
+    width: 15px;
     background-color: red;
-    color:white;
-    border-radius:100%;
+    color: white;
+    border-radius: 50%;
     font-size: 0.8rem;
-    text-align: center;
-    font-weight:bold;
-   
+    font-weight: bold;
+}
 
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Shutdown Icon */
+.shutdown-wrapper {
+    cursor: pointer;
+}
+
+.shutdown-icon {
+    font-size: 24px;
+    color: white;
+    transition: color 0.2s ease;
+}
+
+.shutdown-icon:hover {
+    color: #ffcccc; /* Light red on hover */
+}
+
+/* Profile Section */
+.profile-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-role-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-icon {
+    font-size: 30px;
+    color: white;
+}
+
+.role-display {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    padding: 4px 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.role-display:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dropdown Menu */
+.profile-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    z-index: 1000;
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #FFA725;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logo-section {
+        width: 200px;
+    }
+
+    .profile-notification-wrapper {
+        margin-right: 20px;
+    }
+
+    .notification-wrapper {
+        margin-left: 20px;
+    }
+
+    .notification-text {
+        display: none;
+    }
+
+    .role-display {
+        font-size: 0.9rem;
+        padding: 3px 8px;
+    }
+
+    .profile-icon, .shutdown-icon, .notification-icon {
+        font-size: 22px;
+    }
+
+    .action-buttons {
+        gap: 15px;
+    }
 }

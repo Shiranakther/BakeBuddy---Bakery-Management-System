@@ -1,157 +1,159 @@
 /* Main container styling */
 .sales-update-main-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #eee;
-  }
-  
-  /* Title styling */
-  .sales-update-title {
-    text-align: center;
-    font-size: 1.9rem;
-    font-weight: 600;
-    color: #222;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #f9a825; /* Matches SalesCreate */
-  }
-  
-  /* Message styling */
-  .sales-update-message {
-    text-align: center;
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-  
-  .sales-update-error {
-    color: #f44336; /* Red for errors */
-  }
-  
-  .sales-update-success {
-    color: #28a745; /* Green for success */
-  }
-  
-  /* Form styling */
-  .sales-update-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  /* max-width: 600px; */
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+}
+
+/* Title styling */
+.sales-update-title {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f9a825; /* Matches SalesCreate */
+}
+
+/* Message styling */
+.sales-update-message {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.sales-update-error {
+  color: #f44336; /* Red for errors */
+}
+
+.sales-update-success {
+  color: #28a745; /* Green for success */
+}
+
+/* Form styling */
+.sales-update-form {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 40px;
+  padding: 40px;
+  background-color: #fafafa; /* Light background like SalesCreate */
+  border-radius: 8px;
+}
+
+/* Label styling */
+.sales-update-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+/* Input styling */
+.sales-update-input {
+  padding: 13px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sales-update-input:focus {
+  border-color: #f9a825;
+  outline: none;
+  box-shadow: 0 0 8px rgba(249, 168, 37, 0.3);
+}
+
+.sales-update-readonly {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* Button group styling */
+.sales-update-button-group {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  left: 310px;
+  margin-top: 20px;
+}
+
+/* Submit button */
+.sales-update-submit-btn {
+  background: linear-gradient(90deg, #28a745, #4caf50); /* Green gradient */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+  flex: 1;
+}
+
+.sales-update-submit-btn:hover {
+  background: linear-gradient(90deg, #218838, #45a049);
+  transform: translateY(-2px);
+}
+
+/* Back button */
+.sales-update-back-btn {
+  background: linear-gradient(90deg, #FF8C00, #FFA725); /* Orange gradient with #FFA725 */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+  flex: 1;
+}
+
+.sales-update-back-btn:hover {
+  background: linear-gradient(90deg, #E65100, #F57C00); /* Darker orange gradient on hover */
+  transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .sales-update-main-container {
+    margin: 20px 10px;
     padding: 20px;
-    background-color: #fafafa; /* Light background like SalesCreate */
-    border-radius: 8px;
   }
-  
-  /* Label styling */
+
+  .sales-update-title {
+    font-size: 1.6rem;
+  }
+
   .sales-update-label {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #444;
-    margin-bottom: 8px;
-  }
-  
-  /* Input styling */
-  .sales-update-input {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
     font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  
-  .sales-update-input:focus {
-    border-color: #f9a825;
-    outline: none;
-    box-shadow: 0 0 8px rgba(249, 168, 37, 0.3);
+
+  .sales-update-input {
+    padding: 10px;
+    font-size: 0.95rem;
   }
-  
-  .sales-update-readonly {
-    background-color: #f0f0f0;
-    cursor: not-allowed;
-    color: #666;
-  }
-  
-  /* Button group styling */
+
   .sales-update-button-group {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  /* Submit button */
-  .sales-update-submit-btn {
-    background: linear-gradient(90deg, #28a745, #4caf50); /* Green gradient */
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: background 0.3s ease, transform 0.2s ease;
-    flex: 1;
-  }
-  
-  .sales-update-submit-btn:hover {
-    background: linear-gradient(90deg, #218838, #45a049);
-    transform: translateY(-2px);
-  }
-  
-  /* Back button */
+
+  .sales-update-submit-btn,
   .sales-update-back-btn {
-    background: linear-gradient(90deg, #FF8C00, #FFA725); /* Orange gradient with #FFA725 */
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 500;
-    transition: background 0.3s ease, transform 0.2s ease;
-    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
   }
-  
-  .sales-update-back-btn:hover {
-    background: linear-gradient(90deg, #E65100, #F57C00); /* Darker orange gradient on hover */
-    transform: translateY(-2px);
-  }
-  
-  /* Responsive design */
-  @media (max-width: 480px) {
-    .sales-update-main-container {
-      margin: 20px 10px;
-      padding: 20px;
-    }
-  
-    .sales-update-title {
-      font-size: 1.6rem;
-    }
-  
-    .sales-update-label {
-      font-size: 1rem;
-    }
-  
-    .sales-update-input {
-      padding: 10px;
-      font-size: 0.95rem;
-    }
-  
-    .sales-update-button-group {
-      flex-direction: column;
-      gap: 10px;
-    }
-  
-    .sales-update-submit-btn,
-    .sales-update-back-btn {
-      padding: 10px;
-      font-size: 1rem;
-    }
-  }
+}
