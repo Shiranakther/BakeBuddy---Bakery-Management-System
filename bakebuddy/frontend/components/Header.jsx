@@ -89,21 +89,25 @@ export default function Header() {
     return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
   };
 
-  const markAsRead = async (id) => {
+  const markAsRead = async (id, isRead) => {
     try {
-      // Send a PUT request to mark the notification as read
-      await axios.put(`http://localhost:5000/api/notification/${id}`, { isRead: true });
+      // Toggle the isRead status
+      const updatedStatus = !isRead;
       
+      // Send a PUT request to toggle the notification's isRead status
+      await axios.put(`http://localhost:5000/api/notification/${id}`, { isRead: updatedStatus });
+  
       // Update local state to reflect the change without re-fetching
       setNotifications((prevNotifications) =>
         prevNotifications.map((notification) =>
-          notification._id === id ? { ...notification, isRead: true } : notification
+          notification._id === id ? { ...notification, isRead: updatedStatus } : notification
         )
       );
     } catch (error) {
-      console.error('Failed to mark notification as read:', error);
+      console.error('Failed to toggle notification status:', error);
     }
   };
+  
 
   return (
     <>
@@ -133,7 +137,12 @@ export default function Header() {
                           key={notification._id}
                           className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
                         >
-                          <div className="notification-message-container">
+                          <div className="notification-message-container"
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevent the parent click event from triggering
+                            markAsRead(notification._id); // Mark the notification as read
+                          }}
+                          >
                             <div className="notification-message-container-details">
                               <div className="notification-message-title">{notification.title}</div>
                               <div className="notification-message-message">{notification.message}</div>
@@ -141,10 +150,7 @@ export default function Header() {
                             <div className="notification-message-container-status">
                               <div
                                 className="notification-message-message"
-                                onClick={(e) => {
-                                  e.stopPropagation(); // Prevent the parent click event from triggering
-                                  markAsRead(notification._id); // Mark the notification as read
-                                }}
+                                
                               >
                                 {notification.isRead ? (
                                   <FaEnvelopeOpen color="green" />

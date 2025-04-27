@@ -49,9 +49,7 @@ export const updateNotificationData = async (req, res) => {
     const { id } = req.params;
     const { title, message, type, isRead, metadata } = req.body;
 
-    if (!title || !message || !type) {
-        return res.status(400).json({ msg: "Please enter all required fields" });
-    }
+    
 
     try {
         const notification = await Notification.findById(id);
