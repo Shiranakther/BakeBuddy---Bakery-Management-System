@@ -6,6 +6,7 @@ import ingredientRoutes from './routes/ingredientRoutes.js';
 import {connectDB} from "./connection/connectDB.js";
 import salesRoutes from './routes/salesRouter.js';  
 import userRoutes from './routes/userRouter.js';   
+import notificationRoutes from "./routes/notificationRoutes.js";
 import cors from 'cors';
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use("/api/production",productionRoutes);
 app.use('/api/item',itemRoutes);
 app.use("/api/ingredients",ingredientRoutes);
 app.use("/api/sales", salesRoutes);
+app.use('/api/notification', notificationRoutes);
 app.use('/api/auth', userRoutes);
 
 
