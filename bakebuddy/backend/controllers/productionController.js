@@ -1,6 +1,7 @@
 import Production from "../models/productionModel.js"
 import Ingredient from '../models/ingredientModel.js'
 import Item from '../models/itemModel.js';
+import Notification from '../models/notificationModel.js'; // Adjust the import path based on your file structure
 
 export const getProductionData =  async (req,res)=>{
 
@@ -74,6 +75,8 @@ export const getCustomProductionData = async (req,res)=>{
     
 // }
 
+
+
 export const createProduction = async (req, res) => {
     let { productCode, productName, date, quantity, remarks } = req.body;
 
@@ -136,12 +139,21 @@ export const createProduction = async (req, res) => {
             console.error("Error processing ingredients:", itemError);
         }
 
-        res.status(201).json(production);
-    } catch (e) {
+        const notification = await Notification.create({
+            title: `New Production Created: ${productName}`,
+            message: `A new production for ${productName} has been created. Quantity: ${quantity}. Remarks: ${remarks || 'None'}`,
+            type: 'Production', // Set the type as 'Production'
+            isRead: false,
+            metadata: { productCode, quantity, date },
+        });
+
+        // Respond with the production record and success message
+        res.status(201).json({ production, notification, msg: 'Production created and notification sent.' });    } catch (e) {
         console.error("Error creating production:", e);
         res.status(500).json({ msg: "Error creating production" });
     }
 };
+
 
 
 export const updateProduction = async (req, res) => {

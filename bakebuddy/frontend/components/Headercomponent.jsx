@@ -5,6 +5,7 @@ import logo from '../images/logo.png'
 import profilepic from '../images/profile-image.png'
 import notificationImage from '../images/notification-image.png'
 
+
 export default function Headercomponent() {
 
   return (
@@ -22,6 +23,7 @@ export default function Headercomponent() {
                     </div>
                     <div className="notification-text">Notifications</div>
                     <div className="notification-count">5</div>
+                    <p>{notifications.count}</p>
                 </div>
                 <div className="profile-wrapper">
                     <div className="profile-image">
