@@ -1,4 +1,5 @@
 import Ingredient from '../models/ingredientModel.js';
+import Notification from '../models/notificationModel.js'; // Adjust the import path based on your file structure
 
 async function generateIngredientId() {
   let count = await Ingredient.countDocuments({});
@@ -32,6 +33,13 @@ export async function addIngredient(req, res) {
       unitsType 
     });
     await newIngredient.save();
+    const notification = await Notification.create({
+      title: `New Ingredient Created: ${ingredientId}`,
+      message: `A new Ingredient named "${name}" has been created.`,
+      type: 'Ingredient', // Set the type as 'Production'
+      isRead: false,
+      metadata: { },
+  });
     res.json(newIngredient);
   } catch (error) {
     if (error.code === 11000) {
@@ -84,6 +92,7 @@ export async function updateIngredient(req, res) {
     if (ingredientQuantity != null) ingredient.ingredientQuantity = ingredientQuantity;
 
     await ingredient.save();
+
     res.json(ingredient);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -101,12 +110,22 @@ export async function deleteIngredient(req, res) {
 
     // Delete the ingredient by its ID
     await Ingredient.deleteOne({ _id: req.params.id });
-    res.json({ message: 'Ingredient deleted' });
+
+    // Create a notification for the deleted ingredient
+    const notification = await Notification.create({
+      title: `Ingredient Deleted: ${ingredient.name}`,
+      message: `The ingredient "${ingredient.name}"`,
+      type: 'Ingredient',
+      isRead: false,
+      metadata: { ingredientId: ingredient._id },  // Add more metadata if needed
+    });
+
+    // Respond with a success message
+    res.json({ message: 'Ingredient deleted successfully', notification });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
-
 
 
 

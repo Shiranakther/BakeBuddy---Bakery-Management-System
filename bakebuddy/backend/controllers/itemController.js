@@ -3,6 +3,7 @@
 import Item from '../models/itemModel.js';
 /*import Ingredient from '../models/ingredients.model.js';*/
 import Ingredient from '../models/ingredientModel.js';
+import Notification from '../models/notificationModel.js'; // Adjust the import path based on your file structure
 
 /*export const create = async (req, res) => {
   try {
@@ -104,7 +105,15 @@ export const create = async (req, res) => {
     const savedItem = await item.save();
 
     // Respond with the created item
-    res.status(201).json("item created succusfully");
+    const notification = await Notification.create({
+      title: `New Item Created: ${itemId}`,
+      message: `A new item named "${req.body.name}" has been created.`,
+      type: 'Items', // Set the type as 'Production'
+      isRead: false,
+      metadata: { },
+  });
+  res.status(201).json({ item, notification, msg: 'item created and notification sent.' });
+
   } catch (error) {
     res.status(400).json({ message: "Error creating item", error: error.message });
   }
@@ -127,9 +136,16 @@ export const deleteItem = async (req, res) => {
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }
+    const notification = await Notification.create({
+      title: `Item Deleted: ${itemId}`,
+      message: `The item with ID: ${itemId} has been deleted.`,
+      type: 'Items',
+      isRead: false,
+      metadata: { itemId },  // You can add more metadata if needed
+    });
     res.status(200).json({ message: "Item deleted successfully", itemId });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting item", error: error.message });
+    res.status(500).json({ message: "Er    ror deleting item", error: error.message });
   }
 };
 
@@ -137,6 +153,8 @@ export const deleteItem = async (req, res) => {
 export const updateItem = async (req, res) => {
   try {
     const { itemId } = req.params;
+
+    // Gather the update data from the request body
     const updateData = {
       name: req.body.name,
       Category: req.body.Category,
@@ -149,6 +167,7 @@ export const updateItem = async (req, res) => {
       })),
     };
 
+    // Check if an item with the same name already exists, excluding the current item
     const existingItem = await Item.findOne({ name: req.body.name, itemId: { $ne: itemId } });
     if (existingItem) {
       return res.status(409).json({ 
@@ -157,11 +176,33 @@ export const updateItem = async (req, res) => {
       });
     }
 
+    // Find and update the item
+    const oldItem = await Item.findOne({ itemId });
     const updatedItem = await Item.findOneAndUpdate({ itemId }, updateData, { new: true, runValidators: true });
+
+    // If no item is found to update, return 404
     if (!updatedItem) {
       return res.status(404).json({ message: "Item not found" });
     }
-    res.status(200).json({ message: "Item updated successfully", updatedItem });
+
+    // Create a notification about the item name change
+    let notificationMessage;
+    if (oldItem.name !== req.body.name) {
+      notificationMessage = `The item "${oldItem.name}" has been updated to "${req.body.name}".`;
+    } else {
+      notificationMessage = `The ingredients of the item "${oldItem.name}" have been updated.`;
+    }
+    
+    const notification = await Notification.create({
+      title: `Item Updated: ${itemId}`,
+      message: notificationMessage,  // Dynamic message with old and new name
+      type: 'Items',
+      isRead: false,
+      metadata: { itemId },  // Add itemId or more metadata if necessary
+    });
+
+    // Respond with a success message, the updated item, and the notification
+    res.status(200).json({ message: "Item updated successfully", updatedItem, notification });
   } catch (error) {
     res.status(400).json({ message: "Error updating item", error: error.message });
   }
