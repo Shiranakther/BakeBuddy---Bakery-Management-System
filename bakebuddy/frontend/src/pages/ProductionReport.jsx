@@ -7,6 +7,28 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import "../../css/production/productionReport.css";
 import addButton from "../../images/add_button.png";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 
 export default function ProductionReport() {
   const [productions, setProductions] = useState([]);
@@ -169,6 +191,8 @@ export default function ProductionReport() {
 
       </div>
 
+     
+
 
 
       <div className="production-table-wrapper">
@@ -210,6 +234,54 @@ export default function ProductionReport() {
           </tbody>
         </table>
       </div>
+      <div className="production-chart-wrapper">
+  <h2 style={{ textAlign: "center", margin: "20px 0" }}>
+    Production Quantity Over Time
+  </h2>
+  <Line
+    data={{
+      labels: filteredProductions.map((prod) => prod.date ? prod.date.split("T")[0] : ""), // X-axis = Dates
+      datasets: [
+        {
+          label: "Production Quantity",
+          data: filteredProductions.map((prod) => prod.quantity), // Y-axis = Quantity
+          fill: false,
+          borderColor: "#FFA725",
+          backgroundColor: "#FFA725",
+          tension: 0.3, // smooth curve
+        },
+      ],
+    }}
+    options={{
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Production Quantity by Date (Filtered by Search and Date Range)",
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: "Production Date",
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: "Quantity",
+          },
+          beginAtZero: true,
+        },
+      },
+    }}
+  />
+</div>
+
 
       {/* Modal for Adding/Editing Production */}
       {showModal && (

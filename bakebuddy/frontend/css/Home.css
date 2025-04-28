@@ -26,3 +26,65 @@
 .reports-title{
     font-size: 1.7rem;
 }
+.home-container {
+    
+  }
+  
+  .home-title {
+    text-align: center;
+    margin-bottom: 0.8rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin:10px 80px 40px 80px;
+  }
+  
+  .home-filters {
+    margin:10px 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+   .home-filters button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-left: 20px;
+    width:100px;
+  }
+  .home-filter-controller-filter{
+    background-color: #464343;
+    border-radius:5px;
+    border:none;
+    color:white;
+  }
+  .home-filter-controller-clear{
+    background-color: rgb(215, 26, 26);
+    border-radius:5px;
+    border:none;
+    color:white;
+  }
+  .home-filters input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-left: 20px;
+    width: 150px;
+    border-radius:5px;
+    border: 1px solid #ccc;
+  }
+  
+  .home-chart {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .home-filter-start-date label{
+    margin-right: 5px;
+    font-weight: bold;
+  }
+  .home-filter-end-date label{
+    margin-right:5px;
+    font-weight: bold;
+  }
