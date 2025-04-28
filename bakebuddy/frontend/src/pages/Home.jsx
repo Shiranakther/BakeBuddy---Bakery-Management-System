@@ -6,7 +6,7 @@ import axios from "axios";
 import { Line } from "react-chartjs-2"; // 🧠 Changed from Bar to Line
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from "chart.js"; // 🧠 Updated here
 import toast, { Toaster } from "react-hot-toast";
-
+import StatusInfo from '../../components/StatusInfo';
 // Register chart elements
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -131,6 +131,8 @@ export default function Home() {
         </div>
         <div className="page-header-title">Dashboard</div>
       </div>
+
+      <StatusInfo />
 
       <div className="home-container">
         <div className="home-title">Sales Overview</div>

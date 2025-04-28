@@ -26,6 +26,7 @@ import UpdateIngredient from './pages/UpdateIngrediant';
 import PrivateRoute from '../components/PrivateRoute';
 import PublicRoute from '../components/PublicRoute'; // Import the new PublicRoute
 import SlowMovingReport from './pages/SlowMovingReport';
+import StatusInfo from '../components/StatusInfo';
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
           <Route path="/create-sales/repot" element={<ReportSales />} />
 
           <Route path="/production" element={<Production />} />
+          <Route path="/status-info" element={<StatusInfo />} />
           <Route path="/smartbake/:id" element={<Smartbake />} />
 
           <Route path="/items" element={<Items />} />
