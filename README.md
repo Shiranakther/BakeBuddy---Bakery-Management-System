@@ -69,7 +69,7 @@ https://github.com/Shiranakther/BakeBuddy---Bakery-Management-System.git
 # Navigate to the project folder
 cd bakebuddy
 
-# Install dependencies
+# Install dependencies (Both Frontend and Backend)
 npm install
 
 #In backend folder create .env Folder and include
