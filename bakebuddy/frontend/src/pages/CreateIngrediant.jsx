@@ -35,7 +35,7 @@ const CreateIngredient = () => {
         minUnits: Number(formData.minUnits),
       };
 
-      const response = await axios.post('http://localhost:5000/api/ingredients/create', dataToSend);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/ingredients/create`, dataToSend);
       setSuccess('Ingredient created successfully!');
       setFormData({
         name: '',

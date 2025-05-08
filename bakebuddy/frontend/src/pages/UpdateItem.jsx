@@ -28,7 +28,7 @@ export default function UpdateItem() {
     const fetchData = async () => {
       try {
         // Fetch item details
-        const itemResponse = await axios.get(`http://localhost:5000/api/item/all`);
+        const itemResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/item/all`);
         const item = itemResponse.data.find((i) => i.itemId === itemId);
         if (!item) throw new Error('Item not found');
 
@@ -40,7 +40,7 @@ export default function UpdateItem() {
         });
 
         // Fetch available ingredients
-        const ingredientsResponse = await axios.get('http://localhost:5000/api/ingredients/');
+        const ingredientsResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients/`);
         setValidIngredients(ingredientsResponse.data);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -157,7 +157,7 @@ export default function UpdateItem() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/item/${itemId}`,
+        `${import.meta.env.VITE_API_URL}/api/item/${itemId}`,
         {
           ...formData,
           ingredients: formData.ingredients.map((ing) => ({

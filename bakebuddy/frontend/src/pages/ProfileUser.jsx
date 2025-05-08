@@ -26,7 +26,7 @@ const ProfileUser = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:5000/api/auth/me', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -64,7 +64,7 @@ const ProfileUser = () => {
     if (window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete('http://localhost:5000/api/auth/me', {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         localStorage.removeItem('token');

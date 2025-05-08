@@ -23,7 +23,7 @@ export default function Items() {
     const fetchItems = async () => {
       try {
         console.log('Fetching items from /api/item/all');
-        const response = await axios.get('http://localhost:5000/api/item/all', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/item/all`, {
           headers: { 
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include token
@@ -148,7 +148,7 @@ export default function Items() {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/item/${itemId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/item/${itemId}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include token

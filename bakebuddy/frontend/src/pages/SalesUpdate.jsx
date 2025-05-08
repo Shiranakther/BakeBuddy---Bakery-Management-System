@@ -21,7 +21,7 @@ const SalesUpdate = () => {
   useEffect(() => {
     const fetchSalesData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/sales/view/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/sales/view/${id}`);
         if (response.data) {
           setSalesData({
             date: response.data.date || "",
@@ -47,7 +47,7 @@ const SalesUpdate = () => {
     e.preventDefault();
     const loadingToast = toast.loading("Updating sales record..."); // Show loading toast
     try {
-      await axios.put(`http://localhost:5000/api/sales/update/${id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/sales/update/${id}`, {
         date: salesData.date,
         buyerName: salesData.buyerName,
         salesQuentity: salesData.salesQuentity,

@@ -28,7 +28,7 @@ export default function AddItem() {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/ingredients/', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients/`, {
           headers: { 'Content-Type': 'application/json' },
         });
         setValidIngredients(response.data);
@@ -143,7 +143,7 @@ export default function AddItem() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/item/create',
+        `${import.meta.env.VITE_API_URL}/api/item/create`,
         {
           ...formData,
           ingredients: formData.ingredients.map((ing) => ({

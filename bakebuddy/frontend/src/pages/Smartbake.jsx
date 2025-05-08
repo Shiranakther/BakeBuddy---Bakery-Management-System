@@ -24,7 +24,7 @@ const Smartbake = () => {
     const getItemIngredients = async () => {
       try {
         // Fetch all items
-        const response = await axios.get("http://localhost:5000/api/item/all");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/item/all`);
         console.log(response.data);
         if (!response.data) {
           console.log("No items found");
