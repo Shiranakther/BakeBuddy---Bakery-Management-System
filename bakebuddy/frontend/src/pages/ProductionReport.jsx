@@ -91,7 +91,7 @@ export default function ProductionReport() {
 
   const fetchProductions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/production");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/production`);
       setProductions(response.data);
       setFilteredProductions(response.data); // Set initial filtered productions
     } catch (error) {
@@ -108,10 +108,10 @@ export default function ProductionReport() {
     e.preventDefault();
     try {
       if (editingId) {
-        await axios.put(`http://localhost:5000/api/production/${editingId}`, formData);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/production/${editingId}`, formData);
         toast.success("Production updated successfully!");
       } else {
-        await axios.post("http://localhost:5000/api/production", formData);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/production`, formData);
         toast.success("Production added successfully!");
       }
 
@@ -141,7 +141,7 @@ export default function ProductionReport() {
     const handleDelete = async (id) => {
       console.log("Deleting production with ID:", id); 
       try {
-        await axios.delete(`http://localhost:5000/api/production/${id}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/production/${id}`);
         toast.success("Production deleted successfully.");
         fetchProductions();
       } catch (error) {

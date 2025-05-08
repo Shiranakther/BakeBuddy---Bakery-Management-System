@@ -34,7 +34,7 @@ const SalesCreate = () => {
 
   const fetchSalesData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/sales/view");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/sales/view`);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
@@ -53,7 +53,7 @@ const SalesCreate = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/item/all");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/item/all`);
       setItems(response.data);
     } catch (error) {
       console.error("Error fetching items", error);
@@ -114,7 +114,7 @@ const SalesCreate = () => {
     e.preventDefault();
     const loadingToast = toast.loading("Adding sales record..."); // Show loading toast
     try {
-      const response = await axios.post("http://localhost:5000/api/sales/create", salesData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/sales/create`, salesData);
       toast.success("Sales record added successfully!", {
         id: loadingToast, // Replace loading toast with success
         duration: 2000,
@@ -140,7 +140,7 @@ const SalesCreate = () => {
 
     const loadingToast = toast.loading("Deleting sales record..."); // Show loading toast
     try {
-      await axios.delete(`http://localhost:5000/api/sales/delete/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/sales/delete/${id}`);
       toast.success("Sales record deleted successfully!", {
         id: loadingToast, // Replace loading toast with success
         duration: 2000,

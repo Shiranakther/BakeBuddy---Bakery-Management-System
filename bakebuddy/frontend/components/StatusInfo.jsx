@@ -24,7 +24,7 @@ export default function StatusInfo() {
   // Function to fetch productions from the API
   const fetchProductions = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/production");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/production`);
       setProductions(response.data);
       calculateTotalProductionToday(response.data);
     } catch (error) {
@@ -46,7 +46,7 @@ export default function StatusInfo() {
 
   const fetchSalesData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/sales/view');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/sales/view`);
 
       // Fixing right here: Convert quantity to Number immediately
       const cleanedData = response.data.map((sale) => ({

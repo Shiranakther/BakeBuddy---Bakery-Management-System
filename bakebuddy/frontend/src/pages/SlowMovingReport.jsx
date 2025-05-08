@@ -24,7 +24,7 @@ const SlowMovingReport = () => {
 
   const fetchSalesData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/sales/view");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/sales/view`);
       setSalesData(response.data);
       setFilteredSales(response.data);
     } catch (error) {

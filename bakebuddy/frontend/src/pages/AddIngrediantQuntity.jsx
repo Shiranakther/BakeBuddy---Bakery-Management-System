@@ -16,7 +16,7 @@ const UpdateIngredientQuantity = () => {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/ingredients');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients`);
         setIngredients(response.data);
       } catch (err) {
         setError('Failed to fetch ingredients');
@@ -34,7 +34,7 @@ const UpdateIngredientQuantity = () => {
 
     if (ingredientId) {
       try {
-        const response = await axios.get(`http://localhost:5000/api/ingredients/${ingredientId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients/${ingredientId}`);
         setSelectedIngredient(response.data);
       } catch (err) {
         setError('Failed to fetch ingredient details');
@@ -65,7 +65,7 @@ const UpdateIngredientQuantity = () => {
     const newQuantity = (selectedIngredient.ingredientQuantity || 0) + quantityToAdd;
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/ingredients/${selectedIngredientId}`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
         ingredientQuantity: newQuantity,
       });
       setSuccess(`Added ${quantityToAdd} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);
@@ -95,7 +95,7 @@ const UpdateIngredientQuantity = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/ingredients/${selectedIngredientId}`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
         ingredientQuantity: newQuantity,
       });
       setSuccess(`Deducted ${quantityToDeduct} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);

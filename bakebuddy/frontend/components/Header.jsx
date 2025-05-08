@@ -16,7 +16,7 @@ export default function Header() {
 
   const fetchNotificationData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/notification/");
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/notification/`);
       setNotifications(response.data);
     } catch (e) {
       console.log(e);
@@ -95,7 +95,7 @@ export default function Header() {
       const updatedStatus = !isRead;
       
       // Send a PUT request to toggle the notification's isRead status
-      await axios.put(`http://localhost:5000/api/notification/${id}`, { isRead: updatedStatus });
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/notification/${id}`, { isRead: updatedStatus });
   
       // Update local state to reflect the change without re-fetching
       setNotifications((prevNotifications) =>

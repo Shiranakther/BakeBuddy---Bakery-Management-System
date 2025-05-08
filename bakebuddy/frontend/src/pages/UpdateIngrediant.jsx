@@ -21,7 +21,7 @@ const UpdateIngredient = () => {
   useEffect(() => {
     const fetchIngredient = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/ingredients/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients/${id}`);
         setFormData({
           name: response.data.name,
           maxUnits: response.data.maxUnits,
@@ -57,7 +57,7 @@ const UpdateIngredient = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/ingredients/${id}`, formData);
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${id}`, formData);
       setSuccess('Ingredient updated successfully!');
       toast.success('Ingredient updated successfully!'); // Optional toast
       setTimeout(() => navigate('/show-ingredient'), 1000); // Navigate after 1s
