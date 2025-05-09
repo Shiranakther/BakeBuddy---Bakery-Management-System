@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import productionHeader from "../../images/ingredient_image.png";
-import '../../css/ingredients/UpdateIngredientQuantity.css'; // Updated CSS import
+import '../../css/ingredients/UpdateIngredientQuantity.css';
 
 const UpdateIngredientQuantity = () => {
   const [ingredients, setIngredients] = useState([]);
   const [selectedIngredientId, setSelectedIngredientId] = useState('');
   const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [quantityChange, setQuantityChange] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -25,23 +26,24 @@ const UpdateIngredientQuantity = () => {
     fetchIngredients();
   }, []);
 
-  const handleIngredientChange = async (e) => {
-    const ingredientId = e.target.value;
-    setSelectedIngredientId(ingredientId);
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
     setError(null);
     setSuccess(null);
     setQuantityChange('');
+    setSelectedIngredient(null);
+    setSelectedIngredientId('');
 
-    if (ingredientId) {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ingredients/${ingredientId}`);
-        setSelectedIngredient(response.data);
-      } catch (err) {
-        setError('Failed to fetch ingredient details');
-        setSelectedIngredient(null);
-      }
-    } else {
-      setSelectedIngredient(null);
+    const matched = ingredients.find(
+      (ing) =>
+        ing.name.toLowerCase().includes(value.toLowerCase()) ||
+        ing.ingredientId.toLowerCase().includes(value.toLowerCase())
+    );
+
+    if (matched) {
+      setSelectedIngredientId(matched._id);
+      setSelectedIngredient(matched);
     }
   };
 
@@ -65,7 +67,7 @@ const UpdateIngredientQuantity = () => {
     const newQuantity = (selectedIngredient.ingredientQuantity || 0) + quantityToAdd;
 
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
         ingredientQuantity: newQuantity,
       });
       setSuccess(`Added ${quantityToAdd} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);
@@ -95,7 +97,7 @@ const UpdateIngredientQuantity = () => {
     }
 
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/ingredients/${selectedIngredientId}`, {
         ingredientQuantity: newQuantity,
       });
       setSuccess(`Deducted ${quantityToDeduct} ${selectedIngredient.unitsType}. New quantity: ${newQuantity}`);
@@ -112,13 +114,13 @@ const UpdateIngredientQuantity = () => {
 
   return (
     <>
-     <div className="page-header">
-                   <div className="page-header-image">
-                     <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
-                   </div>
-                   <div className="page-header-title">Production</div>
-                 </div>
-           
+      <div className="page-header">
+        <div className="page-header-image">
+          <img src={productionHeader} alt="dashboard-page-header" className='page-header-icon' />
+        </div>
+        <div className="page-header-title">Ingredients</div>
+      </div>
+
       <div className="ingredient-update-main-container">
         <h2 className="ingredient-update-title">Update Ingredient Quantity</h2>
 
@@ -126,51 +128,50 @@ const UpdateIngredientQuantity = () => {
         {success && <div className="ingredient-update-success-message">{success}</div>}
 
         <div className="ingredient-update-form-group">
-          <label className="ingredient-update-label">Ingredients ID</label>
-          <select
-            value={selectedIngredientId}
-            onChange={handleIngredientChange}
-            className="ingredient-update-select"
-            required
-          >
-            <option value="">Select Ingredients ID</option>
-            {ingredients.map(ingredient => (
-              <option key={ingredient._id} value={ingredient._id}>
+          <label className="ingredient-update-label">Search Ingredient (Name or ID)</label>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Type to search ingredient..."
+            className="ingredient-update-input"
+            list="ingredient-options"
+          />
+          <datalist id="ingredient-options">
+            {ingredients.map((ingredient) => (
+              <option key={ingredient._id} value={ingredient.name}>
                 {ingredient.ingredientId}
               </option>
             ))}
-          </select>
+          </datalist>
         </div>
 
         <div className="ingredient-update-form-group">
-          <label className="ingredient-update-label">Ingredients Name</label>
+          <label className="ingredient-update-label">Ingredient Name</label>
           <input
             type="text"
             value={selectedIngredient?.name || ''}
             readOnly
-            placeholder="Select an ingredient"
             className="ingredient-update-input ingredient-update-readonly"
           />
         </div>
 
         <div className="ingredient-update-form-group ingredient-update-inline-group">
           <div className="ingredient-update-inline-field">
-            <label className="ingredient-update-label">View Maximum Units</label>
+            <label className="ingredient-update-label">Maximum Units</label>
             <input
               type="text"
               value={selectedIngredient?.maxUnits || ''}
               readOnly
-              placeholder="Maximum Units"
               className="ingredient-update-input ingredient-update-readonly"
             />
           </div>
           <div className="ingredient-update-inline-field">
-            <label className="ingredient-update-label">View Minimum Units</label>
+            <label className="ingredient-update-label">Minimum Units</label>
             <input
               type="text"
               value={selectedIngredient?.minUnits || ''}
               readOnly
-              placeholder="Minimum Units"
               className="ingredient-update-input ingredient-update-readonly"
             />
           </div>
@@ -185,9 +186,8 @@ const UpdateIngredientQuantity = () => {
                 value="pieces"
                 checked={selectedIngredient?.unitsType === 'pieces'}
                 readOnly
-                className="ingredient-update-radio"
               />
-              pieces
+              Pieces
             </label>
             <label className="ingredient-update-radio-label">
               <input
@@ -195,7 +195,6 @@ const UpdateIngredientQuantity = () => {
                 value="kg"
                 checked={selectedIngredient?.unitsType === 'kg'}
                 readOnly
-                className="ingredient-update-radio"
               />
               Kg
             </label>
@@ -205,9 +204,8 @@ const UpdateIngredientQuantity = () => {
                 value="liter"
                 checked={selectedIngredient?.unitsType === 'liter'}
                 readOnly
-                className="ingredient-update-radio"
               />
-              L
+              Liter
             </label>
           </div>
         </div>
@@ -218,7 +216,6 @@ const UpdateIngredientQuantity = () => {
             type="text"
             value={selectedIngredient?.ingredientQuantity || 0}
             readOnly
-            placeholder="Current quantity"
             className="ingredient-update-input ingredient-update-readonly"
           />
         </div>
