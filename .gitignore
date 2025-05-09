@@ -1,1 +1,4 @@
-bakebuddy/backend/.env
+bakebuddy/backend/.env
+config.bat
+node_modules
+.env
