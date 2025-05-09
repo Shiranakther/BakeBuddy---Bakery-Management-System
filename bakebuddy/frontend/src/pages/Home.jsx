@@ -18,6 +18,7 @@ export default function Home() {
   const [endDate, setEndDate] = useState("");
   const [groupedSales, setGroupedSales] = useState({});
 
+
   useEffect(() => {
     fetchSalesData();
   }, []);
@@ -80,6 +81,9 @@ export default function Home() {
 
     setGroupedSales(grouped);
   };
+
+
+
 
   const chartData = {
     labels: Object.keys(groupedSales),
