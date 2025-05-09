@@ -158,112 +158,53 @@ const Smartbake = () => {
   
   
 
-  // const generatePDF = () => {
-  //   const doc = new jsPDF();
-  
-  //   // Page settings
-  //   const margin = 20;
-  //   const lineHeight = 8; // Smaller line height
-  //   const pageHeight = doc.internal.pageSize.height;
-  //   let currentY = margin;
-
-  //   doc.text(`Report Generated: ${new Date().toLocaleString()}`, 14, 22);
-  //   doc.text("Contact: info@bakery.com | +123 456 789", 14, 28);
   
 
-  //   currentY += lineHeight + 15;
-
-  //   // Title section with item name in color #d9534f (centered)
-  //   doc.setFontSize(14); // Font size for title
-  //   doc.setFont("helvetica", "bold");
-  //   doc.setTextColor(217, 83, 79); // Set color to #d9534f (RGB)
-  //   const titleWidth = doc.getTextWidth(selectedRecipe.title);
-  //   const titleX = (doc.internal.pageSize.width - titleWidth) / 2; // Center the title
-  //   doc.text(selectedRecipe.title, titleX, currentY);
-  //   currentY += lineHeight + 8; // Adjust spacing after title
-  
-  //   // Ingredients section (bold title)
-  //   doc.setFontSize(12); // Font size for ingredients
-  //   doc.setFont("helvetica", "bold"); // Bold font for the title
-  //   doc.setTextColor(0, 0, 0); // Reset color to black
-  //   doc.text("Ingredients:", margin, currentY);
-  //   currentY += lineHeight+3;
-  
-  //   doc.setFontSize(10); // Font size for ingredient list
-  //   doc.setFont("helvetica", "normal"); // Normal font for ingredients
-  //   selectedRecipe.ingredients.forEach((ingredient, index) => {
-  //     doc.text(`- ${ingredient}`, margin, currentY);
-  //     currentY += lineHeight;
-  //   });
-
-  //   currentY += lineHeight+3;
-  
-  //   // Instructions section (bold title)
-  //   doc.setFontSize(12); // Font size for instructions title
-  //   doc.setFont("helvetica", "bold"); // Bold font for instructions title
-  //   doc.setTextColor(0, 0, 0); // Reset color to black
-  //   doc.text("Instructions:", margin, currentY);
-  //   currentY += lineHeight+3;
-  
-  //   doc.setFontSize(10); // Font size for ingredient list
-  //   doc.setFont("helvetica", "normal"); // Normal font for ingredients
-  //   // Instructions text (normal font)
-  //   const instructions = selectedRecipe.instructions.split("\n").filter(step => step.trim());
-  
-  //   instructions.forEach((step, index) => {
-  //     // Remove "Step X: " by splitting the string and using only the part after "Step X: "
-  //     const stepText = step.replace(/^Step \d+: /, 'Step: ');
-  
-  //     // Set text color for the instruction steps (black color)
-  //     doc.setTextColor(0, 0, 0); // Black color for instructions
-  
-  //     // Wrap text to fit within page width
-  //     const wrappedText = doc.splitTextToSize(stepText, 180); // 180 is the width for wrapping text
-  
-  //     // Check if text exceeds page height, and add a new page if necessary
-  //     if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin) {
-  //       doc.addPage(); // Add new page
-  //       currentY = margin; // Reset Y position
-  //     }
-  
-  //     // Add wrapped text with adjusted line height
-  //     wrappedText.forEach((line, i) => {
-  //       doc.text(line, margin, currentY + (i * lineHeight));
-  //     });
-  
-  //     currentY += wrappedText.length * lineHeight; // Adjust current Y based on wrapped lines
-  //   });
-  
-    
-  //   // Save PDF with title as filename
-  //   doc.save(`${selectedRecipe.title}.pdf`);
-  // };
-  
-
-  const generatePDF = () => {
+const generatePDF = () => {
     const doc = new jsPDF();
 
-    // Page settings
     const margin = 20;
-    const lineHeight = 8; // Smaller line height
+    const lineHeight = 8;
+    const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-    let currentY = margin;
+    let currentY = margin + 65; // Adjusted for header and title outside border
 
-    doc.text(`Report Generated: ${new Date().toLocaleString()}`, 14, 22);
-    doc.text("Contact: info@bakery.com | +123 456 789", 14, 28);
+    // === Header Background ===
+    doc.setFillColor(255, 245, 235); // Light orange (#FFF5EB)
+    doc.rect(0, 0, pageWidth, 40, 'F'); // Background for header section
 
-    currentY += lineHeight + 15;
+    // === Header ===
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(30); // Big title
+    const bakeryName = "Indika Bakers";
+    doc.setTextColor(105,105,105); // Dark grey (#333)
+    const nameWidth = doc.getTextWidth(bakeryName);
+    doc.text(bakeryName, (pageWidth - nameWidth) / 2, margin);
 
-    // Title section with item name in color #d9534f (centered)
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    const address = "NO 302, Kandy Rd, Malabe";
+    const phone = "0754536524";
+
+    const addressWidth = doc.getTextWidth(address);
+    const phoneWidth = doc.getTextWidth(phone);
+
+    doc.text(address, (pageWidth - addressWidth) / 2, margin + 7);
+    doc.text(phone, (pageWidth - phoneWidth) / 2, margin + 13);
+
+    // === Title ===
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(217, 83, 79); // Set color to #d9534f (RGB)
+    doc.setTextColor(217, 83, 79); // #d9534f
     const titleWidth = doc.getTextWidth(selectedRecipe.title);
-    const titleX = (doc.internal.pageSize.width - titleWidth) / 2;
-    doc.text(selectedRecipe.title, titleX, currentY);
-    currentY += lineHeight + 8;
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(selectedRecipe.title, titleX, margin + 35);
+    
+    // === Border ===
+    doc.setDrawColor(0);
+    doc.rect(margin - 5, margin + 50, pageWidth - 2 * (margin - 5), pageHeight - margin * 2 - 45, 'S');
 
-    // Ingredients section
+    // === Ingredients Section ===
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(0, 0, 0);
@@ -279,17 +220,15 @@ const Smartbake = () => {
 
     currentY += lineHeight + 3;
 
-    // Instructions section
+    // === Instructions Section ===
     doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(0, 0, 0);
     doc.text("Instructions:", margin, currentY);
     currentY += lineHeight + 3;
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
 
-    // Split instructions properly
     let instructions;
     if (selectedRecipe.instructions.includes("\n")) {
         instructions = selectedRecipe.instructions.split("\n").filter(step => step.trim());
@@ -298,16 +237,15 @@ const Smartbake = () => {
     }
 
     instructions.forEach((step, index) => {
-        // Add "Step X: " to properly format each step
         const stepText = `Step ${index + 1}: ${step.trim()}`;
-
-        // Wrap text to fit within page width
         const wrappedText = doc.splitTextToSize(stepText, 180);
 
-        // Check if text exceeds page height, add new page if necessary
-        if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin) {
+        if (currentY + (wrappedText.length * lineHeight) > pageHeight - margin - 15) {
+            addFooter(doc, pageHeight, margin);
             doc.addPage();
-            currentY = margin;
+            addHeader(doc, pageWidth, margin);
+            doc.rect(margin - 5, margin + 25, pageWidth - 2 * (margin - 5), pageHeight - margin * 2 - 10, 'S');
+            currentY = margin + 30;
         }
 
         wrappedText.forEach((line, i) => {
@@ -317,9 +255,40 @@ const Smartbake = () => {
         currentY += wrappedText.length * lineHeight;
     });
 
-    // Save PDF with title as filename
+    // Final Footer
+    addFooter(doc, pageHeight, margin);
+
     doc.save(`${selectedRecipe.title}.pdf`);
 };
+
+// Helper to add footer
+const addFooter = (doc, pageHeight, margin) => {
+    const now = new Date().toLocaleString();
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+
+    doc.text(now, margin, pageHeight - 10);
+    const rightsText = "All rights reserved BakeBuddy.";
+    const rightsWidth = doc.getTextWidth(rightsText);
+    const centerX = (doc.internal.pageSize.width - rightsWidth) / 2;
+    doc.text(rightsText, centerX, pageHeight - 10);
+};
+
+// Optional: Add header again on new page
+const addHeader = (doc, pageWidth, margin) => {
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    const headerText = [
+        "Indika Bakers",
+        "NO 302, Kandy Rd, Malabe",
+        "Phone: 0754536524"
+    ];
+    headerText.forEach((line, i) => {
+        const textWidth = doc.getTextWidth(line);
+        doc.text(line, pageWidth - textWidth - margin, margin + (i * 6));
+    });
+};
+
 
 
   const fetchImageUrl = async (recipeTitle) => {
