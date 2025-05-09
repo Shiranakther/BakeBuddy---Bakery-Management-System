@@ -59,10 +59,11 @@ export default function StatusInfo() {
         ...sale,
         salesQuentity: Number(sale.salesQuentity) || 0,
       }));
-
+      
       const totalSalesToday = getTodaySales(cleanedData);
 
       setTodaySales(totalSalesToday);
+      console.log(`Total sales today: ${totalSalesToday}`);
     } catch (error) {
       console.error(error);
       setError("Error fetching sales data");
@@ -73,18 +74,17 @@ export default function StatusInfo() {
   };
 
   // Function to calculate today's total sales quantity
-  const getTodaySales = (salesData) => {
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+const getTodaySales = (salesData) => {
+  const today = new Date().toLocaleDateString("en-CA"); // 'YYYY-MM-DD' in local time
 
-    // Filter sales that occurred today
-    const todaySales = salesData.filter((sale) => {
-      const saleDate = new Date(sale.date).toISOString().split('T')[0]; // Format sale date to 'YYYY-MM-DD'
+  return salesData
+    .filter((sale) => {
+      const saleDate = new Date(sale.date).toLocaleDateString("en-CA"); // format same way
       return saleDate === today;
-    });
+    })
+    .reduce((total, sale) => total + Number(sale.salesQuentity || 0), 0);
+};
 
-    // Return total sales quantity for today
-    return todaySales.reduce((total, sale) => total + sale.salesQuentity, 0);
-  };
 
    const fetchIngredients = async () => {
   try {
