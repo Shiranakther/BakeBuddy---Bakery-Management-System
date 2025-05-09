@@ -174,7 +174,7 @@ export default function Items() {
   };
 
   // Generate report data with nested structure
-  const generateReportData = () => {
+  /*const generateReportData = () => {
     const reportData = [];
     displayedItems.forEach(item => {
       if (item.ingredients?.length > 0) {
@@ -203,7 +203,7 @@ export default function Items() {
       }
     });
     return reportData;
-  };
+  };*/
 
   // Generate CSV Report
   const generateCSVReport = () => {
@@ -243,7 +243,7 @@ export default function Items() {
   };
 
   // Generate PDF Report
-  const generatePDFReport = () => {
+  /*const generatePDFReport = () => {
     const doc = new jsPDF();
 
     // HEADER
@@ -310,7 +310,260 @@ export default function Items() {
 
     doc.save("items_report.pdf");
     setShowReportOptions(false);
-  };
+  };*/
+
+  // Generate report data with nested structure
+// Generate report data with nested structure
+const generateReportData = () => {
+  const reportData = [];
+  (typeof displayedItems !== 'undefined' ? displayedItems : []).forEach(item => {
+      const itemId = (item.itemId || 'N/A').replace(/[^a-zA-Z0-9\-]/g, '').trim();
+      const itemName = (item.name || 'N/A').replace(/[^a-zA-Z0-9\s]/g, '').trim();
+      const category = (item.Category || item.category || 'N/A').replace(/[^a-zA-Z0-9\s]/g, '').trim();
+
+      if (/(.)\1{2,}/.test(itemName) || /(.)\1{2,}/.test(category)) {
+          console.warn(`Potential typo in item ${itemId}: name="${itemName}", category="${category}"`);
+      }
+
+      if (item.ingredients?.length > 0) {
+          item.ingredients.forEach((ing, index) => {
+              let ingredientId = (ing.ingredientId || 'N/A').replace(/[^a-zA-Z0-9\-]/g, '').trim();
+              const ingredientName = (ing.name || 'N/A').replace(/[^a-zA-Z0-9\s]/g, '').trim();
+              const volume = ing.volume !== undefined ? ing.volume : 'N/A';
+              const unit = (ing.unit || 'N/A').replace(/[^a-zA-Z0-9\s]/g, '').trim();
+              const isValidIngredientId = ingredientId === 'N/A' || /^ING-\d+$/.test(ingredientId);
+              if (!isValidIngredientId) {
+                  console.warn(`Invalid ingredient ID: "${ingredientId}" for item ${itemId}, ingredient "${ingredientName}". Setting to 'N/A'.`);
+                  ingredientId = 'N/A';
+              }
+              reportData.push([
+                  index === 0 ? itemId : '',
+                  index === 0 ? itemName : '',
+                  index === 0 ? category : '',
+                  ingredientId,
+                  ingredientName,
+                  volume,
+                  unit,
+              ]);
+          });
+          if (item.ingredients.length < 3 && itemId === 'item008') {
+              console.warn(`Incomplete ingredients for item008 (Chocolate Mousse):`, item.ingredients);
+          }
+      } else {
+          reportData.push([itemId, itemName, category, 'N/A', 'No ingredients', 'N/A', 'N/A']);
+      }
+  });
+  return reportData;
+};
+
+const addCustomPageHeader = (doc, pageWidth, margin) => {
+  doc.setFillColor(255, 245, 235);
+  doc.rect(0, 0, pageWidth, 40, 'F');
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(30);
+  const bakeryName = "Indika Bakers";
+  doc.setTextColor(105, 105, 105);
+  const nameWidth = doc.getTextWidth(bakeryName);
+  doc.text(bakeryName, (pageWidth - nameWidth) / 2, margin);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  const address = "NO 302, Kandy Rd, Malabe";
+  const phone = "0754536524";
+  const addressWidth = doc.getTextWidth(address);
+  const phoneWidth = doc.getTextWidth(phone);
+  doc.text(address, (pageWidth - addressWidth) / 2, margin + 7);
+  doc.text(phone, (pageWidth - phoneWidth) / 2, margin + 13);
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(217, 83, 79);
+  const title = "Items Report";
+  const titleWidth = doc.getTextWidth(title);
+  const titleX = (pageWidth - titleWidth) / 2;
+  doc.text(title, titleX, margin + 35);
+};
+
+const addCustomPageFooter = (doc, pageHeight, margin) => {
+  const now = new Date().toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'medium' });
+  doc.setFontSize(8);
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(0, 0, 0);
+  doc.text(now, margin, pageHeight - 10);
+  const rightsText = "All rights reserved BakeBuddy.";
+  const rightsWidth = doc.getTextWidth(rightsText);
+  const centerX = (doc.internal.pageSize.width - rightsWidth) / 2;
+  doc.text(rightsText, centerX, pageHeight - 10);
+};
+
+const generatePDFReport = (displayedItems) => {
+  try {
+      const doc = new jsPDF();
+      const margin = 20;
+      const borderMargin = margin - 5; // Align with border (15)
+      const pageWidth = doc.internal.pageSize.width;
+      const pageHeight = doc.internal.pageSize.height;
+      const customHeaderHeight = 40;
+      const borderTop = margin + customHeaderHeight + 5;
+      const tableStartY = borderTop - 5; // Align with top edge of border (60)
+      const borderBottom = pageHeight - (borderTop - 5) - (margin + 10); // Bottom edge of border (752)
+      const borderHeight = borderBottom - tableStartY; // 692 points
+
+      addCustomPageHeader(doc, pageWidth, margin);
+      doc.setDrawColor(0);
+      doc.rect(borderMargin, borderTop - 5, pageWidth - 2 * borderMargin, pageHeight - (borderTop - 5) - (margin + 10), 'S');
+      addCustomPageFooter(doc, pageHeight, margin);
+
+      let currentY = tableStartY;
+
+      const reportData = generateReportData();
+      const headers = [['Item ID', 'Item Name', 'Category', 'Ingredient ID', 'Ingredient Name', 'Volume', 'Unit']];
+      const originalColumnWidths = [20, 30, 25, 25, 30, 15, 15];
+      const totalOriginalWidth = originalColumnWidths.reduce((sum, width) => sum + width, 0); // 160
+      const tableWidth = pageWidth - 2 * borderMargin; // 565
+      const scaleFactor = tableWidth / totalOriginalWidth; // 565 / 160 ≈ 3.53125
+
+      const columnStyles = {
+          0: { cellWidth: originalColumnWidths[0] * scaleFactor, halign: 'left' },
+          1: { cellWidth: originalColumnWidths[1] * scaleFactor, halign: 'left' },
+          2: { cellWidth: originalColumnWidths[2] * scaleFactor, halign: 'left' },
+          3: { cellWidth: originalColumnWidths[3] * scaleFactor, halign: 'left' },
+          4: { cellWidth: originalColumnWidths[4] * scaleFactor, halign: 'left' },
+          5: { cellWidth: originalColumnWidths[5] * scaleFactor, halign: 'left' },
+          6: { cellWidth: originalColumnWidths[6] * scaleFactor, halign: 'left' }
+      };
+      const tableStyles = { fontSize: 8, cellPadding: 2, overflow: 'linebreak' };
+      const headStyles = { 
+          fillColor: [245, 166, 35],
+          textColor: [255, 255, 255],
+          halign: 'left',
+          fontStyle: 'bold',
+          cellPadding: 1
+      };
+
+      const drawPageTableHeaders = (yPos) => {
+          doc.autoTable({
+              head: headers,
+              body: [['', '', '', '', '', '', '']],
+              startY: yPos,
+              styles: { ...tableStyles, cellPadding: 0, minCellHeight: 0 },
+              headStyles: headStyles,
+              columnStyles: columnStyles,
+              theme: 'plain',
+              tableLayout: 'fixed',
+              margin: { left: borderMargin, right: borderMargin },
+              showHead: 'firstPage',
+              didDrawCell: (data) => {
+                  if (data.section === 'body') {
+                      data.cell.text = '';
+                      data.cell.styles.minCellHeight = 0;
+                      data.cell.styles.cellPadding = 0;
+                      data.cell.height = 0;
+                  }
+                  if (data.section === 'head') {
+                      data.cell.styles.cellPadding = { top: 1, right: 1, bottom: 0, left: 1 };
+                  }
+              }
+          });
+          return doc.lastAutoTable.finalY;
+      };
+
+      if (reportData.length > 0) {
+          currentY = drawPageTableHeaders(tableStartY);
+      }
+
+      let currentPageRows = [];
+      let itemCount = 0;
+      let currentHeight = 0;
+      const estimatedRowHeight = tableStyles.fontSize + tableStyles.cellPadding * 2 + 2; // 14 points
+      const minItemsPerPage = 8; // Ensure at least 8 items per page
+
+      for (let i = 0; i < reportData.length; i++) {
+          const row = reportData[i];
+          const isNewItem = row[0] !== ''; // Check if this row starts a new item
+          if (isNewItem) itemCount++;
+          
+          currentPageRows.push(row);
+          currentHeight += estimatedRowHeight;
+
+          // Check if we've reached 8 items AND the height is still within the border
+          if ((itemCount >= minItemsPerPage && currentHeight + estimatedRowHeight > borderHeight) || i === reportData.length - 1) {
+              doc.autoTable({
+                  body: currentPageRows,
+                  startY: currentY,
+                  margin: { left: borderMargin, right: borderMargin, bottom: 0 },
+                  styles: { ...tableStyles, halign: 'left' },
+                  columnStyles: columnStyles,
+                  theme: 'striped',
+                  showHead: 'never',
+                  tableLayout: 'fixed',
+                  didParseCell: (data) => {
+                      if (data.section === 'body') {
+                          const colIndex = data.column.index;
+                          const trueRowIndexInReportData = i - currentPageRows.length + data.row.index + 1;
+                          if (colIndex <= 2 && trueRowIndexInReportData < reportData.length) {
+                              if (reportData[trueRowIndexInReportData][colIndex] !== '') {
+                                  let rowspan = 1;
+                                  for (let k = trueRowIndexInReportData + 1; k < reportData.length; k++) {
+                                      if (reportData[k][0] === '') {
+                                          rowspan++;
+                                      } else {
+                                          break;
+                                      }
+                                  }
+                                  if (rowspan > 1) {
+                                      data.cell.styles.rowSpan = rowspan;
+                                  }
+                              }
+                          }
+                      }
+                  },
+              });
+              currentY = doc.lastAutoTable.finalY;
+              if (i < reportData.length - 1) {
+                  doc.addPage();
+                  addCustomPageHeader(doc, pageWidth, margin);
+                  doc.setDrawColor(0);
+                  doc.rect(borderMargin, borderTop - 5, pageWidth - 2 * borderMargin, pageHeight - (borderTop - 5) - (margin + 10), 'S');
+                  addCustomPageFooter(doc, pageHeight, margin);
+                  currentY = drawPageTableHeaders(tableStartY);
+                  currentPageRows = [];
+                  currentHeight = 0;
+                  itemCount = 0;
+              }
+          }
+      }
+
+      let finalYForTotal = currentY + 10;
+      if (finalYForTotal + 10 > borderBottom) {
+          doc.addPage();
+          addCustomPageHeader(doc, pageWidth, margin);
+          doc.setDrawColor(0);
+          doc.rect(borderMargin, borderTop - 5, pageWidth - 2 * borderMargin, pageHeight - (borderTop - 5) - (margin + 10), 'S');
+          addCustomPageFooter(doc, pageHeight, margin);
+          finalYForTotal = tableStartY;
+      }
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(0, 0, 0);
+      const totalRecordsText = `Total Records: ${displayedItems.length}`;
+      doc.text(totalRecordsText, pageWidth - borderMargin - doc.getTextWidth(totalRecordsText), finalYForTotal, { align: 'left' });
+
+      doc.save("items_report.pdf");
+      if (typeof setShowReportOptions === 'function') {
+          setShowReportOptions(false);
+      }
+  } catch (error) {
+      console.error('Error generating PDF report:', error);
+      if (typeof toast !== 'undefined' && typeof toast.error === 'function') {
+          toast.error('Failed to generate PDF report. Please try again.');
+      }
+  }
+};
+
+
+
+
+
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
