@@ -19,6 +19,9 @@ app.use(cors({
   origin: '*', 
 }));
 
+app.get("/", (req, res) => {
+  res.send("Hello from the backend 👋");
+});
 
 app.use("/api/production",productionRoutes);
 app.use('/api/item',itemRoutes);
