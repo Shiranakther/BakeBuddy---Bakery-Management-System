@@ -22,6 +22,8 @@ export default function UpdateItem() {
   const [validIngredients, setValidIngredients] = useState([]);
   const [error, setError] = useState(null);
   const ingredientIdRef = useRef(null);
+  const [ingredientIdSuggestions, setIngredientIdSuggestions] = useState([]); // New state for ID suggestions
+  const [ingredientNameSuggestions, setIngredientNameSuggestions] = useState([]); // New state for name suggestions
 
   // Fetch item data and ingredients on mount
   useEffect(() => {
@@ -60,10 +62,18 @@ export default function UpdateItem() {
     const { name, value } = e.target;
     setNewIngredient((prev) => ({ ...prev, [name]: value }));
     setError(null);
+    setIngredientIdSuggestions([]); // Clear previous ID suggestions
+    setIngredientNameSuggestions([]); // Clear previous name suggestions
 
     if (name === 'ingredientId' && value) {
+      const lowercasedValue = value.toLowerCase();
+      const suggestions = validIngredients.filter((ing) =>
+        ing.ingredientId.toLowerCase().startsWith(lowercasedValue)
+      );
+      setIngredientIdSuggestions(suggestions.slice(0, 5)); // Limit to top 5 ID suggestions
+
       const matchedIngredient = validIngredients.find((ing) =>
-        ing.ingredientId.toLowerCase() === value.toLowerCase()
+        ing.ingredientId.toLowerCase() === lowercasedValue
       );
       if (matchedIngredient) {
         setNewIngredient((prev) => ({
@@ -71,10 +81,18 @@ export default function UpdateItem() {
           name: matchedIngredient.name,
           ingredientId: matchedIngredient.ingredientId,
         }));
+      } else {
+        setNewIngredient((prev) => ({ ...prev, name: '' })); // Clear name if no exact ID match
       }
     } else if (name === 'name' && value) {
+      const lowercasedValue = value.toLowerCase();
+      const suggestions = validIngredients.filter((ing) =>
+        ing.name.toLowerCase().startsWith(lowercasedValue)
+      );
+      setIngredientNameSuggestions(suggestions.slice(0, 5)); // Limit to top 5 name suggestions
+
       const matchedIngredient = validIngredients.find((ing) =>
-        ing.name.toLowerCase() === value.toLowerCase()
+        ing.name.toLowerCase() === lowercasedValue
       );
       if (matchedIngredient) {
         setNewIngredient((prev) => ({
@@ -82,6 +100,8 @@ export default function UpdateItem() {
           name: matchedIngredient.name,
           ingredientId: matchedIngredient.ingredientId,
         }));
+      } else {
+        setNewIngredient((prev) => ({ ...prev, ingredientId: '' })); // Clear ID if no exact name match
       }
     }
   };
@@ -136,6 +156,8 @@ export default function UpdateItem() {
 
     setNewIngredient({ ingredientId: '', name: '', volume: '', unit: '' });
     setError(null);
+    setIngredientIdSuggestions([]); // Clear ID suggestions after adding
+    setIngredientNameSuggestions([]); // Clear name suggestions after adding
     if (ingredientIdRef.current) ingredientIdRef.current.focus();
   };
 
@@ -221,25 +243,75 @@ export default function UpdateItem() {
         <div className="ingredients-section">
           <label className="form-label">Ingredients:</label>
           <div className="ingredients-input-row">
-            <input
-              ref={ingredientIdRef}
-              type="text"
-              name="ingredientId"
-              value={newIngredient.ingredientId}
-              onChange={handleNewIngredientChange}
-              onKeyPress={handleKeyPress}
-              placeholder="Ingredient Id (e.g., ing001)"
-              className="ingredients-input"
-            />
-            <input
-              type="text"
-              name="name"
-              value={newIngredient.name}
-              onChange={handleNewIngredientChange}
-              onKeyPress={handleKeyPress}
-              placeholder="Ingredient name"
-              className="ingredients-input"
-            />
+            <div className="ingredient-input-with-suggestions">
+              <input
+                ref={ingredientIdRef}
+                type="text"
+                name="ingredientId"
+                value={newIngredient.ingredientId}
+                onChange={handleNewIngredientChange}
+                onKeyPress={handleKeyPress}
+                placeholder="Ingredient Id (e.g., ing001)"
+                className="ingredients-input"
+              />
+              {ingredientIdSuggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {ingredientIdSuggestions.map((suggestion) => (
+                    <li
+                      key={suggestion.ingredientId}
+                      onClick={() => {
+                        setNewIngredient({
+                          ...newIngredient,
+                          ingredientId: suggestion.ingredientId,
+                          name: suggestion.name,
+                        });
+                        setIngredientIdSuggestions([]); // Clear ID suggestions after selection
+                        if (document.activeElement instanceof HTMLElement) {
+                          document.activeElement.blur(); // Remove focus from input
+                        }
+                      }}
+                      className="suggestion-item"
+                    >
+                      {suggestion.ingredientId} - {suggestion.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="ingredient-input-with-suggestions">
+              <input
+                type="text"
+                name="name"
+                value={newIngredient.name}
+                onChange={handleNewIngredientChange}
+                onKeyPress={handleKeyPress}
+                placeholder="Ingredient name"
+                className="ingredients-input"
+              />
+              {ingredientNameSuggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {ingredientNameSuggestions.map((suggestion) => (
+                    <li
+                      key={suggestion.ingredientId}
+                      onClick={() => {
+                        setNewIngredient({
+                          ...newIngredient,
+                          ingredientId: suggestion.ingredientId,
+                          name: suggestion.name,
+                        });
+                        setIngredientNameSuggestions([]); // Clear name suggestions after selection
+                        if (document.activeElement instanceof HTMLElement) {
+                          document.activeElement.blur(); // Remove focus from input
+                        }
+                      }}
+                      className="suggestion-item"
+                    >
+                      {suggestion.name} - {suggestion.ingredientId}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
             <input
               type="text"
               name="volume"
