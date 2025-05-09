@@ -127,7 +127,9 @@ const SlowMovingReport = () => {
             </tr>
           </thead>
           <tbody>
-  {filteredSales.map((sale, index) => (
+  {filteredSales
+  .sort((a, b) => a.salesQuentity - b.salesQuentity) 
+  .map((sale, index) => (
     <tr key={`${sale.itemCode}-${sale.buyerName}-${index}`}>
       <td>{isCustomSearch ? "custom" : new Date(sale.date).toLocaleDateString()}</td>
       <td>{sale.itemCode}</td>

@@ -33,6 +33,8 @@ ChartJS.register(
 export default function ProductionReport() {
   const [productions, setProductions] = useState([]);
   const [filteredProductions, setFilteredProductions] = useState([]);
+
+
   const [formData, setFormData] = useState({
     productCode: "",
     productName: "",
