@@ -194,7 +194,7 @@ const Production = () => {
         
         (
           
-  <ul className="suggestions-list">
+  <ul className="suggestions-list-production">
           {suggestions.map((item) => (
             <li
               key={item.itemId}
