@@ -132,7 +132,8 @@
  
   
  }
- .suggestions-list {
+ .suggestions-list-production {
+
   list-style: none;
   padding: 0;
   margin-left: 20px;
@@ -140,22 +141,23 @@
   border-radius: 5px;
   width: 350px;
   background: #fff;
+  
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
 
-.suggestions-list li {
+.suggestions-list-production li {
   padding: 10px;
   border-bottom: 1px solid #eee;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-.suggestions-list li:last-child {
+.suggestions-list-production li:last-child {
   border-bottom: none;
 }
 
-.suggestions-list li:hover {
+.suggestions-list-production li:hover {
   background: #f1f1f1;
   
 }
